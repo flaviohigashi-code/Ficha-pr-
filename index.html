@@ -52,7 +52,7 @@
         .form-group { display: flex; align-items: center; margin-bottom: 1px; }
         .form-group label { margin-right: 4px; white-space: nowrap; font-weight: bold; }
         
-        /* TODOS OS TEXTOS ESCRITOS/DIGITADOS EM NEGRITO FORTE */
+        /* PALAVRAS ESCRITAS FICARAM MAIORES (12px) E MANTIVERAM NEGRITO FORTE */
         input[type="text"], input[type="number"], textarea {
             border: none;
             border-bottom: 1px solid #777;
@@ -60,8 +60,8 @@
             padding: 1px;
             background: transparent;
             font-family: inherit;
-            font-size: 10.5px;
-            font-weight: 800 !important; /* Negrito forte para o que for escrito */
+            font-size: 12px; /* Aumentado de 10.5px para 12px */
+            font-weight: 800 !important;
             color: #000;
         }
 
@@ -81,12 +81,11 @@
             position: relative;
         }
 
-        /* "V" DE SELEÇÃO EM NEGRITO FORTE (PESADO) */
         input[type="radio"]:checked + .btn-check::after,
         input[type="checkbox"]:checked + .btn-check::after {
             content: "✔";
             font-family: 'Arial Black', Gadget, sans-serif;
-            font-weight: 900 !important; /* Negrito máximo para o V */
+            font-weight: 900 !important;
             font-size: 13px;
             position: absolute;
             top: -5px;
@@ -103,6 +102,16 @@
         .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 1px; }
         .med-item span { font-size: 9px; font-weight: bold; margin-right: 4px; width: 12px; }
+
+        /* ESTILIZAÇÃO DO BLOCO DE JEJUM EM SUPER DESTAQUE */
+        .jejum-container {
+            padding: 6px;
+            font-size: 12.5px; /* Letras maiores */
+        }
+        .jejum-destaque {
+            font-weight: 900 !important;
+            text-transform: uppercase;
+        }
 
         #box-link {
             display: none;
@@ -156,37 +165,37 @@
             <div class="grid-3">
                 <div>
                     <div class="sn-header"><span>S</span><span>N</span></div>
-                    <div class="row"><label><input type="radio" name="d1" id="d1_s"><span class="btn-check"></span></label><label><input type="radio" name="d1" id="d1_n"><span class="btn-check"></span></label> 01. Hipertensão arterial</div>
-                    <div class="row"><label><input type="radio" name="d2" id="d2_s"><span class="btn-check"></span></label><label><input type="radio" name="d2" id="d2_n"><span class="btn-check"></span></label> 02. Cardiopatia</div>
-                    <div class="row"><label><input type="radio" name="d3" id="d3_s"><span class="btn-check"></span></label><label><input type="radio" name="d3" id="d3_n"><span class="btn-check"></span></label> 03. Dispnéia / Ortopnéia</div>
-                    <div class="row"><label><input type="radio" name="d4" id="d4_s"><span class="btn-check"></span></label><label><input type="radio" name="d4" id="d4_n"><span class="btn-check"></span></label> 04. Precordialgia</div>
-                    <div class="row"><label><input type="radio" name="d5" id="d5_s"><span class="btn-check"></span></label><label><input type="radio" name="d5" id="d5_n"><span class="btn-check"></span></label> 05. Diabetes mellitus</div>
-                    <div class="row"><label><input type="radio" name="d6" id="d6_s"><span class="btn-check"></span></label><label><input type="radio" name="d6" id="d6_n"><span class="btn-check"></span></label> 06. Outras endócrinas</div>
-                    <div class="row"><label><input type="radio" name="d7" id="d7_s"><span class="btn-check"></span></label><label><input type="radio" name="d7" id="d7_n"><span class="btn-check"></span></label> 07. Pneumopatia</div>
-                    <div class="row"><label><input type="radio" name="d8" id="d8_s"><span class="btn-check"></span></label><label><input type="radio" name="d8" id="d8_n"><span class="btn-check"></span></label> 08. Tabagismo (tempo/qtd)</div>
+                    <div class="row"><label><input type="radio" name="d1" id="d1_s" onchange="comentarioAutomatico('01', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d1" id="d1_n" onchange="comentarioAutomatico('01', false)"><span class="btn-check"></span></label> 01. Hipertensão arterial</div>
+                    <div class="row"><label><input type="radio" name="d2" id="d2_s" onchange="comentarioAutomatico('02', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d2" id="d2_n" onchange="comentarioAutomatico('02', false)"><span class="btn-check"></span></label> 02. Cardiopatia</div>
+                    <div class="row"><label><input type="radio" name="d3" id="d3_s" onchange="comentarioAutomatico('03', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d3" id="d3_n" onchange="comentarioAutomatico('03', false)"><span class="btn-check"></span></label> 03. Dispnéia / Ortopnéia</div>
+                    <div class="row"><label><input type="radio" name="d4" id="d4_s" onchange="comentarioAutomatico('04', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d4" id="d4_n" onchange="comentarioAutomatico('04', false)"><span class="btn-check"></span></label> 04. Precordialgia</div>
+                    <div class="row"><label><input type="radio" name="d5" id="d5_s" onchange="comentarioAutomatico('05', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d5" id="d5_n" onchange="comentarioAutomatico('05', false)"><span class="btn-check"></span></label> 05. Diabetes mellitus</div>
+                    <div class="row"><label><input type="radio" name="d6" id="d6_s" onchange="comentarioAutomatico('06', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d6" id="d6_n" onchange="comentarioAutomatico('06', false)"><span class="btn-check"></span></label> 06. Outras endócrinas</div>
+                    <div class="row"><label><input type="radio" name="d7" id="d7_s" onchange="comentarioAutomatico('07', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d7" id="d7_n" onchange="comentarioAutomatico('07', false)"><span class="btn-check"></span></label> 07. Pneumopatia</div>
+                    <div class="row"><label><input type="radio" name="d8" id="d8_s" onchange="comentarioAutomatico('08', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d8" id="d8_n" onchange="comentarioAutomatico('08', false)"><span class="btn-check"></span></label> 08. Tabagismo (tempo/qtd)</div>
                 </div>
                 <div>
                     <div class="sn-header"><span>S</span><span>N</span></div>
-                    <div class="row"><label><input type="radio" name="d9" id="d9_s"><span class="btn-check"></span></label><label><input type="radio" name="d9" id="d9_n"><span class="btn-check"></span></label> 09. Etilismo (quantifique)</div>
-                    <div class="row"><label><input type="radio" name="d10" id="d10_s"><span class="btn-check"></span></label><label><input type="radio" name="d10" id="d10_n"><span class="btn-check"></span></label> 10. Hepatite</div>
-                    <div class="row"><label><input type="radio" name="d11" id="d11_s"><span class="btn-check"></span></label><label><input type="radio" name="d11" id="d11_n"><span class="btn-check"></span></label> 11. Doença Renal</div>
-                    <div class="row"><label><input type="radio" name="d12" id="d12_s"><span class="btn-check"></span></label><label><input type="radio" name="d12" id="d12_n"><span class="btn-check"></span></label> 12. Alergia medicamentosa</div>
-                    <div class="row"><label><input type="radio" name="d13" id="d13_s"><span class="btn-check"></span></label><label><input type="radio" name="d13" id="d13_n"><span class="btn-check"></span></label> 13. Convulsão</div>
-                    <div class="row"><label><input type="radio" name="d14" id="d14_s"><span class="btn-check"></span></label><label><input type="radio" name="d14" id="d14_n"><span class="btn-check"></span></label> 14. Doenças musculares</div>
-                    <div class="row"><label><input type="radio" name="d15" id="d15_s"><span class="btn-check"></span></label><label><input type="radio" name="d15" id="d15_n"><span class="btn-check"></span></label> 15. Sangramento espontâneo</div>
-                    <div class="row"><label><input type="radio" name="d16" id="d16_s"><span class="btn-check"></span></label><label><input type="radio" name="d16" id="d16_n"><span class="btn-check"></span></label> 16. Prótese dentária</div>
+                    <div class="row"><label><input type="radio" name="d9" id="d9_s" onchange="comentarioAutomatico('09', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d9" id="d9_n" onchange="comentarioAutomatico('09', false)"><span class="btn-check"></span></label> 09. Etilismo (quantifique)</div>
+                    <div class="row"><label><input type="radio" name="d10" id="d10_s" onchange="comentarioAutomatico('10', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d10" id="d10_n" onchange="comentarioAutomatico('10', false)"><span class="btn-check"></span></label> 10. Hepatite</div>
+                    <div class="row"><label><input type="radio" name="d11" id="d11_s" onchange="comentarioAutomatico('11', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d11" id="d11_n" onchange="comentarioAutomatico('11', false)"><span class="btn-check"></span></label> 11. Doença Renal</div>
+                    <div class="row"><label><input type="radio" name="d12" id="d12_s" onchange="comentarioAutomatico('12', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d12" id="d12_n" onchange="comentarioAutomatico('12', false)"><span class="btn-check"></span></label> 12. Alergia medicamentosa</div>
+                    <div class="row"><label><input type="radio" name="d13" id="d13_s" onchange="comentarioAutomatico('13', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d13" id="d13_n" onchange="comentarioAutomatico('13', false)"><span class="btn-check"></span></label> 13. Convulsão</div>
+                    <div class="row"><label><input type="radio" name="d14" id="d14_s" onchange="comentarioAutomatico('14', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d14" id="d14_n" onchange="comentarioAutomatico('14', false)"><span class="btn-check"></span></label> 14. Doenças musculares</div>
+                    <div class="row"><label><input type="radio" name="d15" id="d15_s" onchange="comentarioAutomatico('15', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d15" id="d15_n" onchange="comentarioAutomatico('15', false)"><span class="btn-check"></span></label> 15. Sangramento espontâneo</div>
+                    <div class="row"><label><input type="radio" name="d16" id="d16_s" onchange="comentarioAutomatico('16', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d16" id="d16_n" onchange="comentarioAutomatico('16', false)"><span class="btn-check"></span></label> 16. Prótese dentária</div>
                 </div>
                 <div>
                     <div class="sn-header"><span>S</span><span>N</span></div>
-                    <div class="row"><label><input type="radio" name="d17" id="d17_s"><span class="btn-check"></span></label><label><input type="radio" name="d17" id="d17_n"><span class="btn-check"></span></label> 17. Possibilidade gravidez</div>
-                    <div class="row"><label><input type="radio" name="d18" id="d18_s"><span class="btn-check"></span></label><label><input type="radio" name="d18" id="d18_n"><span class="btn-check"></span></label> 18. Anestesias anteriores</div>
-                    <div class="row"><label><input type="radio" name="d19" id="d19_s"><span class="btn-check"></span></label><label><input type="radio" name="d19" id="d19_n"><span class="btn-check"></span></label> 19. Complicações anest.</div>
-                    <div class="row"><label><input type="radio" name="d20" id="d20_s"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n"><span class="btn-check"></span></label> 20. Outras doenças</div>
-                    <div class="row"><label><input type="radio" name="d24" id="d24_s"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n"><span class="btn-check"></span></label> 24. Emagrecedores</div>
+                    <div class="row"><label><input type="radio" name="d17" id="d17_s" onchange="comentarioAutomatico('17', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d17" id="d17_n" onchange="comentarioAutomatico('17', false)"><span class="btn-check"></span></label> 17. Possibilidade gravidez</div>
+                    <div class="row"><label><input type="radio" name="d18" id="d18_s" onchange="comentarioAutomatico('18', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d18" id="d18_n" onchange="comentarioAutomatico('18', false)"><span class="btn-check"></span></label> 18. Anestesias anteriores</div>
+                    <div class="row"><label><input type="radio" name="d19" id="d19_s" onchange="comentarioAutomatico('19', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d19" id="d19_n" onchange="comentarioAutomatico('19', false)"><span class="btn-check"></span></label> 19. Complicações anest.</div>
+                    <div class="row"><label><input type="radio" name="d20" id="d20_s" onchange="comentarioAutomatico('20', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n" onchange="comentarioAutomatico('20', false)"><span class="btn-check"></span></label> 20. Outras doenças</div>
+                    <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Emagrecedores</div>
                     <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9.5px;">Crianças:</div>
-                    <div class="row"><label><input type="radio" name="d21" id="d21_s"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n"><span class="btn-check"></span></label> 21. IVAS atual ou recente</div>
-                    <div class="row"><label><input type="radio" name="d22" id="d22_s"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n"><span class="btn-check"></span></label> 22. Diarréia recente</div>
-                    <div class="row"><label><input type="radio" name="d23" id="d23_s"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n"><span class="btn-check"></span></label> 23. Nasceu prematuro?</div>
+                    <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. IVAS atual ou recente</div>
+                    <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. Diarréia recente</div>
+                    <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Nasceu prematuro?</div>
                 </div>
             </div>
         </div>
@@ -295,13 +304,13 @@
             </div>
         </div>
 
-        <div class="section" style="padding: 5px;">
+        <div class="section jejum-container">
             <div class="form-group" style="width: 100%;">
-                <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em jejum pré operatório de</label>
-                <input type="text" id="jej_solidos" style="width: 25px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
-                <label style="margin: 0 3px;">horas para sólidos e de</label>
-                <input type="text" id="jej_liquidos" style="width: 25px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
-                <label style="margin-left: 3px;">horas para água.</label>
+                <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
+                <input type="text" id="jej_solidos" style="width: 30px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
+                <label style="margin: 0 4px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
+                <input type="text" id="jej_liquidos" style="width: 30px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
+                <label style="margin-left: 4px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
             </div>
         </div>
 
@@ -375,6 +384,29 @@
                 }
             });
         });
+    }
+
+    // JAVASCRIPT QUE INSERE O NÚMERO AUTOMATICAMENTE NO CLIQUE DO "SIM"
+    function comentarioAutomatico(numero, isChecked) {
+        const txtArea = document.getElementById('comentarios_dados');
+        let texto = txtArea.value;
+        const marcador = numero + ". ";
+
+        if (isChecked) {
+            // Se foi marcado "Sim" e o número ainda não está lá, adiciona
+            if (!texto.includes(marcador)) {
+                if (texto.trim() !== "" && !texto.endsWith("\n")) {
+                    texto += "\n";
+                }
+                texto += marcador;
+                txtArea.value = texto;
+            }
+        } else {
+            // Se mudou para "Não", remove a linha desse número para limpar
+            const linhas = texto.split("\n");
+            const linhasFiltradas = linhas.filter(linha => !linha.startsWith(marcador));
+            txtArea.value = linhasFiltradas.join("\n");
+        }
     }
 
     function gerarLinkSpark() {
