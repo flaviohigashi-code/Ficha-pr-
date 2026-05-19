@@ -11,8 +11,8 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 2px;
-            font-size: 10.5px;
-            line-height: 1.15;
+            font-size: 12px; /* Toda a ficha atualizada para tamanho 12 */
+            line-height: 1.2;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -32,10 +32,10 @@
             margin-bottom: 4px;
         }
         .header-logo img { display: block; max-width: 180px; height: auto; }
-        .header-title h2 { margin: 0; font-size: 16px; letter-spacing: 0.5px; }
+        .header-title h2 { margin: 0; font-size: 18px; letter-spacing: 0.5px; }
         .header-contact { text-align: right; font-weight: bold; line-height: 1.1; }
-        .header-contact .loc-name { font-size: 12px; text-transform: uppercase; display: block; }
-        .header-contact .phone-num { font-size: 11px; display: block; }
+        .header-contact .loc-name { font-size: 13px; text-transform: uppercase; display: block; }
+        .header-contact .phone-num { font-size: 12px; display: block; }
 
         .section { border: 1px solid #000; margin-bottom: 4px; padding: 3px; }
         .section-title {
@@ -46,22 +46,22 @@
             margin: -3px -3px 3px -3px;
             text-align: center;
             text-transform: uppercase;
-            font-size: 10px;
+            font-size: 11px;
         }
         .row { display: flex; flex-wrap: wrap; margin-bottom: 2px; align-items: center; }
         .form-group { display: flex; align-items: center; margin-bottom: 1px; }
         .form-group label { margin-right: 4px; white-space: nowrap; font-weight: bold; }
         
-        /* PALAVRAS ESCRITAS FICARAM MAIORES (12px) E MANTIVERAM NEGRITO FORTE */
+        /* TEXTOS DIGITADOS: MAIORES (13.5px), FONTE MODERNA (HELVETICA) E NEGRITO FORTE */
         input[type="text"], input[type="number"], textarea {
             border: none;
             border-bottom: 1px solid #777;
             flex-grow: 1;
             padding: 1px;
             background: transparent;
-            font-family: inherit;
-            font-size: 12px; /* Aumentado de 10.5px para 12px */
-            font-weight: 800 !important;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fonte moderna e limpa */
+            font-size: 13.5px; /* Um pouco maior que o tamanho 12 da ficha */
+            font-weight: 800 !important; /* Mantém o negrito forte */
             color: #000;
         }
 
@@ -69,10 +69,10 @@
         input[type="radio"], input[type="checkbox"] { display: none; }
         .btn-check {
             display: inline-block;
-            width: 11px;
-            height: 11px;
+            width: 12px;
+            height: 12px;
             border: 1.5px solid #000;
-            margin-right: 3px;
+            margin-right: 4px;
             text-align: center;
             cursor: pointer;
             user-select: none;
@@ -86,27 +86,27 @@
             content: "✔";
             font-family: 'Arial Black', Gadget, sans-serif;
             font-weight: 900 !important;
-            font-size: 13px;
+            font-size: 14px;
             position: absolute;
-            top: -5px;
+            top: -6px;
             left: -1px;
             display: block;
             color: #000;
         }
 
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-        .sn-header { display: flex; font-weight: bold; font-size: 9px; margin-bottom: 1px; }
+        .sn-header { display: flex; font-weight: bold; font-size: 10px; margin-bottom: 1px; }
         .sn-header span { width: 16px; text-align: center; margin-right: 2px; }
         
         .med-com-split { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 1px; }
-        .med-item span { font-size: 9px; font-weight: bold; margin-right: 4px; width: 12px; }
+        .med-item span { font-size: 10px; font-weight: bold; margin-right: 4px; width: 14px; }
 
-        /* ESTILIZAÇÃO DO BLOCO DE JEJUM EM SUPER DESTAQUE */
+        /* LINHA DO JEJUM E PALAVRAS EM DESTAQUE AUMENTADAS */
         .jejum-container {
             padding: 6px;
-            font-size: 12.5px; /* Letras maiores */
+            font-size: 14px; /* Linha do jejum um pouco maior */
         }
         .jejum-destaque {
             font-weight: 900 !important;
@@ -130,7 +130,7 @@
         }
 
         .buttons { text-align: center; margin-top: 8px; display: flex; justify-content: center; gap: 12px; }
-        .buttons button { padding: 8px 20px; cursor: pointer; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 11.5px; }
+        .buttons button { padding: 8px 20px; cursor: pointer; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 12px; }
         .btn-link { background-color: #4CAF50; }
         .btn-print { background-color: #1E88E5; }
     </style>
@@ -152,7 +152,7 @@
             </div>
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Cirurgia Proposta:</label><input type="text" id="cirurgia_proposta"></div>
-                <div class="form-group" style="width: 30%;"><label>Idade:</label><input type="number" id="idade_paciente" style="width: 35px; flex-grow:0;"> <span>ANOS</span></div>
+                <div class="form-group" style="width: 30%;"><label>Idade:</label><input type="number" id="idade_paciente" style="width: 40px; flex-grow:0;"> <span>ANOS</span></div>
             </div>
             <div class="row">
                 <div class="form-group" style="width: 50%;"><label>Cirurgião:</label><input type="text" id="cirurgiao_medico"></div>
@@ -192,10 +192,10 @@
                     <div class="row"><label><input type="radio" name="d19" id="d19_s" onchange="comentarioAutomatico('19', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d19" id="d19_n" onchange="comentarioAutomatico('19', false)"><span class="btn-check"></span></label> 19. Complicações anest.</div>
                     <div class="row"><label><input type="radio" name="d20" id="d20_s" onchange="comentarioAutomatico('20', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n" onchange="comentarioAutomatico('20', false)"><span class="btn-check"></span></label> 20. Outras doenças</div>
                     <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Emagrecedores</div>
-                    <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9.5px;">Crianças:</div>
+                    <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 2px 0; font-size: 11px;">Crianças:</div>
                     <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. IVAS atual ou recente</div>
                     <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. Diarréia recente</div>
-                    <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Nasceu prematuro?</div>
+                    <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Nasceu prematuro?</label></div>
                 </div>
             </div>
         </div>
@@ -225,7 +225,7 @@
                         <div class="med-item"><span>12</span><input type="text" class="med-input" id="m12"></div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 3px; justify-content: space-between; font-size: 9.5px;">
+                <div class="row" style="margin-top: 4px; justify-content: space-between; font-size: 11px;">
                     <div>
                         <strong>ANTICOAGULANTES:</strong>
                         <label style="margin-left:3px;"><input type="radio" name="anticoag" id="ac_sim"><span class="btn-check"></span> Sim</label>
@@ -307,9 +307,9 @@
         <div class="section jejum-container">
             <div class="form-group" style="width: 100%;">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
-                <input type="text" id="jej_solidos" style="width: 30px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
+                <input type="text" id="jej_solidos" style="width: 35px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
                 <label style="margin: 0 4px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
-                <input type="text" id="jej_liquidos" style="width: 30px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
+                <input type="text" id="jej_liquidos" style="width: 35px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
                 <label style="margin-left: 4px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
             </div>
         </div>
@@ -344,12 +344,12 @@
 
         <div id="box-link">
             <strong style="color: #1b5e20;">Link da Avaliação copiado com sucesso!</strong><br>
-            <input type="text" id="input-link" readonly style="width: 92%; margin: 4px 0; border: 1px solid #ccc; background: #fff; padding: 4px; font-size: 10px;" onclick="this.select()">
+            <input type="text" id="input-link" readonly style="width: 92%; margin: 4px 0; border: 1px solid #ccc; background: #fff; padding: 4px; font-size: 11px;" onclick="this.select()">
         </div>
 
         <div class="section" style="border:none; padding-top:12px;">
             <div class="row">
-                <div style="width: 25%; text-align: left;">Data: <input type="text" id="data_avaliacao" style="width: 75px;"></div>
+                <div style="width: 25%; text-align: left;">Data: <input type="text" id="data_avaliacao" style="width: 85px;"></div>
                 <div style="width: 40%; text-align: center; border-top: 1.5px solid #000; font-weight: bold; padding-top:2px;">Anestesiologista</div>
                 <div style="width: 35%; text-align: center; border-top: 1.5px solid #000; font-weight: bold; padding-top:2px;">Paciente / Responsável</div>
             </div>
@@ -386,14 +386,13 @@
         });
     }
 
-    // JAVASCRIPT QUE INSERE O NÚMERO AUTOMATICAMENTE NO CLIQUE DO "SIM"
+    // ADICIONA O MARCADOR E AUTOMATICAMENTE LEVA O CURSOR PARA O FINAL DA LINHA
     function comentarioAutomatico(numero, isChecked) {
         const txtArea = document.getElementById('comentarios_dados');
         let texto = txtArea.value;
         const marcador = numero + ". ";
 
         if (isChecked) {
-            // Se foi marcado "Sim" e o número ainda não está lá, adiciona
             if (!texto.includes(marcador)) {
                 if (texto.trim() !== "" && !texto.endsWith("\n")) {
                     texto += "\n";
@@ -401,8 +400,13 @@
                 texto += marcador;
                 txtArea.value = texto;
             }
+            
+            // Dá o foco na caixa de texto e joga o cursor logo após o número adicionado
+            txtArea.focus();
+            const comprimento = txtArea.value.length;
+            txtArea.setSelectionRange(comprimento, comprimento);
+            
         } else {
-            // Se mudou para "Não", remove a linha desse número para limpar
             const linhas = texto.split("\n");
             const linhasFiltradas = linhas.filter(linha => !linha.startsWith(marcador));
             txtArea.value = linhasFiltradas.join("\n");
