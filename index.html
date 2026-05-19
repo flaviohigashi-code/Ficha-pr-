@@ -104,15 +104,26 @@
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; }
         .med-item span { font-size: 9.5px; font-weight: bold; margin-right: 3px; width: 13px; }
 
-        /* LINHA DO JEJUM RECALIBRADA PARA EVITAR QUEBRA */
+        /* INPUTS COM LARGURA DETERMINADA POR NÚMERO DE DÍGITOS */
+        .input-3dig { width: 32px !important; flex-grow: 0 !important; text-align: center; }
+        .input-6dig { width: 62px !important; flex-grow: 0 !important; text-align: center; }
+        .input-1dig { width: 16px !important; flex-grow: 0 !important; text-align: center; }
+
         .jejum-container {
             padding: 4px 6px;
-            font-size: 13.5px;
+            font-size: 12.5px;
         }
         .jejum-container .form-group {
             width: 100%;
             justify-content: flex-start;
             flex-wrap: nowrap;
+        }
+        .jejum-container input[type="text"] {
+            width: 22px !important;
+            flex-grow: 0 !important;
+            flex-shrink: 0 !important;
+            font-size: 13px;
+            text-align: center;
         }
         .jejum-destaque {
             font-weight: 900 !important;
@@ -249,24 +260,29 @@
         <div class="bottom-sections">
             <div class="section">
                 <div class="section-title">EXAME FÍSICO</div>
-                <div class="row">
-                    <div class="form-group" style="width: 33%;"><label>PESO:</label><input type="text" id="ef_peso"></div>
-                    <div class="form-group" style="width: 33%;"><label>ALTURA:</label><input type="text" id="ef_altura"></div>
-                    <div class="form-group" style="width: 33%;"><label>PA:</label><input type="text" id="ef_pa"></div>
+                <div class="row" style="justify-content: space-between;">
+                    <div class="form-group"><label>PESO:</label><input type="text" id="ef_peso" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:10px; margin-left:1px;">KG</span></div>
+                    <div class="form-group"><label>ALTURA:</label><input type="text" id="ef_altura" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:10px; margin-left:1px;">CM</span></div>
+                    <div class="form-group"><label>PA:</label><input type="text" id="ef_pa" class="input-6dig" maxlength="6" placeholder="120X80"></div>
+                    <div class="form-group"><label>FC:</label><input type="text" id="ef_fc" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:10px; margin-left:1px;">BPM</span></div>
                 </div>
-                <div class="row">
-                    <div class="form-group" style="width: 33%;"><label>FC:</label><input type="text" id="ef_fc"></div>
-                    <div class="form-group" style="width: 67%;">
+                <div class="row" style="margin-top:2px;">
+                    <div class="form-group" style="width: 35%;">
                         <label>Temp:</label>
                         <label><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afebril</label>
                         <label style="margin-left:3px;"><input type="radio" name="temp" id="tp_febril"><span class="btn-check"></span> Febril</label>
                     </div>
+                    <div class="form-group" style="width: 65%;"><label>Coluna Vert:</label><input type="text" id="ef_coluna"></div>
                 </div>
-                <div class="row">
-                    <div class="form-group" style="width: 50%;"><label>Mallampati:</label><input type="text" id="ef_mallampati"></div>
-                    <div class="form-group" style="width: 50%;"><label>Coluna Vert:</label><input type="text" id="ef_coluna"></div>
+                <div class="row" style="margin-top:2px;">
+                    <div class="form-group" style="width: 35%;"><label>Mallampati:</label><input type="text" id="ef_mallampati" class="input-1dig" maxlength="1" placeholder="0"></div>
+                    <div class="form-group" style="width: 65%;">
+                        <label>Dif. Intubação?</label>
+                        <label><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
+                        <label style="margin-left:3px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top:2px;">
                     <label>Respiratório:</label> 
                     <label><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
                     <label style="margin-left:3px;"><input type="radio" name="resp" id="rp_alt"><span class="btn-check"></span> Alt:</label>
@@ -282,14 +298,7 @@
                     <div class="form-group" style="width: 50%;"><label>Abdômen:</label><input type="text" id="ef_abdomen"></div>
                     <div class="form-group" style="width: 50%;"><label>Membros:</label><input type="text" id="ef_membros"></div>
                 </div>
-                <div class="row">
-                    <div class="form-group" style="width: 50%;"><label>Acesso Venoso:</label><input type="text" id="ef_acesso"></div>
-                    <div class="form-group" style="width: 50%;">
-                        <label>Dif. Intubação?</label>
-                        <label><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
-                        <label style="margin-left:3px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
-                    </div>
-                </div>
+                <div class="form-group"><label>Acesso Venoso:</label><input type="text" id="ef_acesso"></div>
             </div>
 
             <div class="section">
@@ -313,15 +322,15 @@
         <div class="section jejum-container">
             <div class="form-group">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
-                <input type="text" id="jej_solidos" style="width: 32px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
+                <input type="text" id="jej_solidos" maxlength="2" placeholder="00"> 
                 <label style="margin: 0 3px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
-                <input type="text" id="jej_liquidos" style="width: 32px; text-align: center; flex-grow: 0; border-bottom: 1px solid #000;"> 
+                <input type="text" id="jej_liquidos" maxlength="2" placeholder="00"> 
                 <label style="margin-left: 3px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
             </div>
         </div>
 
         <div class="section">
-            <div class="section-title">CONCLUSÕES E ASA</div>
+            <div class="section-title">CONCLUSÕES</div>
             <div class="row" style="justify-content: space-between;">
                 <div class="form-group">
                     <label>LIBERADO:</label>
