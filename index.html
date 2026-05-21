@@ -130,28 +130,26 @@
             text-transform: uppercase;
         }
 
-        #box-link {
-            display: none;
-            margin: 3px 0;
-            padding: 4px;
-            background: #e8f5e9;
-            border: 1px dashed #2e7d32;
-            text-align: center;
-        }
-
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
             .container { border: none; box-shadow: none; width: 100%; padding: 0; }
-            .buttons, #box-link, .autocomplete-items { display: none !important; }
+            .buttons, .autocomplete-items { display: none !important; }
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
         }
 
-        .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 10px; }
-        .buttons button { padding: 6px 16px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11.5px; }
-        .btn-link { background-color: #4CAF50; }
-        .btn-print { background-color: #1E88E5; }
+        .buttons { text-align: center; margin-top: 12px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .buttons button { padding: 8px 15px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11.5px; transition: all 0.2s; }
+        
+        .btn-link { background-color: #ff9800; }
+        .btn-link:hover { background-color: #f57c00; }
+        
+        .btn-save { background-color: #2e7d32; }
+        .btn-save:hover { background-color: #1b5e20; }
+        
+        .btn-print { background-color: #1565c0; }
+        .btn-print:hover { background-color: #0d47a1; }
+        .btn-print:disabled { background-color: #9e9e9e !important; color: #e0e0e0 !important; cursor: not-allowed !important; opacity: 0.6; }
 
-        /* ESTILOS DO AUTOCOMPLETE SUGGESTIONS */
         .autocomplete-items {
             position: absolute;
             border: 1px solid #ccc;
@@ -235,11 +233,11 @@
                     <div class="row"><label><input type="radio" name="d18" id="d18_s" onchange="comentarioAutomatico('18', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d18" id="d18_n" onchange="comentarioAutomatico('18', false)"><span class="btn-check"></span></label> 18. Anestesias anteriores</div>
                     <div class="row"><label><input type="radio" name="d19" id="d19_s" onchange="comentarioAutomatico('19', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d19" id="d19_n" onchange="comentarioAutomatico('19', false)"><span class="btn-check"></span></label> 19. Complicações anest.</div>
                     <div class="row"><label><input type="radio" name="d20" id="d20_s" onchange="comentarioAutomatico('20', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n" onchange="comentarioAutomatico('20', false)"><span class="btn-check"></span></label> 20. Outras doenças</div>
-                    <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Emagrecedores</div>
+                    <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. Emagrecedores</div>
                     <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 10px; line-height: 1;">Crianças:</div>
-                    <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. IVAS atual ou recente</div>
-                    <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. Diarréia recente</div>
-                    <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Nasceu prematuro?</div>
+                    <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. IVAS atual ou recente</div>
+                    <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Diarréia recente</div>
+                    <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Nasceu prematuro?</div>
                 </div>
             </div>
         </div>
@@ -389,11 +387,6 @@
             <textarea id="obs_conduta" rows="2" style="width: 100%; border: none; resize: none;"></textarea>
         </div>
 
-        <div id="box-link">
-            <strong style="color: #1b5e20;">Link da Avaliação copiado com sucesso!</strong><br>
-            <input type="text" id="input-link" readonly style="width: 92%; margin: 3px 0; border: 1px solid #ccc; background: #fff; padding: 3px; font-size: 11px;" onclick="this.select()">
-        </div>
-
         <div class="section" style="border:none; margin-top:25px;">
             <div class="row">
                 <div style="width: 25%; text-align: left;">Data: <input type="text" id="data_avaliacao" style="width: 80px;"></div>
@@ -403,61 +396,39 @@
         </div>
 
         <div class="buttons">
-            <button type="button" class="btn-link" onclick="gerarLinkSpark()">1. Gerar Link (Secretária)</button>
-            <button type="button" class="btn-print" onclick="imprimirESalvarPDF()">2. Imprimir e Salvar PDF (Médico)</button>
+            <button type="button" class="btn-link" onclick="gerarLinkCompartilhar()">Secretaria: Copiar Link</button>
+            <button type="button" class="btn-save" onclick="exportarFichaTxt()">1. Salvar Arquivo da Ficha</button>
+            <button type="button" class="btn-print" id="btn-imprimir" onclick="imprimirFicha()" disabled>2. Imprimir Via Paciente</button>
         </div>
     </form>
 </div>
 
 <script>
-    // LISTA MASTER DE MEDICAMENTOS ATUALIZADA COMPLETA
     const listaMedicamentos = [
-        // --- Cardíacos, Pressão e Colesterol ---
         "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Enandril", "Captopril", "Anlodipino", 
         "Hidroclorotiazida", "Furosemida", "Espironolactona", "Sinvastatina", "Atorvastatina", "Rosuvastatina",
-
-        // --- Anticoagulantes e Antiagregantes ---
-        "AAS (Aspirina)", "Clopidogrel (Plavix)", "Ticagrelor (Brilinta)", 
-        "Rivaroxabana (Xarelto)", "Apixabana (Eliquis)", "Dabigatrana (Pradaxa)", "Varfarina (Marevan)",
-
-        // --- Diabetes Orais, Insulinas ---
-        "Metformina", "Glibenclamida", "Insulina NPH", "Insulina Regular", 
-        "Insulina Glargina (Lantus)", "Insulina Detemir (Levemir)", "Insulina Degludeca (Tresiba)", 
-        "Insulina Lispro (Humalog)", "Insulina Asparte (NovoRapid)", "Insulina Glulisina (Apidra)",
-
-        // --- Tireoide (Hipo e Hiper) ---
-        "Levotiroxina (Puran/Synthroid)", "Metimazol (Tapazol)", "Propiltiomuracila (Propilracil)",
-
-        // --- Emagrecedores ---
-        "Tirzepatida (Mounjaro)", "Semaglutida (Ozempic)", "Semaglutida (Wegovy)", "Semaglutida (Rybelsus)",
-        "Liraglutida (Saxenda)", "Liraglutida (Victoza)", "Sibutramina", "Orlistate (Xenical)", 
-        "Anfepramona", "Femproporex", "Mazindol",
-
-        // --- Psicotrópicos, Moduladores e Dor Crônica ---
+        "AAS (Aspirina)", "Clopidogrel (Plavix)", "Ticagrelor (Brilinta)", "Rivaroxabana (Xarelto)", 
+        "Apixabana (Eliquis)", "Dabigatrana (Pradaxa)", "Varfarina (Marevan)", "Metformina", "Glibenclamida", 
+        "Insulina NPH", "Insulina Regular", "Insulina Glargina (Lantus)", "Insulina Detemir (Levemir)", 
+        "Insulina Degludeca (Tresiba)", "Insulina Lispro (Humalog)", "Insulina Asparte (NovoRapid)", 
+        "Insulina Glulisina (Apidra)", "Levotiroxina (Puran/Synthroid)", "Metimazol (Tapazol)", 
+        "Propiltiomuracila (Propilracil)", "Tirzepatida (Mounjaro)", "Semaglutida (Ozempic)", 
+        "Semaglutida (Wegovy)", "Semaglutida (Rybelsus)", "Liraglutida (Saxenda)", "Liraglutida (Victoza)", 
+        "Sibutramina", "Orlistate (Xenical)", "Anfepramona", "Femproporex", "Mazindol", 
         "Clonazepam (Rivotril)", "Alprazolam (Frontal)", "Diazepam", "Fluoxetina", "Sertralina", 
         "Escitalopram", "Amitriptilina", "Venlafaxina (Efexor)", "Desvenlafaxina (Prastiq)", 
         "Duloxetina (Cymbalta)", "Bupropiona (Wellbutrin)", "Pregabalina (Lyrica)", "Gabapentina",
-
-        // --- Anticonvulsivantes ---
         "Carbamazepina (Tegretol)", "Valproato de Sódio (Depakote)", "Topiramato (Amato)", "Lamotrigina",
-
-        // --- Antiparkinsonianos ---
         "Levodopa + Benserazida (Prolopa)", "Levodopa + Carbidopina", "Pramipexol (Sifrol)",
-
-        // --- Próstata (HPB) ---
-        "Tansulosina (Secotex)", "Finasterida", "Dutasterida (Combodart)",
-
-        // --- Estômago e Analgésicos ---
-        "Omeprazol", "Pantoprazol", "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol",
-
-        // --- Fitoterápicos e Vitaminas ---
-        "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
+        "Tansulosina (Secotex)", "Finasterida", "Dutasterida (Combodart)", "Omeprazol", "Pantoprazol", 
+        "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
     function inicializar() {
         definirData();
         carregarDadosUrl();
         configurarAutocompleteEMedicamentos();
+        configurarDetectoresDeAlteracao();
     }
 
     function definirData() { 
@@ -466,11 +437,81 @@
         }
     }
 
+    // GERA O LINK COMPACTO
+    function obterLinkCompacto() {
+        const dados = {};
+        document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
+            if (el.id && el.value.trim() !== "") dados[el.id] = el.value;
+        });
+        document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(el => {
+            if (el.id) dados[el.id] = "1";
+        });
+        const params = new URLSearchParams(dados).toString();
+        const urlBase = window.location.href.split('?')[0];
+        return urlBase + "?" + params;
+    }
+
+    // SECRETARIA: APENAS COPIA
+    function gerarLinkCompartilhar() {
+        const linkCompleto = obterLinkCompacto();
+        navigator.clipboard.writeText(linkCompleto).then(() => {
+            alert("✓ Link copiado para a Área de Transferência!\nPronto para colar no WhatsApp.");
+        }).catch(err => {
+            alert("Erro ao copiar automaticamente.");
+        });
+    }
+
+    // MEDICO: SALVA O TXT E COPIA O LINK REAL NA ÁREA DE TRANSFERÊNCIA DE VEZ
+    function exportarFichaTxt() {
+        const linkCompleto = obterLinkCompacto();
+        const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
+        const cpfPct = document.getElementById('cpf_paciente').value || "SEM_CPF";
+        
+        const conteudoTxt = `==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: ${nomePct}\nCPF: ${cpfPct}\nData: ${document.getElementById('data_avaliacao').value}\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n${linkCompleto}\n\n==================================================`;
+
+        // 1. Faz o download do TXT para o HD/Drive
+        const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
+        const linkDownload = document.createElement("a");
+        const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
+        linkDownload.download = `AVAL_${nomeArquivoClean}_${cpfPct}.txt`;
+        linkDownload.href = window.URL.createObjectURL(blob);
+        linkDownload.style.display = "none";
+        document.body.appendChild(linkDownload);
+        linkDownload.click();
+        document.body.removeChild(linkDownload);
+
+        // 2. COPIA O LINK REAL DIRETO PRA MEMÓRIA (Evita o problema do content:// no celular)
+        navigator.clipboard.writeText(linkCompleto).then(() => {
+            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente. Se precisar colar em outro lugar ou reabrir agora, é só usar a função Colar.");
+        }).catch(() => {
+            alert("Ficha baixada com sucesso!");
+        });
+
+        // Libera a impressão
+        document.getElementById('btn-imprimir').removeAttribute('disabled');
+    }
+
+    function imprimirFicha() {
+        const nome = document.getElementById('nome_paciente').value || "PACIENTE";
+        document.title = "AVAL_" + nome.replace(/\s+/g, '_').toUpperCase();
+        window.print();
+    }
+
+    function travarImpressao() {
+        document.getElementById('btn-imprimir').setAttribute('disabled', 'true');
+    }
+
+    function configurarDetectoresDeAlteracao() {
+        document.querySelectorAll('input, textarea').forEach(el => {
+            el.addEventListener('input', travarImpressao);
+            el.addEventListener('change', travarImpressao);
+        });
+    }
+
     function configurarAutocompleteEMedicamentos() {
         const inputs = document.querySelectorAll('.med-input');
         inputs.forEach((input, index) => {
             autocomplete(input, listaMedicamentos, inputs, index);
-
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     const listaAberta = input.parentNode.querySelector('.autocomplete-items');
@@ -501,17 +542,13 @@
                 if (arr[i].toUpperCase().includes(val.toUpperCase())) {
                     if(count >= 5) break; 
                     b = document.createElement("DIV");
-                    
                     let idx = arr[i].toUpperCase().indexOf(val.toUpperCase());
-                    let parte1 = arr[i].substr(0, idx);
-                    let parte2 = arr[i].substr(idx, val.length);
-                    let parte3 = arr[i].substr(idx + val.length);
-                    
-                    b.innerHTML = parte1 + "<strong>" + parte2 + "</strong>" + parte3;
+                    b.innerHTML = arr[i].substr(0, idx) + "<strong>" + arr[i].substr(idx, val.length) + "</strong>" + arr[i].substr(idx + val.length);
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                     b.addEventListener("click", function(e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
                         closeAllLists();
+                        travarImpressao();
                         const proximo = inputs[index + 1];
                         if (proximo) proximo.focus();
                     });
@@ -524,45 +561,23 @@
         inp.addEventListener("keydown", function(e) {
             let x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) { 
-                currentFocus++;
-                addActive(x);
-            } else if (e.keyCode == 38) { 
-                currentFocus--;
-                addActive(x);
-            } else if (e.keyCode == 13) { 
-                if (currentFocus > -1) {
-                    e.preventDefault();
-                    if (x) x[currentFocus].click();
-                }
-            }
+            if (e.keyCode == 40) { currentFocus++; addActive(x); } 
+            else if (e.keyCode == 38) { currentFocus--; addActive(x); } 
+            else if (e.keyCode == 13) { if (currentFocus > -1) { e.preventDefault(); if (x) x[currentFocus].click(); } }
         });
 
         function addActive(x) {
-            if (!x) return false;
-            removeActive(x);
+            if (!x) return false; removeActive(x);
             if (currentFocus >= x.length) currentFocus = 0;
             if (currentFocus < 0) currentFocus = (x.length - 1);
             x[currentFocus].classList.add("autocomplete-active");
         }
-
-        function removeActive(x) {
-            for (let i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-active");
-            }
-        }
-
+        function removeActive(x) { for (let i = 0; i < x.length; i++) x[i].classList.remove("autocomplete-active"); }
         function closeAllLists(elmnt) {
             const x = document.getElementsByClassName("autocomplete-items");
-            for (let i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
-                    x[i].parentNode.removeChild(x[i]);
-                }
-            }
+            for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
         }
-        document.addEventListener("click", function (e) {
-            closeAllLists(e.target);
-        });
+        document.addEventListener("click", function (e) { closeAllLists(e.target); });
     }
 
     function comentarioAutomatico(numero, isChecked) {
@@ -572,46 +587,17 @@
 
         if (isChecked) {
             if (!texto.includes(marcador)) {
-                if (texto.trim() !== "" && !texto.endsWith("\n")) {
-                    texto += "\n";
-                }
-                texto += marcador;
-                txtArea.value = texto;
+                if (texto.trim() !== "" && !texto.endsWith("\n")) texto += "\n";
+                texto += marcador; txtArea.value = texto;
             }
             txtArea.focus();
             const comprimento = txtArea.value.length;
             txtArea.setSelectionRange(comprimento, comprimento);
         } else {
             const linhas = texto.split("\n");
-            const linhasFiltradas = linhas.filter(linha => !linha.startsWith(marcador));
-            txtArea.value = linhasFiltradas.join("\n");
+            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\n");
         }
-    }
-
-    function gerarLinkSpark() {
-        const dados = {};
-        document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
-            if (el.id && el.value.trim() !== "") dados[el.id] = el.value;
-        });
-        document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(el => {
-            if (el.id) dados[el.id] = "1";
-        });
-        const params = new URLSearchParams(dados).toString();
-        const urlBase = window.location.href.split('?')[0];
-        const linkFinal = urlBase + "?" + params;
-
-        const box = document.getElementById('box-link');
-        const input = document.getElementById('input-link');
-        box.style.display = 'block';
-        input.value = linkFinal;
-
-        try { navigator.clipboard.writeText(linkFinal); } catch (e) { input.select(); document.execCommand('copy'); }
-    }
-
-    function imprimirESalvarPDF() {
-        const nome = document.getElementById('nome_paciente').value || "PACIENTE";
-        document.title = "AVAL_" + nome.replace(/\s+/g, '_').toUpperCase();
-        window.print();
+        travarImpressao();
     }
 
     document.getElementById('avaliacao-form').addEventListener('keydown', function(e) {
@@ -625,11 +611,8 @@
         p.forEach((valor, chave) => {
             const el = document.getElementById(chave);
             if (el) {
-                if (el.type === "radio" || el.type === "checkbox") {
-                    el.checked = (valor === "1");
-                } else {
-                    el.value = valor;
-                }
+                if (el.type === "radio" || el.type === "checkbox") el.checked = (valor === "1");
+                else el.value = valor;
             }
         });
     }
