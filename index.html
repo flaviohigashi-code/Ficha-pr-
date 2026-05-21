@@ -410,24 +410,48 @@
 </div>
 
 <script>
-    // LISTA ATUALIZADA INCLUINDO AS INSULINAS MAIS COMUNS DO MERCADO
+    // LISTA MASTER DE MEDICAMENTOS ATUALIZADA COMPLETA
     const listaMedicamentos = [
+        // --- Cardíacos, Pressão e Colesterol ---
         "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Enandril", "Captopril", "Anlodipino", 
-        "Hidroclorotiazida", "Furosemida", "Espironolactona", "Metformina", "Glibenclamida", 
-        "Levotiroxina", "Sinvastatina", "Atorvastatina", "Rosuvastatina", "Omeprazol", "Pantoprazol", 
-        "Esomeprazol", "AAS (Aspirina)", "Clonazepam", "Alprazolam", "Diazepam", "Fluoxetina", 
-        "Sertralina", "Escitalopram", "Amitriptilina", "Ibuprofeno", "Dipirona", "Paracetamol",
-        
-        // Emagrecedores
+        "Hidroclorotiazida", "Furosemida", "Espironolactona", "Sinvastatina", "Atorvastatina", "Rosuvastatina",
+
+        // --- Anticoagulantes e Antiagregantes ---
+        "AAS (Aspirina)", "Clopidogrel (Plavix)", "Ticagrelor (Brilinta)", 
+        "Rivaroxabana (Xarelto)", "Apixabana (Eliquis)", "Dabigatrana (Pradaxa)", "Varfarina (Marevan)",
+
+        // --- Diabetes Orais, Insulinas ---
+        "Metformina", "Glibenclamida", "Insulina NPH", "Insulina Regular", 
+        "Insulina Glargina (Lantus)", "Insulina Detemir (Levemir)", "Insulina Degludeca (Tresiba)", 
+        "Insulina Lispro (Humalog)", "Insulina Asparte (NovoRapid)", "Insulina Glulisina (Apidra)",
+
+        // --- Tireoide (Hipo e Hiper) ---
+        "Levotiroxina (Puran/Synthroid)", "Metimazol (Tapazol)", "Propiltiomuracila (Propilracil)",
+
+        // --- Emagrecedores ---
         "Tirzepatida (Mounjaro)", "Semaglutida (Ozempic)", "Semaglutida (Wegovy)", "Semaglutida (Rybelsus)",
         "Liraglutida (Saxenda)", "Liraglutida (Victoza)", "Sibutramina", "Orlistate (Xenical)", 
-        "Anfepramona", "Femproporex", "Mazindol", "Liraglutida", "Semaglutida", "Tirzepatida",
+        "Anfepramona", "Femproporex", "Mazindol",
 
-        // INSULINAS ADICIONADAS (Ação Basal, Rápida, Ultra-rápida e Nomes de Referência)
-        "Insulina NPH", "Insulina Regular", 
-        "Insulina Glargina (Lantus)", "Insulina Glargina (Basaglar)", "Insulina Glargina (Toujeo)",
-        "Insulina Detemir (Levemir)", "Insulina Degludeca (Tresiba)", 
-        "Insulina Lispro (Humalog)", "Insulina Asparte (NovoRapid)", "Insulina Glulisina (Apidra)"
+        // --- Psicotrópicos, Moduladores e Dor Crônica ---
+        "Clonazepam (Rivotril)", "Alprazolam (Frontal)", "Diazepam", "Fluoxetina", "Sertralina", 
+        "Escitalopram", "Amitriptilina", "Venlafaxina (Efexor)", "Desvenlafaxina (Prastiq)", 
+        "Duloxetina (Cymbalta)", "Bupropiona (Wellbutrin)", "Pregabalina (Lyrica)", "Gabapentina",
+
+        // --- Anticonvulsivantes ---
+        "Carbamazepina (Tegretol)", "Valproato de Sódio (Depakote)", "Topiramato (Amato)", "Lamotrigina",
+
+        // --- Antiparkinsonianos ---
+        "Levodopa + Benserazida (Prolopa)", "Levodopa + Carbidopina", "Pramipexol (Sifrol)",
+
+        // --- Próstata (HPB) ---
+        "Tansulosina (Secotex)", "Finasterida", "Dutasterida (Combodart)",
+
+        // --- Estômago e Analgésicos ---
+        "Omeprazol", "Pantoprazol", "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol",
+
+        // --- Fitoterápicos e Vitaminas ---
+        "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
     function inicializar() {
