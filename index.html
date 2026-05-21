@@ -38,7 +38,7 @@
         .header-contact .loc-name { font-size: 12px; text-transform: uppercase; display: block; }
         .header-contact .phone-num { font-size: 11px; display: block; }
 
-        .section { border: 1px solid #000; margin-bottom: 3px; padding: 2px; }
+        .section { border: 1px solid #000; margin-bottom: 3px; padding: 2px; position: relative; }
         .section-title {
             background-color: #f2f2f2;
             font-weight: bold;
@@ -101,7 +101,7 @@
         
         .med-com-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
         .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-        .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; }
+        .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
         .med-item span { font-size: 9.5px; font-weight: bold; margin-right: 3px; width: 13px; }
 
         /* INPUTS COM LARGURA DETERMINADA POR NÚMERO DE DÍGITOS */
@@ -142,7 +142,7 @@
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
             .container { border: none; box-shadow: none; width: 100%; padding: 0; }
-            .buttons, #box-link { display: none !important; }
+            .buttons, #box-link, .autocomplete-items { display: none !important; }
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
         }
 
@@ -150,12 +150,39 @@
         .buttons button { padding: 6px 16px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11.5px; }
         .btn-link { background-color: #4CAF50; }
         .btn-print { background-color: #1E88E5; }
+
+        /* ESTILOS DO AUTOCOMPLETE SUGGESTIONS */
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            z-index: 99;
+            top: 100%;
+            left: 16px;
+            right: 0;
+            max-height: 120px;
+            overflow-y: auto;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+        }
+        .autocomplete-items div {
+            padding: 3px 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: normal;
+            color: #333;
+            text-align: left;
+        }
+        .autocomplete-items div:hover, .autocomplete-active {
+            background-color: #e1f5fe !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body onload="inicializar()">
 
 <div class="container">
-    <form id="avaliacao-form">
+    <form id="avaliacao-form" autocomplete="off">
         <div class="header">
             <div class="header-logo"><img src="logo-anesthemed.png" alt="Logo AnestheMed"></div>
             <div class="header-title"><h2>AVALIAÇÃO PRÉ ANESTÉSICA</h2></div>
@@ -383,10 +410,24 @@
 </div>
 
 <script>
+    // LISTA EXPANDIDA INCLUINDO OS EMAGRECEDORES (ATIVOS E COMERCIAIS)
+    const listaMedicamentos = [
+        "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Enandril", "Captopril", "Anlodipino", 
+        "Hidroclorotiazida", "Furosemida", "Espironolactona", "Metformina", "Glibenclamida", 
+        "Levotiroxina", "Sinvastatina", "Atorvastatina", "Rosuvastatina", "Omeprazol", "Pantoprazol", 
+        "Esomeprazol", "AAS (Aspirina)", "Clonazepam", "Alprazolam", "Diazepam", "Fluoxetina", 
+        "Sertralina", "Escitalopram", "Amitriptilina", "Ibuprofeno", "Dipirona", "Paracetamol",
+        
+        // EMAGRECEDORES ADICIONADOS
+        "Tirzepatida (Mounjaro)", "Semaglutida (Ozempic)", "Semaglutida (Wegovy)", "Semaglutida (Rybelsus)",
+        "Liraglutida (Saxenda)", "Liraglutida (Victoza)", "Sibutramina", "Orlistate (Xenical)", 
+        "Anfepramona", "Femproporex", "Mazindol", "Liraglutida", "Semaglutida", "Tirzepatida"
+    ];
+
     function inicializar() {
         definirData();
         carregarDadosUrl();
-        configurarEnterMedicamentos();
+        configurarAutocompleteEMedicamentos();
     }
 
     function definirData() { 
@@ -395,16 +436,103 @@
         }
     }
 
-    function configurarEnterMedicamentos() {
+    function configurarAutocompleteEMedicamentos() {
         const inputs = document.querySelectorAll('.med-input');
         inputs.forEach((input, index) => {
+            autocomplete(input, listaMedicamentos, inputs, index);
+
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
-                    e.preventDefault(); 
-                    const proximo = inputs[index + 1];
-                    if (proximo) proximo.focus();
+                    const listaAberta = input.parentNode.querySelector('.autocomplete-items');
+                    if (!listaAberta) {
+                        e.preventDefault(); 
+                        const proximo = inputs[index + 1];
+                        if (proximo) proximo.focus();
+                    }
                 }
             });
+        });
+    }
+
+    function autocomplete(inp, arr, inputs, index) {
+        let currentFocus;
+        inp.addEventListener("input", function(e) {
+            let a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false; }
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            
+            let count = 0;
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].toUpperCase().includes(val.toUpperCase())) {
+                    if(count >= 5) break; 
+                    b = document.createElement("DIV");
+                    
+                    // Destaca o termo digitado mesmo se estiver no meio do texto
+                    let idx = arr[i].toUpperCase().indexOf(val.toUpperCase());
+                    let parte1 = arr[i].substr(0, idx);
+                    let parte2 = arr[i].substr(idx, val.length);
+                    let parte3 = arr[i].substr(idx + val.length);
+                    
+                    b.innerHTML = parte1 + "<strong>" + parte2 + "</strong>" + parte3;
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                        const proximo = inputs[index + 1];
+                        if (proximo) proximo.focus();
+                    });
+                    a.appendChild(b);
+                    count++;
+                }
+            }
+        });
+
+        inp.addEventListener("keydown", function(e) {
+            let x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) { 
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) { 
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) { 
+                if (currentFocus > -1) {
+                    e.preventDefault();
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+
+        function removeActive(x) {
+            for (let i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
+            }
+        }
+
+        function closeAllLists(elmnt) {
+            const x = document.getElementsByClassName("autocomplete-items");
+            for (let i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
         });
     }
 
@@ -426,7 +554,7 @@
             txtArea.setSelectionRange(comprimento, comprimento);
         } else {
             const linhas = texto.split("\n");
-            const líneasFiltradas = linhas.filter(linha => !linha.startsWith(marcador));
+            const linhasFiltradas = linhas.filter(linha => !linha.startsWith(marcador));
             txtArea.value = linhasFiltradas.join("\n");
         }
     }
