@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliação Pré Anestésica - AnestheMed</title>
     <style>
-        @page { size: A4; margin: 3mm 4mm 3mm 4mm; }
+        @page { 
+            size: A4; 
+            margin: 2mm 4mm; 
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            font-size: 12px;
-            line-height: 1.15;
+            font-size: 11px;
+            line-height: 1.1;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -20,7 +23,7 @@
             background-color: #fff;
             max-width: 800px;
             margin: 0 auto;
-            padding: 6px 10px;
+            padding: 4px 8px;
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
@@ -30,24 +33,24 @@
             align-items: center;
             border-bottom: 2px solid #000;
             padding-bottom: 1px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
-        .header-logo img { display: block; max-width: 160px; height: auto; }
-        .header-title h2 { margin: 0; font-size: 17px; letter-spacing: 0.5px; }
-        .header-contact { text-align: right; font-weight: bold; line-height: 1.05; }
-        .header-contact .loc-name { font-size: 12px; text-transform: uppercase; display: block; }
-        .header-contact .phone-num { font-size: 11px; display: block; }
+        .header-logo img { display: block; max-width: 140px; height: auto; }
+        .header-title h2 { margin: 0; font-size: 15px; letter-spacing: 0.5px; }
+        .header-contact { text-align: right; font-weight: bold; line-height: 1; }
+        .header-contact .loc-name { font-size: 11px; text-transform: uppercase; display: block; }
+        .header-contact .phone-num { font-size: 10px; display: block; }
 
-        .section { border: 1px solid #000; margin-bottom: 3px; padding: 2px; position: relative; }
+        .section { border: 1px solid #000; margin-bottom: 2px; padding: 1px 2px; position: relative; }
         .section-title {
             background-color: #f2f2f2;
             font-weight: bold;
             padding: 1px 2px;
             border-bottom: 1px solid #000;
-            margin: -2px -2px 2px -2px;
+            margin: -1px -2px 1px -2px;
             text-align: center;
             text-transform: uppercase;
-            font-size: 10.5px;
+            font-size: 10px;
         }
         .row { display: flex; flex-wrap: wrap; margin-bottom: 1px; align-items: center; }
         .form-group { display: flex; align-items: center; margin-bottom: 0px; }
@@ -60,20 +63,20 @@
             padding: 0px 1px;
             background: transparent;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 13.5px;
+            font-size: 12.5px;
             font-weight: 800 !important;
             color: #000;
-            line-height: 1.1;
+            line-height: 1;
         }
 
         /* CUSTOM CHECKBOXES & RADIOS WITH PRINT SUPPORT */
         input[type="radio"], input[type="checkbox"] { display: none; }
         .btn-check {
             display: inline-block;
-            width: 11px;
-            height: 11px;
+            width: 10px;
+            height: 10px;
             border: 1.5px solid #000;
-            margin-right: 3px;
+            margin-right: 2px;
             text-align: center;
             cursor: pointer;
             user-select: none;
@@ -87,31 +90,31 @@
             content: "✔";
             font-family: 'Arial Black', Gadget, sans-serif;
             font-weight: 900 !important;
-            font-size: 13px;
+            font-size: 12px;
             position: absolute;
-            top: -6px;
+            top: -7px;
             left: -1px;
             display: block;
             color: #000;
         }
 
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 4px; }
-        .sn-header { display: flex; font-weight: bold; font-size: 9.5px; margin-bottom: 0px; }
-        .sn-header span { width: 15px; text-align: center; margin-right: 1px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px 4px; }
+        .sn-header { display: flex; font-weight: bold; font-size: 9px; margin-bottom: 0px; }
+        .sn-header span { width: 14px; text-align: center; margin-right: 1px; }
         
-        .med-com-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-        .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+        .med-com-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4px; }
+        .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 4px; }
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
-        .med-item span { font-size: 9.5px; font-weight: bold; margin-right: 3px; width: 13px; }
+        .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
 
         /* INPUTS COM LARGURA DETERMINADA POR NÚMERO DE DÍGITOS */
-        .input-3dig { width: 32px !important; flex-grow: 0 !important; text-align: center; }
-        .input-6dig { width: 62px !important; flex-grow: 0 !important; text-align: center; }
-        .input-1dig { width: 16px !important; flex-grow: 0 !important; text-align: center; }
+        .input-3dig { width: 28px !important; flex-grow: 0 !important; text-align: center; }
+        .input-6dig { width: 55px !important; flex-grow: 0 !important; text-align: center; }
+        .input-1dig { width: 14px !important; flex-grow: 0 !important; text-align: center; }
 
         .jejum-container {
-            padding: 4px 6px;
-            font-size: 12.5px;
+            padding: 2px 4px;
+            font-size: 11px;
         }
         .jejum-container .form-group {
             width: 100%;
@@ -119,10 +122,10 @@
             flex-wrap: nowrap;
         }
         .jejum-container input[type="text"] {
-            width: 22px !important;
+            width: 20px !important;
             flex-grow: 0 !important;
             flex-shrink: 0 !important;
-            font-size: 13px;
+            font-size: 11px;
             text-align: center;
         }
         .jejum-destaque {
@@ -132,13 +135,14 @@
 
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
-            .container { border: none; box-shadow: none; width: 100%; padding: 0; }
+            .container { border: none; box-shadow: none; width: 100%; padding: 0; margin: 0; }
             .buttons, .autocomplete-items { display: none !important; }
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
+            html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
         }
 
-        .buttons { text-align: center; margin-top: 12px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .buttons button { padding: 8px 15px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11.5px; transition: all 0.2s; }
+        .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .buttons button { padding: 6px 12px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; transition: all 0.2s; }
         
         .btn-link { background-color: #ff9800; }
         .btn-link:hover { background-color: #f57c00; }
@@ -156,16 +160,16 @@
             background-color: #fff;
             z-index: 99;
             top: 100%;
-            left: 16px;
+            left: 14px;
             right: 0;
-            max-height: 120px;
+            max-height: 100px;
             overflow-y: auto;
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
         }
         .autocomplete-items div {
-            padding: 3px 6px;
+            padding: 2px 4px;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: normal;
             color: #333;
             text-align: left;
@@ -187,6 +191,7 @@
             <div class="header-contact"><span class="loc-name">Inovare</span><span class="phone-num">(42) 3026-2640</span></div>
         </div>
 
+        <!-- IDENTIFICAÇÃO DO PACIENTE -->
         <div class="section">
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Nome:</label><input type="text" id="nome_paciente"></div>
@@ -194,7 +199,7 @@
             </div>
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Cirurgia Proposta:</label><input type="text" id="cirurgia_proposta"></div>
-                <div class="form-group" style="width: 30%;"><label>Idade:</label><input type="number" id="idade_paciente" style="width: 35px; flex-grow:0;"> <span style="font-weight:bold; margin-left:2px;">ANOS</span></div>
+                <div class="form-group" style="width: 30%;"><label>Idade:</label><input type="number" id="idade_paciente" style="width: 30px; flex-grow:0;"> <span style="font-weight:bold; margin-left:1px;">ANOS</span></div>
             </div>
             <div class="row">
                 <div class="form-group" style="width: 50%;"><label>Cirurgião:</label><input type="text" id="cirurgiao_medico"></div>
@@ -202,6 +207,7 @@
             </div>
         </div>
 
+        <!-- TRIAGEM DE SINTOMAS / DOENÇAS -->
         <div class="section">
             <div class="section-title">Assinale as doenças ou sintomas que tem ou que teve: S/N</div>
             <div class="grid-3">
@@ -234,7 +240,7 @@
                     <div class="row"><label><input type="radio" name="d19" id="d19_s" onchange="comentarioAutomatico('19', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d19" id="d19_n" onchange="comentarioAutomatico('19', false)"><span class="btn-check"></span></label> 19. Complicações anest.</div>
                     <div class="row"><label><input type="radio" name="d20" id="d20_s" onchange="comentarioAutomatico('20', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n" onchange="comentarioAutomatico('20', false)"><span class="btn-check"></span></label> 20. Outras doenças</div>
                     <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. Emagrecedores</div>
-                    <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 10px; line-height: 1;">Crianças:</div>
+                    <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9.5px; line-height: 1;">Crianças:</div>
                     <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. IVAS atual ou recente</div>
                     <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Diarréia recente</div>
                     <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Nasceu prematuro?</div>
@@ -242,10 +248,11 @@
             </div>
         </div>
 
+        <!-- COMENTÁRIOS E MEDICAÇÃO -->
         <div class="section med-com-split">
             <div style="border-right: 1px solid #000; padding-right: 4px;">
                 <div class="section-title">COMENTAR DADOS POSITIVOS</div>
-                <textarea id="comentarios_dados" rows="7" style="width: 100%; border: none; resize: none;"></textarea>
+                <textarea id="comentarios_dados" rows="5" style="width: 100%; border: none; resize: none; font-size:12px;"></textarea>
             </div>
             <div>
                 <div class="section-title">MEDICAMENTOS EM USO</div>
@@ -267,134 +274,140 @@
                         <div class="med-item"><span>12</span><input type="text" class="med-input" id="m12"></div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 3px; justify-content: space-between; font-size: 10.5px;">
+                <div class="row" style="margin-top: 2px; justify-content: space-between; font-size: 10px;">
                     <div>
-                        <strong>ANTICOAGULANTES:</strong>
-                        <label style="margin-left:2px;"><input type="radio" name="anticoag" id="ac_sim"><span class="btn-check"></span> Sim</label>
-                        <label style="margin-left:2px;"><input type="radio" name="anticoag" id="ac_nao"><span class="btn-check"></span> Não</label>
+                        <strong>ANTICOAG.:</strong>
+                        <label style="margin-left:1px;"><input type="radio" name="anticoag" id="ac_sim"><span class="btn-check"></span> Sim</label>
+                        <label style="margin-left:1px;"><input type="radio" name="anticoag" id="ac_nao"><span class="btn-check"></span> Não</label>
                     </div>
                     <div>
                         <strong>ALERGIA:</strong>
-                        <label style="margin-left:2px;"><input type="radio" name="alergia" id="al_sim"><span class="btn-check"></span> Sim</label>
-                        <label style="margin-left:2px;"><input type="radio" name="alergia" id="al_nao"><span class="btn-check"></span> Não</label>
+                        <label style="margin-left:1px;"><input type="radio" name="alergia" id="al_sim"><span class="btn-check"></span> Sim</label>
+                        <label style="margin-left:1px;"><input type="radio" name="alergia" id="al_nao"><span class="btn-check"></span> Não</label>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-sections">
-            <div class="section">
-                <div class="section-title">EXAME FÍSICO</div>
-                <div class="row" style="justify-content: space-between;">
-                    <div class="form-group"><label>PESO:</label><input type="text" id="ef_peso" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:10px; margin-left:1px;">KG</span></div>
-                    <div class="form-group"><label>ALTURA:</label><input type="text" id="ef_altura" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:10px; margin-left:1px;">CM</span></div>
-                    <div class="form-group"><label>PA:</label><input type="text" id="ef_pa" class="input-6dig" maxlength="6" placeholder="120X80"></div>
-                    <div class="form-group"><label>FC:</label><input type="text" id="ef_fc" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:10px; margin-left:1px;">BPM</span></div>
-                </div>
-                <div class="row" style="margin-top:2px;">
-                    <div class="form-group" style="width: 35%;">
-                        <label>Temp:</label>
-                        <label><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afebril</label>
-                        <label style="margin-left:3px;"><input type="radio" name="temp" id="tp_febril"><span class="btn-check"></span> Febril</label>
-                    </div>
-                    <div class="form-group" style="width: 65%;"><label>Coluna Vert:</label><input type="text" id="ef_coluna"></div>
-                </div>
-                <div class="row" style="margin-top:2px; justify-content: space-between;">
-                    <div class="form-group"><label>Mallampati:</label><input type="text" id="ef_mallampati" class="input-1dig" maxlength="1" placeholder="0"></div>
-                    <div class="form-group">
-                        <label>DEM:</label>
-                        <label><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12 cm</label>
-                        <label style="margin-left:3px;"><input type="radio" name="dem_medida" id="dem_menor"><span class="btn-check"></span> &lt;12 cm</label>
-                    </div>
-                    <div class="form-group">
-                        <label>Dif. Intubação?</label>
-                        <label><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
-                        <label style="margin-left:3px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
-                    </div>
-                </div>
-                <div class="form-group" style="margin-top:2px;">
-                    <label>Respiratório:</label> 
-                    <label><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
-                    <label style="margin-left:3px;"><input type="radio" name="resp" id="rp_alt"><span class="btn-check"></span> Alt:</label>
-                    <input type="text" id="ef_resp_txt" style="width: 50px; flex-grow:1;">
-                </div>
+        <!-- EXAME FÍSICO E EXAMES COMPLEMENTARES -->
+        <div class="section">
+            <div class="section-title">EXAME FÍSICO</div>
+            <div class="row" style="justify-content: space-between;">
+                <div class="form-group"><label>PESO:</label><input type="text" id="ef_peso" class="input-3dig" maxlength="3" placeholder="00"> <span style="font-weight:bold; font-size:9px;">KG</span></div>
+                <div class="form-group"><label>ALTURA:</label><input type="text" id="ef_altura" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:9px;">CM</span></div>
+                <div class="form-group"><label>PA:</label><input type="text" id="ef_pa" class="input-6dig" maxlength="6" placeholder="12/8"></div>
+                <div class="form-group"><label>FC:</label><input type="text" id="ef_fc" class="input-3dig" maxlength="3" placeholder="00"> <span style="font-weight:bold; font-size:9px;">BPM</span></div>
                 <div class="form-group">
-                    <label>Cardiovascular:</label> 
-                    <label><input type="radio" name="cardio" id="cd_brnf"><span class="btn-check"></span> BRNF</label>
-                    <label style="margin-left:3px;"><input type="radio" name="cardio" id="cd_alt"><span class="btn-check"></span> Alt:</label>
-                    <input type="text" id="ef_cardio_txt" style="width: 50px; flex-grow:1;">
+                    <label>Temp:</label>
+                    <label><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afeb</label>
+                    <label style="margin-left:2px;"><input type="radio" name="temp" id="tp_febril"><span class="btn-check"></span> Feb</label>
                 </div>
-                <div class="row">
-                    <div class="form-group" style="width: 50%;"><label>Abdômen:</label><input type="text" id="ef_abdomen"></div>
-                    <div class="form-group" style="width: 50%;"><label>Membros:</label><input type="text" id="ef_membros"></div>
-                </div>
-                <div class="form-group"><label>Acesso Venoso:</label><input type="text" id="ef_acesso"></div>
             </div>
-
-            <div class="section">
-                <div class="section-title">EXAMES COMPLEMENTARES</div>
-                <div class="grid-3" style="grid-template-columns: 1fr 1fr;">
-                    <div class="form-group"><label>VG:</label><input type="text" id="ex_vg"></div>
-                    <div class="form-group"><label>HB:</label><input type="text" id="ex_hb"></div>
-                    <div class="form-group"><label>Glicemia:</label><input type="text" id="ex_glicemia"></div>
-                    <div class="form-group"><label>Plaq:</label><input type="text" id="ex_plaq"></div>
-                    <div class="form-group"><label>TAP/RNI:</label><input type="text" id="ex_rni"></div>
-                    <div class="form-group"><label>KPTT:</label><input type="text" id="ex_kptt"></div>
-                    <div class="form-group"><label>Creatinina:</label><input type="text" id="ex_creat"></div>
-                    <div class="form-group"><label>Uréia:</label><input type="text" id="ex_ureia"></div>
+            <div class="row" style="margin-top:1px;">
+                <div class="form-group" style="width: 25%;"><label>Mallampati:</label><input type="text" id="ef_mallampati" class="input-1dig" maxlength="1" placeholder="1"></div>
+                <div class="form-group" style="width: 30%;">
+                    <label>DEM:</label>
+                    <label><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12cm</label>
+                    <label style="margin-left:2px;"><input type="radio" name="dem_medida" id="dem_menor"><span class="btn-check"></span> &lt;12cm</label>
                 </div>
-                <div class="form-group" style="margin-top:1px;"><label>RX Tórax:</label><input type="text" id="ex_rx"></div>
-                <div class="form-group"><label>ECG:</label><input type="text" id="ex_ecg"></div>
-                <div class="form-group"><label>Outros:</label><input type="text" id="ex_outros"></div>
+                <div class="form-group" style="width: 45%;">
+                    <label>Dif. Intubação?</label>
+                    <label><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
+                    <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
+                </div>
+            </div>
+            <div class="row" style="margin-top:1px;">
+                <div class="form-group" style="width: 50%;"><label>Coluna Vert:</label><input type="text" id="ef_coluna"></div>
+                <div class="form-group" style="width: 50%;"><label>Acesso Venoso:</label><input type="text" id="ef_acesso"></div>
+            </div>
+            <div class="form-group" style="margin-top:1px;">
+                <label>Respiratório:</label> 
+                <label><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
+                <label style="margin-left:2px;"><input type="radio" name="resp" id="rp_alt"><span class="btn-check"></span> Alt:</label>
+                <input type="text" id="ef_resp_txt" style="flex-grow:1;">
+            </div>
+            <div class="form-group">
+                <label>Cardiovascular:</label> 
+                <label><input type="radio" name="cardio" id="cd_brnf"><span class="btn-check"></span> BRNF</label>
+                <label style="margin-left:2px;"><input type="radio" name="cardio" id="cd_alt"><span class="btn-check"></span> Alt:</label>
+                <input type="text" id="ef_cardio_txt" style="flex-grow:1;">
+            </div>
+            <div class="row">
+                <div class="form-group" style="width: 50%;"><label>Abdômen:</label><input type="text" id="ef_abdomen"></div>
+                <div class="form-group" style="width: 50%;"><label>Membros:</label><input type="text" id="ef_membros"></div>
             </div>
         </div>
 
+        <!-- EXAMES COMPLEMENTARES -->
+        <div class="section">
+            <div class="section-title">EXAMES COMPLEMENTARES</div>
+            <div class="grid-3" style="grid-template-columns: repeat(4, 1fr); gap: 1px 4px;">
+                <div class="form-group"><label>VG:</label><input type="text" id="ex_vg"></div>
+                <div class="form-group"><label>HB:</label><input type="text" id="ex_hb"></div>
+                <div class="form-group"><label>Glicemia:</label><input type="text" id="ex_glicemia"></div>
+                <div class="form-group"><label>Plaq:</label><input type="text" id="ex_plaq"></div>
+                <div class="form-group"><label>TAP/RNI:</label><input type="text" id="ex_rni"></div>
+                <div class="form-group"><label>KPTT:</label><input type="text" id="ex_kptt"></div>
+                <div class="form-group"><label>Creatinina:</label><input type="text" id="ex_creat"></div>
+                <div class="form-group"><label>Uréia:</label><input type="text" id="ex_ureia"></div>
+            </div>
+            <div class="row" style="margin-top:1px;">
+                <div class="form-group" style="width: 50%;"><label>RX Tórax:</label><input type="text" id="ex_rx"></div>
+                <div class="form-group" style="width: 50%;"><label>ECG:</label><input type="text" id="ex_ecg"></div>
+            </div>
+            <div class="form-group"><label>Outros:</label><input type="text" id="ex_outros"></div>
+        </div>
+
+        <!-- BLOCO DE JEJUM -->
         <div class="section jejum-container">
             <div class="form-group">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
                 <input type="text" id="jej_solidos" maxlength="2" placeholder="00"> 
-                <label style="margin: 0 3px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
+                <label style="margin: 0 2px;"><span class="jejum-destaque">H</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
                 <input type="text" id="jej_liquidos" maxlength="2" placeholder="00"> 
-                <label style="margin-left: 3px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
+                <label style="margin-left: 2px;"><span class="jejum-destaque">H</span> PARA <span class="jejum-destaque">ÁGUA LIQUIDA</span>.</label>
             </div>
         </div>
 
+        <!-- CONCLUSÕES -->
         <div class="section">
             <div class="section-title">CONCLUSÕES</div>
             <div class="row" style="justify-content: space-between;">
                 <div class="form-group">
                     <label>LIBERADO:</label>
                     <label><input type="radio" name="liberado" id="lb_sim"><span class="btn-check"></span> Sim</label>
-                    <label style="margin-left:3px;"><input type="radio" name="liberado" id="lb_nao"><span class="btn-check"></span> Não</label>
-                    <label style="margin-left:3px;"><input type="radio" name="liberado" id="lb_aguarda"><span class="btn-check"></span> Aguarda Avaliação</label>
+                    <label style="margin-left:2px;"><input type="radio" name="liberado" id="lb_nao"><span class="btn-check"></span> Não</label>
+                    <label style="margin-left:2px;"><input type="radio" name="liberado" id="lb_aguarda"><span class="btn-check"></span> Aguarda</label>
                 </div>
                 <div class="form-group">
-                    <label>Estado Físico - ASA:</label>
-                    <label style="margin-left:2px;"><input type="radio" name="asa" id="asa_1"><span class="btn-check"></span> I</label>
-                    <label style="margin-left:2px;"><input type="radio" name="asa" id="asa_2"><span class="btn-check"></span> II</label>
-                    <label style="margin-left:2px;"><input type="radio" name="asa" id="asa_3"><span class="btn-check"></span> III</label>
-                    <label style="margin-left:2px;"><input type="radio" name="asa" id="asa_4"><span class="btn-check"></span> IV</label>
-                    <label style="margin-left:2px;"><input type="radio" name="asa" id="asa_5"><span class="btn-check"></span> V</label>
-                    <label style="margin-left:2px;"><input type="radio" name="asa" id="asa_6"><span class="btn-check"></span> VI</label>
-                    <label style="margin-left:4px;"><input type="checkbox" name="emergencia" id="asa_e"><span class="btn-check"></span> E</label>
+                    <label>ASA:</label>
+                    <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_1"><span class="btn-check"></span> I</label>
+                    <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_2"><span class="btn-check"></span> II</label>
+                    <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_3"><span class="btn-check"></span> III</label>
+                    <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_4"><span class="btn-check"></span> IV</label>
+                    <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_5"><span class="btn-check"></span> V</label>
+                    <label style="margin-left:2px;"><input type="checkbox" name="emergencia" id="asa_e"><span class="btn-check"></span> E</label>
                 </div>
             </div>
             <div class="form-group" style="margin-top:1px;"><label>Recomendações:</label><input type="text" id="concl_recom"></div>
         </div>
 
+        <!-- CONDUTA FINAL -->
         <div class="section">
             <div class="section-title">OBSERVAÇÕES / CONDUTA</div>
-            <textarea id="obs_conduta" rows="2" style="width: 100%; border: none; resize: none;"></textarea>
+            <textarea id="obs_conduta" rows="1" style="width: 100%; border: none; resize: none; font-size:12px;"></textarea>
         </div>
 
-        <div class="section" style="border:none; margin-top:25px;">
+        <!-- ASSINATURAS -->
+        <div class="section" style="border:none; margin-top:14px;">
             <div class="row">
-                <div style="width: 25%; text-align: left;">Data: <input type="text" id="data_avaliacao" style="width: 80px;"></div>
-                <div style="width: 40%; text-align: center; border-top: 1.5px solid #000; font-weight: bold; padding-top:1px;">Anestesiologista</div>
-                <div style="width: 35%; text-align: center; border-top: 1.5px solid #000; font-weight: bold; padding-top:1px;">Paciente / Responsável</div>
+                <div style="width: 25%; text-align: left;">Data: <input type="text" id="data_avaliacao" style="width: 70px;"></div>
+                <div style="width: 40%; text-align: center; border-top: 1.2px solid #000; font-weight: bold; padding-top:1px;">Anestesiologista</div>
+                <div style="width: 35%; text-align: center; border-top: 1.2px solid #000; font-weight: bold; padding-top:1px;">Paciente / Responsável</div>
             </div>
         </div>
 
+        <!-- BOTOES DE CONTROLE REFORMULADOS -->
         <div class="buttons">
             <button type="button" class="btn-link" onclick="gerarLinkCompartilhar()">Secretaria: Copiar Link</button>
             <button type="button" class="btn-save" onclick="exportarFichaTxt()">1. Salvar Arquivo da Ficha</button>
@@ -437,7 +450,6 @@
         }
     }
 
-    // GERA O LINK COMPACTO
     function obterLinkCompacto() {
         const dados = {};
         document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
@@ -451,7 +463,6 @@
         return urlBase + "?" + params;
     }
 
-    // SECRETARIA: APENAS COPIA
     function gerarLinkCompartilhar() {
         const linkCompleto = obterLinkCompacto();
         navigator.clipboard.writeText(linkCompleto).then(() => {
@@ -461,7 +472,6 @@
         });
     }
 
-    // MEDICO: SALVA O TXT E COPIA O LINK REAL NA ÁREA DE TRANSFERÊNCIA DE VEZ
     function exportarFichaTxt() {
         const linkCompleto = obterLinkCompacto();
         const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
@@ -469,10 +479,9 @@
         
         const conteudoTxt = `==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: ${nomePct}\nCPF: ${cpfPct}\nData: ${document.getElementById('data_avaliacao').value}\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n${linkCompleto}\n\n==================================================`;
 
-        // 1. Faz o download do TXT para o HD/Drive
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
         const linkDownload = document.createElement("a");
-        const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
+        const nomeArquivoClean = nomePct.replace(/\\s+/g, '_');
         linkDownload.download = `AVAL_${nomeArquivoClean}_${cpfPct}.txt`;
         linkDownload.href = window.URL.createObjectURL(blob);
         linkDownload.style.display = "none";
@@ -480,20 +489,18 @@
         linkDownload.click();
         document.body.removeChild(linkDownload);
 
-        // 2. COPIA O LINK REAL DIRETO PRA MEMÓRIA (Evita o problema do content:// no celular)
         navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente. Se precisar colar em outro lugar ou reabrir agora, é só usar a função Colar.");
+            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente.");
         }).catch(() => {
             alert("Ficha baixada com sucesso!");
         });
 
-        // Libera a impressão
         document.getElementById('btn-imprimir').removeAttribute('disabled');
     }
 
     function imprimirFicha() {
         const nome = document.getElementById('nome_paciente').value || "PACIENTE";
-        document.title = "AVAL_" + nome.replace(/\s+/g, '_').toUpperCase();
+        document.title = "AVAL_" + nome.replace(/\\s+/g, '_').toUpperCase();
         window.print();
     }
 
