@@ -410,7 +410,7 @@
 </div>
 
 <script>
-    // LISTA EXPANDIDA INCLUINDO OS EMAGRECEDORES (ATIVOS E COMERCIAIS)
+    // LISTA ATUALIZADA INCLUINDO AS INSULINAS MAIS COMUNS DO MERCADO
     const listaMedicamentos = [
         "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Enandril", "Captopril", "Anlodipino", 
         "Hidroclorotiazida", "Furosemida", "Espironolactona", "Metformina", "Glibenclamida", 
@@ -418,10 +418,16 @@
         "Esomeprazol", "AAS (Aspirina)", "Clonazepam", "Alprazolam", "Diazepam", "Fluoxetina", 
         "Sertralina", "Escitalopram", "Amitriptilina", "Ibuprofeno", "Dipirona", "Paracetamol",
         
-        // EMAGRECEDORES ADICIONADOS
+        // Emagrecedores
         "Tirzepatida (Mounjaro)", "Semaglutida (Ozempic)", "Semaglutida (Wegovy)", "Semaglutida (Rybelsus)",
         "Liraglutida (Saxenda)", "Liraglutida (Victoza)", "Sibutramina", "Orlistate (Xenical)", 
-        "Anfepramona", "Femproporex", "Mazindol", "Liraglutida", "Semaglutida", "Tirzepatida"
+        "Anfepramona", "Femproporex", "Mazindol", "Liraglutida", "Semaglutida", "Tirzepatida",
+
+        // INSULINAS ADICIONADAS (Ação Basal, Rápida, Ultra-rápida e Nomes de Referência)
+        "Insulina NPH", "Insulina Regular", 
+        "Insulina Glargina (Lantus)", "Insulina Glargina (Basaglar)", "Insulina Glargina (Toujeo)",
+        "Insulina Detemir (Levemir)", "Insulina Degludeca (Tresiba)", 
+        "Insulina Lispro (Humalog)", "Insulina Asparte (NovoRapid)", "Insulina Glulisina (Apidra)"
     ];
 
     function inicializar() {
@@ -472,7 +478,6 @@
                     if(count >= 5) break; 
                     b = document.createElement("DIV");
                     
-                    // Destaca o termo digitado mesmo se estiver no meio do texto
                     let idx = arr[i].toUpperCase().indexOf(val.toUpperCase());
                     let parte1 = arr[i].substr(0, idx);
                     let parte2 = arr[i].substr(idx, val.length);
