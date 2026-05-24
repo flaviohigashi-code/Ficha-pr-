@@ -32,18 +32,37 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #000;
-            padding-bottom: 3px;
+            padding-bottom: 4px;
             margin-bottom: 2px;
         }
-        /* LOGO DO CABEÇALHO AUMENTADA EM 2X A 2.5X */
+        
+        /* AJUSTE COORDENADO PARA FAZER A LOGO CRESCER SIGNIFICATIVAMENTE */
+        .header-logo {
+            flex: 0 0 40%; /* Garante espaço generoso na esquerda para a logo expandir */
+            display: flex;
+            align-items: center;
+        }
         .header-logo img { 
             display: block; 
-            max-width: 280px; 
-            width: auto;
+            max-width: 380px; /* Alvo expandido para compensar as margens transparentes da imagem */
+            width: 100%;
             height: auto; 
+            transform: scale(1.15); /* Ganho de escala real na renderização */
+            transform-origin: left center; /* Mantém o alinhamento esquerdo perfeito */
+        }
+        
+        .header-title {
+            flex: 0 0 40%;
+            text-align: center;
         }
         .header-title h2 { margin: 0; font-size: 15px; letter-spacing: 0.5px; }
-        .header-contact { text-align: right; font-weight: bold; line-height: 1.1; }
+        
+        .header-contact { 
+            flex: 0 0 20%;
+            text-align: right; 
+            font-weight: bold; 
+            line-height: 1.1; 
+        }
         .header-contact .loc-name { font-size: 11px; text-transform: uppercase; display: block; }
         .header-contact .phone-num { font-size: 10px; display: block; }
 
@@ -756,7 +775,7 @@
             txtArea.setSelectionRange(comprimento, comprimento);
         } else {
             const linhas = texto.split("\n");
-            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\n");
+            txtArea.value = lines.filter(linha => !linha.startsWith(marcador)).join("\n");
         }
         travarImpressao();
     }
