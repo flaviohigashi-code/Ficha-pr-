@@ -108,7 +108,9 @@
         .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
 
         .input-3dig { width: 28px !important; flex-grow: 0 !important; text-align: center; }
+        .input-5dig { width: 45px !important; flex-grow: 0 !important; text-align: center; }
         .input-6dig { width: 55px !important; flex-grow: 0 !important; text-align: center; }
+        .input-9dig { width: 80px !important; flex-grow: 0 !important; text-align: center; }
         .input-1dig { width: 14px !important; flex-grow: 0 !important; text-align: center; }
 
         .jejum-container { padding: 2px 4px; font-size: 11px; }
@@ -329,10 +331,10 @@
         <div class="section">
             <div class="section-title">EXAME FÍSICO</div>
             <div class="row" style="justify-content: space-between;">
-                <div class="form-group"><label>PESO:</label><input type="text" id="ef_peso" class="input-3dig" maxlength="3" placeholder="00"> <span style="font-weight:bold; font-size:9px;">KG</span></div>
-                <div class="form-group"><label>ALTURA:</label><input type="text" id="ef_altura" class="input-3dig" maxlength="3" placeholder="000"> <span style="font-weight:bold; font-size:9px;">CM</span></div>
-                <div class="form-group"><label>PA:</label><input type="text" id="ef_pa" class="input-6dig" maxlength="6" placeholder="12/8"></div>
-                <div class="form-group"><label>FC:</label><input type="text" id="ef_fc" class="input-3dig" maxlength="3" placeholder="00"> <span style="font-weight:bold; font-size:9px;">BPM</span></div>
+                <div class="form-group"><label>PESO:</label><input type="text" id="ef_peso" class="input-3dig" maxlength="3" placeholder="   "> <span style="font-weight:bold; font-size:9px;">KG</span></div>
+                <div class="form-group"><label>ALTURA:</label><input type="text" id="ef_altura" class="input-3dig" maxlength="3" placeholder="   "> <span style="font-weight:bold; font-size:9px;">CM</span></div>
+                <div class="form-group"><label>PA:</label><input type="text" id="ef_pa" class="input-6dig" maxlength="6" placeholder="      "></div>
+                <div class="form-group"><label>FC:</label><input type="text" id="ef_fc" class="input-3dig" maxlength="3" placeholder="   "> <span style="font-weight:bold; font-size:9px;">BPM</span></div>
                 <div class="form-group">
                     <label>Temp:</label>
                     <label><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afeb</label>
@@ -340,7 +342,7 @@
                 </div>
             </div>
             <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width: 25%;"><label>Mallampati:</label><input type="text" id="ef_mallampati" class="input-1dig" maxlength="1" placeholder="1"></div>
+                <div class="form-group" style="width: 25%;"><label>Mallampati:</label><input type="text" id="ef_mallampati" class="input-1dig" maxlength="1" placeholder=" "></div>
                 <div class="form-group" style="width: 30%;">
                     <label>DEM:</label>
                     <label><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12cm</label>
@@ -376,30 +378,36 @@
 
         <div class="section">
             <div class="section-title">EXAMES COMPLEMENTARES</div>
-            <div class="grid-3" style="grid-template-columns: repeat(4, 1fr); gap: 1px 4px;">
-                <div class="form-group"><label>VG:</label><input type="text" id="ex_vg"></div>
-                <div class="form-group"><label>HB:</label><input type="text" id="ex_hb"></div>
-                <div class="form-group"><label>Glicemia:</label><input type="text" id="ex_glicemia"></div>
-                <div class="form-group"><label>Plaq:</label><input type="text" id="ex_plaq"></div>
-                <div class="form-group"><label>TAP/RNI:</label><input type="text" id="ex_rni"></div>
-                <div class="form-group"><label>KPTT:</label><input type="text" id="ex_kptt"></div>
-                <div class="form-group"><label>Creatinina:</label><input type="text" id="ex_creat"></div>
-                <div class="form-group"><label>Uréia:</label><input type="text" id="ex_ureia"></div>
+            <div class="row" style="justify-content: space-between; gap: 4px;">
+                <div class="form-group"><label>VG:</label><input type="text" id="ex_vg" class="input-5dig"></div>
+                <div class="form-group"><label>HB:</label><input type="text" id="ex_hb" class="input-5dig"></div>
+                <div class="form-group"><label>Glicemia:</label><input type="text" id="ex_glicemia" class="input-5dig"></div>
+                <div class="form-group"><label>Plaq:</label><input type="text" id="ex_plaq" class="input-9dig"></div>
+            </div>
+            <div class="row" style="justify-content: space-between; gap: 4px; margin-top:1px;">
+                <div class="form-group"><label>TAP/RNI:</label><input type="text" id="ex_rni" class="input-5dig"></div>
+                <div class="form-group"><label>KPTT:</label><input type="text" id="ex_kptt" class="input-5dig"></div>
+                <div class="form-group"><label>Creatinina:</label><input type="text" id="ex_creat" class="input-5dig"></div>
+                <div class="form-group"><label>Uréia:</label><input type="text" id="ex_ureia" class="input-5dig"></div>
             </div>
             <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width: 50%;"><label>RX Tórax:</label><input type="text" id="ex_rx"></div>
-                <div class="form-group" style="width: 50%;"><label>ECG:</label><input type="text" id="ex_ecg"></div>
+                <div class="form-group" style="width:100%;"><label>RX Tórax:</label><input type="text" id="ex_rx"></div>
             </div>
-            <div class="form-group"><label>Outros:</label><input type="text" id="ex_outros"></div>
+            <div class="row" style="margin-top:1px;">
+                <div class="form-group" style="width:100%;"><label>ECG:</label><input type="text" id="ex_ecg"></div>
+            </div>
+            <div class="row" style="margin-top:1px;">
+                <div class="form-group" style="width:100%;"><label>Outros:</label><input type="text" id="ex_outros"></div>
+            </div>
         </div>
 
         <div class="section jejum-container">
             <div class="form-group">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
-                <input type="text" id="jej_solidos" maxlength="2" placeholder="00"> 
-                <label style="margin: 0 2px;"><span class="jejum-destaque">H</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
-                <input type="text" id="jej_liquidos" maxlength="2" placeholder="00"> 
-                <label style="margin-left: 2px;"><span class="jejum-destaque">H</span> PARA <span class="jejum-destaque">ÁGUA LIQUIDA</span>.</label>
+                <input type="text" id="jej_solidos" maxlength="2" placeholder="  "> 
+                <label style="margin: 0 2px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
+                <input type="text" id="jej_liquidos" maxlength="2" placeholder="  "> 
+                <label style="margin-left: 2px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
             </div>
         </div>
 
@@ -419,7 +427,7 @@
                     <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_3"><span class="btn-check"></span> III</label>
                     <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_4"><span class="btn-check"></span> IV</label>
                     <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_5"><span class="btn-check"></span> V</label>
-                    <label style="checkbox" name="emergencia" id="asa_e"><span class="btn-check"></span> E</label>
+                    <label style="margin-left:1px;"><input type="checkbox" id="asa_e"><span class="btn-check"></span> E</label>
                 </div>
             </div>
             <div class="form-group" style="margin-top:1px;"><label>Recomendações:</label><input type="text" id="concl_recom"></div>
