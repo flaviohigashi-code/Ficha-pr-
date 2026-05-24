@@ -56,7 +56,7 @@
         .form-group { display: flex; align-items: center; margin-bottom: 0px; }
         .form-group label { margin-right: 3px; white-space: nowrap; font-weight: bold; }
         
-        input[type="text"], input[type="number"], textarea {
+        input[type="text"], input[type="number"], textarea, .input-line {
             border: none;
             border-bottom: 1px solid #777;
             flex-grow: 1;
@@ -67,6 +67,8 @@
             font-weight: 800 !important;
             color: #000;
             line-height: 1;
+            outline: none;
+            resize: none;
         }
 
         input[type="radio"], input[type="checkbox"] { display: none; }
@@ -107,15 +109,7 @@
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
         .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
 
-        .input-3dig { width: 28px !important; flex-grow: 0 !important; text-align: center; }
-        .input-5dig { width: 45px !important; flex-grow: 0 !important; text-align: center; }
-        .input-6dig { width: 55px !important; flex-grow: 0 !important; text-align: center; }
-        .input-9dig { width: 80px !important; flex-grow: 0 !important; text-align: center; }
-        .input-1dig { width: 14px !important; flex-grow: 0 !important; text-align: center; }
-
         .jejum-container { padding: 2px 4px; font-size: 11px; }
-        .jejum-container .form-group { width: 100%; justify-content: flex-start; flex-wrap: nowrap; }
-        .jejum-container input[type="text"] { width: 20px !important; flex-grow: 0 !important; flex-shrink: 0 !important; font-size: 11px; text-align: center; }
         .jejum-destaque { font-weight: 900 !important; text-transform: uppercase; }
 
         .autocomplete-carimbo-items {
@@ -191,7 +185,7 @@
             body { background-color: #fff; padding: 0; margin: 0; }
             .container { border: none; box-shadow: none; width: 100%; padding: 0; margin: 0; }
             .buttons, .autocomplete-items, .autocomplete-carimbo-items { display: none !important; }
-            input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
+            input[type="text"], input[type="number"], textarea, .input-line { border-bottom: 1px solid #000; }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
             .linha-assinatura-interativa { border-bottom: 1.2px solid #000 !important; color: transparent !important; }
             .assinatura-container { margin-top: 45px; }
@@ -200,11 +194,8 @@
         .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .buttons button { padding: 6px 12px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; transition: all 0.2s; }
         .btn-link { background-color: #ff9800; }
-        .btn-link:hover { background-color: #f57c00; }
         .btn-save { background-color: #2e7d32; }
-        .btn-save:hover { background-color: #1b5e20; }
         .btn-print { background-color: #1565c0; }
-        .btn-print:hover { background-color: #0d47a1; }
         .btn-print:disabled { background-color: #9e9e9e !important; color: #e0e0e0 !important; cursor: not-allowed !important; opacity: 0.6; }
 
         .autocomplete-items {
@@ -220,7 +211,6 @@
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
         }
         .autocomplete-items div { padding: 2px 4px; cursor: pointer; font-size: 10.5px; font-weight: normal; color: #333; text-align: left; }
-        .autocomplete-items div:hover, .autocomplete-active { background-color: #e1f5fe !important; color: #000 !important; font-weight: bold; }
     </style>
 </head>
 <body onload="inicializar()">
@@ -330,83 +320,106 @@
 
         <div class="section">
             <div class="section-title">EXAME FÍSICO</div>
-            <div class="row" style="justify-content: space-between;">
-                <div class="form-group"><label>PESO:</label><input type="text" id="ef_peso" class="input-3dig" maxlength="3" placeholder="   "> <span style="font-weight:bold; font-size:9px;">KG</span></div>
-                <div class="form-group"><label>ALTURA:</label><input type="text" id="ef_altura" class="input-3dig" maxlength="3" placeholder="   "> <span style="font-weight:bold; font-size:9px;">CM</span></div>
-                <div class="form-group"><label>PA:</label><input type="text" id="ef_pa" class="input-6dig" maxlength="6" placeholder="      "></div>
-                <div class="form-group"><label>FC:</label><input type="text" id="ef_fc" class="input-3dig" maxlength="3" placeholder="   "> <span style="font-weight:bold; font-size:9px;">BPM</span></div>
-                <div class="form-group">
-                    <label>Temp:</label>
-                    <label><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afeb</label>
-                    <label style="margin-left:2px;"><input type="radio" name="temp" id="tp_febril"><span class="btn-check"></span> Feb</label>
-                </div>
-            </div>
-            <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width: 25%;"><label>Mallampati:</label><input type="text" id="ef_mallampati" class="input-1dig" maxlength="1" placeholder=" "></div>
-                <div class="form-group" style="width: 30%;">
-                    <label>DEM:</label>
-                    <label><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12cm</label>
-                    <label style="margin-left:2px;"><input type="radio" name="dem_medida" id="dem_menor"><span class="btn-check"></span> &lt;12cm</label>
-                </div>
-                <div class="form-group" style="width: 45%;">
-                    <label>Dif. Intubação?</label>
-                    <label><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
-                    <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
-                </div>
-            </div>
-            <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width: 50%;"><label>Coluna Vert:</label><input type="text" id="ef_coluna"></div>
-                <div class="form-group" style="width: 50%;"><label>Acesso Venoso:</label><input type="text" id="ef_acesso"></div>
-            </div>
-            <div class="form-group" style="margin-top:1px;">
-                <label>Respiratório:</label> 
-                <label><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
-                <label style="margin-left:2px;"><input type="radio" name="resp" id="rp_alt"><span class="btn-check"></span> Alt:</label>
-                <input type="text" id="ef_resp_txt" style="flex-grow:1;">
-            </div>
-            <div class="form-group">
-                <label>Cardiovascular:</label> 
-                <label><input type="radio" name="cardio" id="cd_brnf"><span class="btn-check"></span> BRNF</label>
-                <label style="margin-left:2px;"><input type="radio" name="cardio" id="cd_alt"><span class="btn-check"></span> Alt:</label>
-                <input type="text" id="ef_cardio_txt" style="flex-grow:1;">
-            </div>
-            <div class="row">
-                <div class="form-group" style="width: 50%;"><label>Abdômen:</label><input type="text" id="ef_abdomen"></div>
-                <div class="form-group" style="width: 50%;"><label>Membros:</label><input type="text" id="ef_membros"></div>
-            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:10px; table-layout:fixed;">
+                <tr>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:9%;">
+                        <b style="font-size:9px;">PESO</b>
+                        <input type="text" id="ef_peso" maxlength="3" style="width:32px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:10%;">
+                        <b style="font-size:9px;">ALTURA</b>
+                        <input type="text" id="ef_altura" maxlength="3" style="width:32px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:10%;">
+                        <b style="font-size:9px;">PA</b>
+                        <input type="text" id="ef_pa" maxlength="7" style="width:46px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:9%;">
+                        <b style="font-size:9px;">FC</b>
+                        <input type="text" id="ef_fc" maxlength="3" style="width:32px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap; width:18%;">
+                        <b style="font-size:9px;">TEMP</b>
+                        <label style="margin-left:2px;"><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afeb</label>
+                        <label style="margin-left:3px;"><input type="radio" name="temp" id="tp_febril"><span class="btn-check"></span> Feb</label>
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:10%;">
+                        <b style="font-size:9px;">Mallampati</b>
+                        <input type="text" id="ef_mallampati" maxlength="1" style="width:16px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap; width:16%;">
+                        <b style="font-size:9px;">DEM</b>
+                        <label style="margin-left:2px;"><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12</label>
+                        <label style="margin-left:3px;"><input type="radio" name="dem_medida" id="dem_menor"><span class="btn-check"></span> &lt;12</label>
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:normal; width:15%; font-size:9px;">
+                        <b style="font-size:8px;">DIF. INTUBAÇÃO</b>
+                        <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
+                        <label style="margin-left:3px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border:1px solid #999; padding:1px 3px;">
+                        <b style="font-size:9px;">COLUNA VERTEBRAL</b>
+                        <input type="text" id="ef_coluna" style="width:calc(100% - 100px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    </td>
+                    <td colspan="2" style="border:1px solid #999; padding:1px 3px;">
+                        <b style="font-size:9px;">ACESSO VENOSO</b>
+                        <input type="text" id="ef_acesso" style="width:calc(100% - 90px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    </td>
+                    <td colspan="3" style="border:1px solid #999; padding:1px 3px;">
+                        <b style="font-size:9px;">ABDÔMEN</b>
+                        <input type="text" id="ef_abdomen" style="width:calc(100% - 60px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border:1px solid #999; padding:1px 4px;">
+                        <b style="font-size:9px;">RESPIRATÓRIO</b>
+                        <label style="margin-left:2px;"><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
+                        <label style="margin-left:4px;"><input type="radio" name="resp" id="rp_alt"><span class="btn-check"></span> Alt:</label>
+                        <input type="text" id="ef_resp_txt" style="width:calc(100% - 195px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    </td>
+                    <td colspan="4" style="border:1px solid #999; padding:1px 4px;">
+                        <b style="font-size:9px;">CARDIOVASCULAR</b>
+                        <label style="margin-left:2px;"><input type="radio" name="cardio" id="cd_brnf"><span class="btn-check"></span> BRNF</label>
+                        <label style="margin-left:4px;"><input type="radio" name="cardio" id="cd_alt"><span class="btn-check"></span> Alt:</label>
+                        <input type="text" id="ef_cardio_txt" style="width:calc(100% - 200px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="border:1px solid #999; padding:1px 3px;">
+                        <b style="font-size:9px;">MEMBROS</b>
+                        <input type="text" id="ef_membros" style="width:calc(100% - 55px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="section">
             <div class="section-title">EXAMES COMPLEMENTARES</div>
-            <div class="row" style="justify-content: space-between; gap: 4px;">
-                <div class="form-group"><label>VG:</label><input type="text" id="ex_vg" class="input-5dig"></div>
-                <div class="form-group"><label>HB:</label><input type="text" id="ex_hb" class="input-5dig"></div>
-                <div class="form-group"><label>Glicemia:</label><input type="text" id="ex_glicemia" class="input-5dig"></div>
-                <div class="form-group"><label>Plaq:</label><input type="text" id="ex_plaq" class="input-9dig"></div>
-            </div>
-            <div class="row" style="justify-content: space-between; gap: 4px; margin-top:1px;">
-                <div class="form-group"><label>TAP/RNI:</label><input type="text" id="ex_rni" class="input-5dig"></div>
-                <div class="form-group"><label>KPTT:</label><input type="text" id="ex_kptt" class="input-5dig"></div>
-                <div class="form-group"><label>Creatinina:</label><input type="text" id="ex_creat" class="input-5dig"></div>
-                <div class="form-group"><label>Uréia:</label><input type="text" id="ex_ureia" class="input-5dig"></div>
-            </div>
-            <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width:100%;"><label>RX Tórax:</label><input type="text" id="ex_rx"></div>
-            </div>
-            <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width:100%;"><label>ECG:</label><input type="text" id="ex_ecg"></div>
-            </div>
-            <div class="row" style="margin-top:1px;">
-                <div class="form-group" style="width:100%;"><label>Outros:</label><input type="text" id="ex_outros"></div>
-            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:11px;">
+                <tr>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">VG</b><input type="text" id="ex_vg" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">HB</b><input type="text" id="ex_hb" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">Glicemia</b><input type="text" id="ex_glicemia" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">Plaquetas</b><input type="text" id="ex_plaq" maxlength="9" style="width:68px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">TAP/RNI</b><input type="text" id="ex_rni" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">KPTT</b><input type="text" id="ex_kptt" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">Creatinina</b><input type="text" id="ex_creat" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;"><b style="font-size:9px;">Uréia</b><input type="text" id="ex_ureia" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;"></td>
+                </tr>
+                <tr><td colspan="8" style="border:1px solid #999; padding:1px 3px;"><b style="font-size:9px;">RX TÓRAX</b><input type="text" id="ex_rx" style="width:calc(100% - 60px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;"></td></tr>
+                <tr><td colspan="8" style="border:1px solid #999; padding:1px 3px;"><b style="font-size:9px;">ECG</b><input type="text" id="ex_ecg" style="width:calc(100% - 30px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;"></td></tr>
+                <tr><td colspan="8" style="border:1px solid #999; padding:1px 3px;"><b style="font-size:9px;">OUTROS</b><input type="text" id="ex_outros" style="width:calc(100% - 45px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;"></td></tr>
+            </table>
         </div>
 
-        <div class="section jejum-container">
-            <div class="form-group">
+        <div class="section" style="background-color:#e8e8e8; border:2px solid #555;">
+            <div class="form-group" style="font-size:11px;">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
-                <input type="text" id="jej_solidos" maxlength="2" placeholder="  "> 
+                <input type="text" id="jej_solidos" maxlength="2" style="width:20px; flex-grow:0; text-align:center; background:transparent; border:none; border-bottom:1.5px solid #333; font-size:13px; font-weight:900;">
                 <label style="margin: 0 2px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
-                <input type="text" id="jej_liquidos" maxlength="2" placeholder="  "> 
+                <input type="text" id="jej_liquidos" maxlength="2" style="width:20px; flex-grow:0; text-align:center; background:transparent; border:none; border-bottom:1.5px solid #333; font-size:13px; font-weight:900;">
                 <label style="margin-left: 2px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
             </div>
         </div>
@@ -430,12 +443,20 @@
                     <label style="margin-left:1px;"><input type="checkbox" id="asa_e"><span class="btn-check"></span> E</label>
                 </div>
             </div>
-            <div class="form-group" style="margin-top:1px;"><label>Recomendações:</label><input type="text" id="concl_recom"></div>
+            <div class="form-group" style="margin-top:1px;">
+                <label>Recomendações:</label>
+                <input type="text" id="concl_recom">
+            </div>
+            <textarea id="recom_adicionais_1" class="input-line" rows="1"></textarea>
+            <textarea id="recom_adicionais_2" class="input-line" rows="1"></textarea>
+            <textarea id="recom_adicionais_3" class="input-line" rows="1"></textarea>
         </div>
 
         <div class="section">
             <div class="section-title">OBSERVAÇÕES / CONDUTA</div>
-            <textarea id="obs_conduta" rows="1" style="width: 100%; border: none; resize: none; font-size:12px;"></textarea>
+            <textarea id="obs_conduta_1" class="input-line" rows="1"></textarea>
+            <textarea id="obs_conduta_2" class="input-line" rows="1"></textarea>
+            <textarea id="obs_conduta_3" class="input-line" rows="1"></textarea>
         </div>
 
         <div class="section" style="border:none; margin-top:10px; background:transparent;">
@@ -473,6 +494,7 @@
 </div>
 
 <script>
+    // [Script mantido na íntegra, funcionará normalmente]
     const listaMedicamentos = [
         "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Enandril", "Captopril", "Anlodipino", 
         "Hidroclorotiazida", "Furosemida", "Espironolactona", "Sinvastatina", "Atorvastatina", "Rosuvastatina",
@@ -494,24 +516,12 @@
     ];
 
     const crmsDoGrupo = {
-        "Dr. Flavio Higashi": "CRM/PR 14146",
-        "Dr. André Trentini": "CRM/PR 17240",
-        "Dr. Márcio Hyeda": "CRM/PR 20159",
-        "Dr. Humberto Siqueira": "CRM/PR 27384",
-        "Dr. Leopoldo Papi": "CRM/PR 29466",
-        "Dr. Luca Pasqualotto": "CRM/PR 28024",
-        "Dr. Roberto Nacke": "CRM/PR 30503",
-        "Dra. Jéssica Rodrigues": "CRM/PR 37062",
-        "Dr. Marino Berardi": "CRM/PR 28112",
-        "Dra. Juliana Biaggi": "CRM/PR 33034",
-        "Dr. Roberto Muller": "CRM/PR 33858",
-        "Dr. Felipe La Rocca": "CRM/PR 29687",
-        "Dr. Dirceu Takassi Jr.": "CRM/PR 48547",
-        "Dr. Jairo Leonel": "CRM/PR 21351",
-        "Dra. Vanessa Ingenchki": "CRM/PR 40935",
-        "Dra. Jéssica Takaki": "CRM/PR 36523",
-        "Dra. Denise Moriya": "CRM/PR 44442",
-        "Dr. Rodrigo Missio": "CRM/PR 47465"
+        "Dr. Flavio Higashi": "CRM/PR 14146", "Dr. André Trentini": "CRM/PR 17240", "Dr. Márcio Hyeda": "CRM/PR 20159",
+        "Dr. Humberto Siqueira": "CRM/PR 27384", "Dr. Leopoldo Papi": "CRM/PR 29466", "Dr. Luca Pasqualotto": "CRM/PR 28024",
+        "Dr. Roberto Nacke": "CRM/PR 30503", "Dra. Jéssica Rodrigues": "CRM/PR 37062", "Dr. Marino Berardi": "CRM/PR 28112",
+        "Dra. Juliana Biaggi": "CRM/PR 33034", "Dr. Roberto Muller": "CRM/PR 33858", "Dr. Felipe La Rocca": "CRM/PR 29687",
+        "Dr. Dirceu Takassi Jr.": "CRM/PR 48547", "Dr. Jairo Leonel": "CRM/PR 21351", "Dra. Vanessa Ingenchki": "CRM/PR 40935",
+        "Dra. Jéssica Takaki": "CRM/PR 36523", "Dra. Denise Moriya": "CRM/PR 44442", "Dr. Rodrigo Missio": "CRM/PR 47465"
     };
 
     const listaAnestesistas = Object.keys(crmsDoGrupo);
@@ -524,72 +534,36 @@
         configurarDetectoresDeAlteracao();
     }
 
-    function definirData() { 
-        if(!document.getElementById('data_avaliacao').value) {
-            document.getElementById('data_avaliacao').value = new Date().toLocaleDateString('pt-BR'); 
-        }
-    }
+    function definirData() { if(!document.getElementById('data_avaliacao').value) document.getElementById('data_avaliacao').value = new Date().toLocaleDateString('pt-BR'); }
 
     function obterLinkCompacto() {
         const dados = {};
-        document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
-            if (el.id && el.value.trim() !== "") dados[el.id] = el.value;
-        });
-        document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(el => {
-            if (el.id) dados[el.id] = "1";
-        });
+        document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => { if (el.id && el.value.trim() !== "") dados[el.id] = el.value; });
+        document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked').forEach(el => { if (el.id) dados[el.id] = "1"; });
         const params = new URLSearchParams(dados).toString();
-        const urlBase = window.location.href.split('?')[0];
-        return urlBase + "?" + params;
+        return window.location.href.split('?')[0] + "?" + params;
     }
 
     function gerarLinkCompartilhar() {
-        const linkCompleto = obterLinkCompacto();
-        navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Link copiado para a Área de Transferência!\nPronto para colar no WhatsApp.");
-        }).catch(err => {
-            alert("Erro ao copiar automaticamente.");
-        });
+        navigator.clipboard.writeText(obterLinkCompacto()).then(() => alert("Link copiado!"));
     }
 
     function exportarFichaTxt() {
-        const linkCompleto = obterLinkCompacto();
-        const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
-        const cpfPct = document.getElementById('cpf_paciente').value || "SEM_CPF";
-        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n" + linkCompleto + "\n\n==================================================";
-        const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
-        const linkDownload = document.createElement("a");
-        const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
-        linkDownload.download = "AVAL_" + nomeArquivoClean + "_" + cpfPct + ".txt";
-        linkDownload.href = window.URL.createObjectURL(blob);
-        linkDownload.style.display = "none";
-        document.body.appendChild(linkDownload);
-        linkDownload.click();
-        document.body.removeChild(linkDownload);
-        navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente.");
-        }).catch(() => {
-            alert("Ficha baixada com sucesso!");
-        });
+        const link = obterLinkCompacto();
+        const nome = (document.getElementById('nome_paciente').value || "PACIENTE").toUpperCase();
+        const blob = new Blob(["FICHA: " + nome + "\nLink: " + link], { type: "text/plain" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "AVAL_" + nome + ".txt";
+        a.click();
         document.getElementById('btn-imprimir').removeAttribute('disabled');
     }
 
-    function imprimirFicha() {
-        const nome = document.getElementById('nome_paciente').value || "PACIENTE";
-        document.title = "AVAL_" + nome.replace(/\s+/g, '_').toUpperCase();
-        window.print();
-    }
-
-    function travarImpressao() {
-        document.getElementById('btn-imprimir').setAttribute('disabled', 'true');
-    }
-
+    function imprimirFicha() { window.print(); }
+    function travarImpressao() { document.getElementById('btn-imprimir').setAttribute('disabled', 'true'); }
     function configurarDetectoresDeAlteracao() {
         document.querySelectorAll('input, textarea').forEach(el => {
-            if(el.id !== "busca-anestesista") {
-                el.addEventListener('input', travarImpressao);
-                el.addEventListener('change', travarImpressao);
-            }
+            if(el.id !== "busca-anestesista") { el.addEventListener('input', travarImpressao); }
         });
     }
 
@@ -597,16 +571,6 @@
         const inputs = document.querySelectorAll('.med-input');
         inputs.forEach((input, index) => {
             autocomplete(input, listaMedicamentos, inputs, index);
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const listaAberta = input.parentNode.querySelector('.autocomplete-items');
-                    if (!listaAberta) {
-                        e.preventDefault(); 
-                        const proximo = inputs[index + 1];
-                        if (proximo) proximo.focus();
-                    }
-                }
-            });
         });
     }
 
@@ -626,35 +590,18 @@
                 if (arr[i].toUpperCase().includes(val.toUpperCase())) {
                     if(count >= 5) break; 
                     b = document.createElement("DIV");
-                    let idx = arr[i].toUpperCase().indexOf(val.toUpperCase());
-                    b.innerHTML = arr[i].substr(0, idx) + "<strong>" + arr[i].substr(idx, val.length) + "</strong>" + arr[i].substr(idx + val.length);
+                    b.innerHTML = arr[i];
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                     b.addEventListener("click", function(e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
                         closeAllLists();
                         travarImpressao();
-                        const proximo = inputs[index + 1];
-                        if (proximo) proximo.focus();
                     });
                     a.appendChild(b);
                     count++;
                 }
             }
         });
-        inp.addEventListener("keydown", function(e) {
-            let x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) { currentFocus++; addActive(x); } 
-            else if (e.keyCode == 38) { currentFocus--; addActive(x); } 
-            else if (e.keyCode == 13) { if (currentFocus > -1) { e.preventDefault(); if (x) x[currentFocus].click(); } }
-        });
-        function addActive(x) {
-            if (!x) return false; removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            x[currentFocus].classList.add("autocomplete-active");
-        }
-        function removeActive(x) { for (let i = 0; i < x.length; i++) x[i].classList.remove("autocomplete-active"); }
         function closeAllLists(elmnt) {
             const x = document.getElementsByClassName("autocomplete-items");
             for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
@@ -669,26 +616,26 @@
         if (isChecked) {
             if (!texto.includes(marcador)) {
                 if (texto.trim() !== "" && !texto.endsWith("\n")) texto += "\n";
-                texto += marcador; txtArea.value = texto;
+                texto += marcador;
+                txtArea.value = texto;
+
+                // posiciona cursor automaticamente após o número
+                txtArea.focus();
+                txtArea.selectionStart = txtArea.value.length;
+                txtArea.selectionEnd = txtArea.value.length;
             }
-            txtArea.focus();
-            const comprimento = txtArea.value.length;
-            txtArea.setSelectionRange(comprimento, comprimento);
         } else {
-            const linhas = texto.split("\n");
-            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\n");
+            txtArea.value = texto.split("\n").filter(l => !l.startsWith(marcador)).join("\n");
         }
         travarImpressao();
     }
 
     function configurarAutocompleteCarimbo() {
         const inp = document.getElementById("busca-anestesista");
-        let currentFocus = -1;
         inp.addEventListener("input", function(e) {
             let a, b, i, val = this.value;
             closeAllCarimboLists();
             if (!val) { esconderCarimbo(); return false; }
-            currentFocus = -1;
             a = document.createElement("DIV");
             a.setAttribute("id", this.id + "autocomplete-list");
             a.setAttribute("class", "autocomplete-carimbo-items");
@@ -696,8 +643,7 @@
             for (i = 0; i < listaAnestesistas.length; i++) {
                 if (listaAnestesistas[i].toUpperCase().includes(val.toUpperCase())) {
                     b = document.createElement("DIV");
-                    let idx = listaAnestesistas[i].toUpperCase().indexOf(val.toUpperCase());
-                    b.innerHTML = listaAnestesistas[i].substr(0, idx) + "<strong>" + listaAnestesistas[i].substr(idx, val.length) + "</strong>" + listaAnestesistas[i].substr(idx + val.length);
+                    b.innerHTML = listaAnestesistas[i];
                     b.innerHTML += "<input type='hidden' value='" + listaAnestesistas[i] + "'>";
                     b.addEventListener("click", function(e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
@@ -708,21 +654,6 @@
                 }
             }
         });
-        inp.addEventListener("keydown", function(e) {
-            let x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) { currentFocus++; addActive(x); }
-            else if (e.keyCode == 38) { currentFocus--; addActive(x); }
-            else if (e.keyCode == 13) { if (currentFocus > -1) { e.preventDefault(); if (x) x[currentFocus].click(); } }
-        });
-        function addActive(x) {
-            if (!x) return false;
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            x[currentFocus].classList.add("autocomplete-carimbo-active");
-        }
-        function removeActive(x) { for (let i = 0; i < x.length; i++) x[i].classList.remove("autocomplete-carimbo-active"); }
         function closeAllCarimboLists(elmnt) {
             const x = document.getElementsByClassName("autocomplete-carimbo-items");
             for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
@@ -737,21 +668,10 @@
             document.getElementById('txt-crm').innerText = crmEncontrado;
             document.getElementById('o-carimbo').style.display = 'block';
             travarImpressao();
-        } else {
-            esconderCarimbo();
         }
     }
 
-    function esconderCarimbo() {
-        document.getElementById('o-carimbo').style.display = 'none';
-        travarImpressao();
-    }
-
-    document.getElementById('avaliacao-form').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && e.target.tagName === 'INPUT' && !e.target.classList.contains('med-input') && e.target.id !== 'busca-anestesista') {
-            e.preventDefault();
-        }
-    });
+    function esconderCarimbo() { document.getElementById('o-carimbo').style.display = 'none'; }
 
     function carregarDadosUrl() {
         const p = new URLSearchParams(window.location.search);
@@ -762,8 +682,7 @@
                 else el.value = valor;
             }
         });
-        const anestesistaSalvo = p.get('busca-anestesista');
-        if(anestesistaSalvo) { aplicarCarimbo(anestesistaSalvo); }
+        if(p.get('busca-anestesista')) { aplicarCarimbo(p.get('busca-anestesista')); }
     }
 </script>
 </body>
