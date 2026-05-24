@@ -170,7 +170,7 @@
             background: transparent;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-size: 12.5px;
-            color: transparent !important; /* Texto digitado invisível para não encavalar com o carimbo */
+            color: transparent !important;
             text-shadow: 0 0 0 transparent !important;
             text-align: center;
             outline: none;
@@ -190,15 +190,15 @@
             border: 2px solid #0f2a4a; 
             color: #0f2a4a; 
             opacity: 0.55; 
-            padding: 4px 6px; 
+            padding: 5px 6px; 
             border-radius: 4px; 
             font-family: 'Courier New', monospace; 
             font-weight: bold; 
             text-transform: uppercase; 
-            width: 230px; 
+            width: 235px; 
             box-sizing: border-box; 
             position: absolute;
-            bottom: 4px; /* Flutua perfeitamente logo acima do traço */
+            bottom: 4px;
             left: 50%;
             transform: translate(-50%, 0) rotate(-1.5deg);
             background-color: rgba(255, 255, 255, 0.9);
@@ -207,7 +207,26 @@
             text-align: center;
         }
 
-        /* CORREÇÃO VISUAL DE ESPAÇAMENTO PARA NÃO EMBOLAR O RODAPÉ */
+        /* LINHA INFERIOR DO CARIMBO COM ALINHAMENTO DA LOGO REAL */
+        .carimbo-linha-inferior {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 3px;
+        }
+
+        /* MINI LOGO REAL (PNG) TINTADA NA COR DO CARIMBO */
+        .mini-logo-real-carimbo {
+            display: inline-block;
+            height: 11px;
+            width: auto;
+            object-fit: contain;
+            vertical-align: middle;
+            filter: drop-shadow(0px 0px 0px #0f2a4a) brightness(0.2) sepia(1) hue-rotate(190deg) saturate(5);
+        }
+
+        /* VISUAL DO RODAPÉ DE ASSINATURAS */
         .assinatura-container {
             display: flex;
             justify-content: space-between;
@@ -217,9 +236,7 @@
         }
         .assinatura-box {
             text-align: center;
-            border-top: 1.2px solid #000;
             font-weight: bold;
-            padding-top: 4px;
         }
 
         @media print {
@@ -229,7 +246,7 @@
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
             .linha-assinatura-interativa { border-bottom: 1.2px solid #000 !important; color: transparent !important; }
-            .assinatura-container { margin-top: 45px; } /* Dá o respiro ideal na folha física */
+            .assinatura-container { margin-top: 45px; }
         }
 
         .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
@@ -455,7 +472,7 @@
         </div>
 
         <div class="section">
-            <div class="section-title">CONCLUSIONS</div>
+            <div class="section-title">CONCLUSÕES</div>
             <div class="row" style="justify-content: space-between;">
                 <div class="form-group">
                     <label>LIBERADO:</label>
@@ -491,11 +508,14 @@
                     <div class="container-carimbo-flutuante">
                         <div id="o-carimbo">
                             <span id="txt-nome" style="font-size: 13px; display: block;"></span>
-                            <span id="txt-crm" style="font-size: 10.5px; display: block; margin-top: 2px;"></span>
+                            <div class="carimbo-linha-inferior">
+                                <img src="logo-anesthemed.png" class="mini-logo-real-carimbo" alt="Logo">
+                                <span id="txt-crm" style="font-size: 10.5px;"></span>
+                            </div>
                         </div>
                     </div>
                     <input id="busca-anestesista" class="linha-assinatura-interativa" autocomplete="off" placeholder="">
-                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase;">Anestesiologista</div>
+                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase; padding-top: 4px;">Anestesiologista</div>
                     
                     <div id="rodape-miudo" style="display: none; font-size: 11px; margin-top: 5px; text-transform: uppercase; line-height: 1.2;">
                         <strong id="miudo-nome"></strong><br>
@@ -503,7 +523,7 @@
                     </div>
                 </div>
                 
-                <div class="assinatura-box" style="width: 30%; padding-top: 20px;">
+                <div class="assinatura-box" style="width: 30%; border-top: 1.2px solid #000; padding-top: 4px;">
                     Paciente / Responsável
                 </div>
             </div>
