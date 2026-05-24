@@ -133,12 +133,103 @@
             text-transform: uppercase;
         }
 
+        /* AUTOCOMPLETE EXCLUSIVO DO CARIMBO ANESTESISTA */
+        .autocomplete-carimbo-items {
+            position: absolute;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            z-index: 99;
+            top: 20px;
+            left: 5%;
+            right: 5%;
+            max-height: 140px;
+            overflow-y: auto;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .autocomplete-carimbo-items div {
+            padding: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: normal;
+            color: #333;
+            text-align: left;
+        }
+        .autocomplete-carimbo-items div:hover, .autocomplete-carimbo-active {
+            background-color: #e1f5fe !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+        /* INPUT EM ESTILO DE LINHA DE ASSINATURA INTERATIVA */
+        .linha-assinatura-interativa {
+            border: none;
+            border-bottom: 1.2px solid #000 !important;
+            width: 100%;
+            padding: 2px 0px;
+            background: transparent;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 12.5px;
+            color: transparent !important; /* Texto digitado invisível para não encavalar com o carimbo */
+            text-shadow: 0 0 0 transparent !important;
+            text-align: center;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        /* CONTAINER ABSOLUTO PARA O EMBARQUE DO CARIMBO */
+        .container-carimbo-flutuante {
+            position: relative;
+            width: 100%;
+            height: 0px;
+        }
+
+        /* DESIGN DO CARIMBO - AZUL SEGUNDA BATIDA BROTHER */
+        #o-carimbo {
+            display: none; 
+            border: 2px solid #0f2a4a; 
+            color: #0f2a4a; 
+            opacity: 0.55; 
+            padding: 4px 6px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', monospace; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            width: 230px; 
+            box-sizing: border-box; 
+            position: absolute;
+            bottom: 4px; /* Flutua perfeitamente logo acima do traço */
+            left: 50%;
+            transform: translate(-50%, 0) rotate(-1.5deg);
+            background-color: rgba(255, 255, 255, 0.9);
+            pointer-events: none;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* CORREÇÃO VISUAL DE ESPAÇAMENTO PARA NÃO EMBOLAR O RODAPÉ */
+        .assinatura-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        .assinatura-box {
+            text-align: center;
+            border-top: 1.2px solid #000;
+            font-weight: bold;
+            padding-top: 4px;
+        }
+
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
             .container { border: none; box-shadow: none; width: 100%; padding: 0; margin: 0; }
-            .buttons, .autocomplete-items { display: none !important; }
+            .buttons, .autocomplete-items, .autocomplete-carimbo-items { display: none !important; }
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
+            .linha-assinatura-interativa { border-bottom: 1.2px solid #000 !important; color: transparent !important; }
+            .assinatura-container { margin-top: 45px; } /* Dá o respiro ideal na folha física */
         }
 
         .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
@@ -191,7 +282,6 @@
             <div class="header-contact"><span class="loc-name">Inovare</span><span class="phone-num">(42) 3026-2640</span></div>
         </div>
 
-        <!-- IDENTIFICAÇÃO DO PACIENTE -->
         <div class="section">
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Nome:</label><input type="text" id="nome_paciente"></div>
@@ -207,7 +297,6 @@
             </div>
         </div>
 
-        <!-- TRIAGEM DE SINTOMAS / DOENÇAS -->
         <div class="section">
             <div class="section-title">Assinale as doenças ou sintomas que tem ou que teve: S/N</div>
             <div class="grid-3">
@@ -248,7 +337,6 @@
             </div>
         </div>
 
-        <!-- COMENTÁRIOS E MEDICAÇÃO -->
         <div class="section med-com-split">
             <div style="border-right: 1px solid #000; padding-right: 4px;">
                 <div class="section-title">COMENTAR DADOS POSITIVOS</div>
@@ -289,7 +377,6 @@
             </div>
         </div>
 
-        <!-- EXAME FÍSICO E EXAMES COMPLEMENTARES -->
         <div class="section">
             <div class="section-title">EXAME FÍSICO</div>
             <div class="row" style="justify-content: space-between;">
@@ -338,7 +425,6 @@
             </div>
         </div>
 
-        <!-- EXAMES COMPLEMENTARES -->
         <div class="section">
             <div class="section-title">EXAMES COMPLEMENTARES</div>
             <div class="grid-3" style="grid-template-columns: repeat(4, 1fr); gap: 1px 4px;">
@@ -358,7 +444,6 @@
             <div class="form-group"><label>Outros:</label><input type="text" id="ex_outros"></div>
         </div>
 
-        <!-- BLOCO DE JEJUM -->
         <div class="section jejum-container">
             <div class="form-group">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
@@ -369,9 +454,8 @@
             </div>
         </div>
 
-        <!-- CONCLUSÕES -->
         <div class="section">
-            <div class="section-title">CONCLUSÕES</div>
+            <div class="section-title">CONCLUSIONS</div>
             <div class="row" style="justify-content: space-between;">
                 <div class="form-group">
                     <label>LIBERADO:</label>
@@ -386,28 +470,45 @@
                     <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_3"><span class="btn-check"></span> III</label>
                     <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_4"><span class="btn-check"></span> IV</label>
                     <label style="margin-left:1px;"><input type="radio" name="asa" id="asa_5"><span class="btn-check"></span> V</label>
-                    <label style="margin-left:2px;"><input type="checkbox" name="emergencia" id="asa_e"><span class="btn-check"></span> E</label>
+                    <label style="checkbox" name="emergencia" id="asa_e"><span class="btn-check"></span> E</label>
                 </div>
             </div>
             <div class="form-group" style="margin-top:1px;"><label>Recomendações:</label><input type="text" id="concl_recom"></div>
         </div>
 
-        <!-- CONDUTA FINAL -->
         <div class="section">
             <div class="section-title">OBSERVAÇÕES / CONDUTA</div>
             <textarea id="obs_conduta" rows="1" style="width: 100%; border: none; resize: none; font-size:12px;"></textarea>
         </div>
 
-        <!-- ASSINATURAS -->
-        <div class="section" style="border:none; margin-top:14px;">
-            <div class="row">
-                <div style="width: 25%; text-align: left;">Data: <input type="text" id="data_avaliacao" style="width: 70px;"></div>
-                <div style="width: 40%; text-align: center; border-top: 1.2px solid #000; font-weight: bold; padding-top:1px;">Anestesiologista</div>
-                <div style="width: 35%; text-align: center; border-top: 1.2px solid #000; font-weight: bold; padding-top:1px;">Paciente / Responsável</div>
+        <div class="section" style="border:none; margin-top:10px; background:transparent;">
+            <div class="assinatura-container">
+                <div style="width: 20%; text-align: left; font-weight: bold; padding-top: 15px;">
+                    Data: <input type="text" id="data_avaliacao" style="width: 70px;">
+                </div>
+                
+                <div class="assinatura-box" style="width: 45%; min-height: 95px; position: relative; border-top: none; padding-top: 0;">
+                    <div class="container-carimbo-flutuante">
+                        <div id="o-carimbo">
+                            <span id="txt-nome" style="font-size: 13px; display: block;"></span>
+                            <span id="txt-crm" style="font-size: 10.5px; display: block; margin-top: 2px;"></span>
+                        </div>
+                    </div>
+                    <input id="busca-anestesista" class="linha-assinatura-interativa" autocomplete="off" placeholder="">
+                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase;">Anestesiologista</div>
+                    
+                    <div id="rodape-miudo" style="display: none; font-size: 11px; margin-top: 5px; text-transform: uppercase; line-height: 1.2;">
+                        <strong id="miudo-nome"></strong><br>
+                        <span id="miudo-crm" style="font-size: 10px; font-weight: normal; color: #444;"></span>
+                    </div>
+                </div>
+                
+                <div class="assinatura-box" style="width: 30%; padding-top: 20px;">
+                    Paciente / Responsável
+                </div>
             </div>
         </div>
 
-        <!-- BOTOES DE CONTROLE REFORMULADOS -->
         <div class="buttons">
             <button type="button" class="btn-link" onclick="gerarLinkCompartilhar()">Secretaria: Copiar Link</button>
             <button type="button" class="btn-save" onclick="exportarFichaTxt()">1. Salvar Arquivo da Ficha</button>
@@ -437,10 +538,35 @@
         "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
+    // Banco de Dados Unificado do Grupo AnestheMed
+    const crmsDoGrupo = {
+        "Dr. Flavio Higashi": "CRM/PR 14146",
+        "Dr. André Trentini": "CRM/PR 17240",
+        "Dr. Márcio Hyeda": "CRM/PR 20159",
+        "Dr. Humberto Siqueira": "CRM/PR 27384",
+        "Dr. Leopoldo Papi": "CRM/PR 29466",
+        "Dr. Luca Pasqualotto": "CRM/PR 28024",
+        "Dr. Roberto Nacke": "CRM/PR 30503",
+        "Dra. Jéssica Rodrigues": "CRM/PR 37062",
+        "Dr. Marino Berardi": "CRM/PR 28112",
+        "Dra. Juliana Biaggi": "CRM/PR 33034",
+        "Dr. Roberto Muller": "CRM/PR 33858",
+        "Dr. Felipe La Rocca": "CRM/PR 29687",
+        "Dr. Dirceu Takassi Jr.": "CRM/PR 48547",
+        "Dr. Jairo Leonel": "CRM/PR 21351",
+        "Dra. Vanessa Ingenchki": "CRM/PR 40935",
+        "Dra. Jéssica Takaki": "CRM/PR 36523",
+        "Dra. Denise Moriya": "CRM/PR 44442",
+        "Dr. Rodrigo Missio": "CRM/PR 47465"
+    };
+
+    const listaAnestesistas = Object.keys(crmsDoGrupo);
+
     function inicializar() {
         definirData();
         carregarDadosUrl();
         configurarAutocompleteEMedicamentos();
+        configurarAutocompleteCarimbo();
         configurarDetectoresDeAlteracao();
     }
 
@@ -481,7 +607,7 @@
 
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
         const linkDownload = document.createElement("a");
-        const nomeArquivoClean = nomePct.replace(/\\s+/g, '_');
+        const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
         linkDownload.download = `AVAL_${nomeArquivoClean}_${cpfPct}.txt`;
         linkDownload.href = window.URL.createObjectURL(blob);
         linkDownload.style.display = "none";
@@ -500,7 +626,7 @@
 
     function imprimirFicha() {
         const nome = document.getElementById('nome_paciente').value || "PACIENTE";
-        document.title = "AVAL_" + nome.replace(/\\s+/g, '_').toUpperCase();
+        document.title = "AVAL_" + nome.replace(/\s+/g, '_').toUpperCase();
         window.print();
     }
 
@@ -510,8 +636,10 @@
 
     function configurarDetectoresDeAlteracao() {
         document.querySelectorAll('input, textarea').forEach(el => {
-            el.addEventListener('input', travarImpressao);
-            el.addEventListener('change', travarImpressao);
+            if(el.id !== "busca-anestesista") {
+                el.addEventListener('input', travarImpressao);
+                el.addEventListener('change', travarImpressao);
+            }
         });
     }
 
@@ -607,8 +735,114 @@
         travarImpressao();
     }
 
+    // MECÂNICA DE AUTOCOMPLETE EXCLUSIVA PARA O CARIMBO
+    function configurarAutocompleteCarimbo() {
+        const inp = document.getElementById("busca-anestesista");
+        let currentFocus = -1;
+
+        inp.addEventListener("input", function(e) {
+            let a, b, i, val = this.value;
+            closeAllCarimboLists();
+            
+            if (!val) { 
+                esconderCarimbo();
+                return false; 
+            }
+            
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-carimbo-items");
+            this.parentNode.appendChild(a);
+            
+            for (i = 0; i < listaAnestesistas.length; i++) {
+                if (listaAnestesistas[i].toUpperCase().includes(val.toUpperCase())) {
+                    b = document.createElement("DIV");
+                    let idx = listaAnestesistas[i].toUpperCase().indexOf(val.toUpperCase());
+                    
+                    b.innerHTML = listaAnestesistas[i].substr(0, idx) + "<strong>" + listaAnestesistas[i].substr(idx, val.length) + "</strong>" + listaAnestesistas[i].substr(idx + val.length);
+                    b.innerHTML += "<input type='hidden' value='" + listaAnestesistas[i] + "'>";
+                    
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllCarimboLists();
+                        aplicarCarimbo(inp.value);
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+
+        inp.addEventListener("keydown", function(e) {
+            let x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) { 
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) { 
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) { 
+                if (currentFocus > -1) {
+                    e.preventDefault();
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-carimbo-active");
+        }
+
+        function removeActive(x) {
+            for (let i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-carimbo-active");
+            }
+        }
+
+        function closeAllCarimboLists(elmnt) {
+            const x = document.getElementsByClassName("autocomplete-carimbo-items");
+            for (let i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
+            }
+        }
+
+        document.addEventListener("click", function (e) {
+            closeAllCarimboLists(e.target);
+        });
+    }
+
+    function aplicarCarimbo(nomeSelecionado) {
+        const crmEncontrado = crmsDoGrupo[nomeSelecionado];
+        if (crmEncontrado) {
+            document.getElementById('txt-nome').innerText = nomeSelecionado;
+            document.getElementById('txt-crm').innerText = crmEncontrado;
+            document.getElementById('o-carimbo').style.display = 'block';
+            
+            document.getElementById('miudo-nome').innerText = nomeSelecionado;
+            document.getElementById('miudo-crm').innerText = crmEncontrado;
+            document.getElementById('rodape-miudo').style.display = 'block';
+            
+            travarImpressao();
+        } else {
+            esconderCarimbo();
+        }
+    }
+
+    function esconderCarimbo() {
+        document.getElementById('o-carimbo').style.display = 'none';
+        document.getElementById('rodape-miudo').style.display = 'none';
+        travarImpressao();
+    }
+
     document.getElementById('avaliacao-form').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && e.target.tagName === 'INPUT' && !e.target.classList.contains('med-input')) {
+        if (e.key === 'Enter' && e.target.tagName === 'INPUT' && !e.target.classList.contains('med-input') && e.target.id !== 'busca-anestesista') {
             e.preventDefault();
         }
     });
@@ -622,6 +856,11 @@
                 else el.value = valor;
             }
         });
+        
+        const anestesistaSalvo = p.get('busca-anestesista');
+        if(anestesistaSalvo) {
+            aplicarCarimbo(anestesistaSalvo);
+        }
     }
 </script>
 </body>
