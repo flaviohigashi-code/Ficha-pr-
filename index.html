@@ -184,28 +184,27 @@
             height: 0px;
         }
 
-        /* DESIGN DO CARIMBO - AZUL SEGUNDA BATIDA BROTHER */
+        /* DESIGN DO CARIMBO - LOWERED DOWN CLOSER TO THE LINE */
         #o-carimbo {
             display: none; 
             border: 2px solid #0f2a4a; 
             color: #0f2a4a; 
-            opacity: 0.75; 
-            padding: 6px 8px; 
+            opacity: 0.55; 
+            padding: 5px 6px; 
             border-radius: 4px; 
             font-family: 'Courier New', monospace; 
             font-weight: bold; 
             text-transform: uppercase; 
-            width: 245px; 
+            width: 235px; 
             box-sizing: border-box; 
             position: absolute;
-            bottom: 6px;
+            bottom: -8px; /* Baixado para colar mais perto da linha */
             left: 50%;
             transform: translate(-50%, 0) rotate(-1.5deg);
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.9);
             pointer-events: none;
             z-index: 10;
             text-align: center;
-            box-shadow: 0 0 2px rgba(15,42,74,0.2);
         }
 
         /* LINHA INFERIOR DO CARIMBO COM ALINHAMENTO DA LOGO REAL */
@@ -213,20 +212,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            margin-top: 4px;
-            border-top: 1px dashed #0f2a4a;
-            padding-top: 3px;
+            gap: 4px;
+            margin-top: 3px;
         }
 
         /* MINI LOGO REAL (PNG) TINTADA NA COR DO CARIMBO */
         .mini-logo-real-carimbo {
             display: inline-block;
-            height: 14px;
+            height: 10.5px;
             width: auto;
             object-fit: contain;
             vertical-align: middle;
-            filter: drop-shadow(0px 0px 0px #0f2a4a) brightness(0.2) sepia(1) hue-rotate(190deg) saturate(5);
+            filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
         }
 
         /* CORREÇÃO VISUAL DE ESPAÇAMENTO PARA NÃO EMBOLAR O RODAPÉ */
@@ -322,7 +319,7 @@
             <div class="grid-3">
                 <div>
                     <div class="sn-header"><span>S</span><span>N</span></div>
-                    <div class="row"><label><input type="radio" name="d1" id="d1_s" onchange="comentarioAutomatico('01', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d1" id="d1_n" onchange="comentarioAutomatico('01', false)"><span class="btn-check"></span></label> 01. Hipertensão arterial</div>
+                    <div class="row"><label><input type="radio" name="d1" id="d1_s" onchange="comentarioAutomatico('01', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d1" id="d1_n" onchange="comentarioAutomatico('02', false)"><span class="btn-check"></span></label> 01. Hipertensão arterial</div>
                     <div class="row"><label><input type="radio" name="d2" id="d2_s" onchange="comentarioAutomatico('02', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d2" id="d2_n" onchange="comentarioAutomatico('02', false)"><span class="btn-check"></span></label> 02. Cardiopatia</div>
                     <div class="row"><label><input type="radio" name="d3" id="d3_s" onchange="comentarioAutomatico('03', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d3" id="d3_n" onchange="comentarioAutomatico('03', false)"><span class="btn-check"></span></label> 03. Dispnéia / Ortopnéia</div>
                     <div class="row"><label><input type="radio" name="d4" id="d4_s" onchange="comentarioAutomatico('04', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d4" id="d4_n" onchange="comentarioAutomatico('04', false)"><span class="btn-check"></span></label> 04. Precordialgia</div>
@@ -350,7 +347,7 @@
                     <div class="row"><label><input type="radio" name="d20" id="d20_s" onchange="comentarioAutomatico('20', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n" onchange="comentarioAutomatico('20', false)"><span class="btn-check"></span></label> 20. Outras doenças</div>
                     <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. Emagrecedores</div>
                     <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9.5px; line-height: 1;">Crianças:</div>
-                    <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. IVAS atual ou recente</div>
+                    <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. IVAS actual ou recente</div>
                     <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Diarréia recente</div>
                     <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Nasceu prematuro?</div>
                 </div>
@@ -507,23 +504,18 @@
                     Data: <input type="text" id="data_avaliacao" style="width: 70px;">
                 </div>
                 
-                <div class="assinatura-box" style="width: 45%; min-height: 105px; position: relative; border-top: none; padding-top: 0;">
+                <div class="assinatura-box" style="width: 45%; min-height: 95px; position: relative; border-top: none; padding-top: 0;">
                     <div class="container-carimbo-flutuante">
                         <div id="o-carimbo">
-                            <span id="txt-nome" style="font-size: 13px; display: block; letter-spacing: 0.5px;"></span>
+                            <span id="txt-nome" style="font-size: 13px; display: block;"></span>
                             <div class="carimbo-linha-inferior">
                                 <img src="logo-anesthemed.png" class="mini-logo-real-carimbo" alt="Logo">
-                                <span id="txt-crm" style="font-size: 10.5px; font-family: sans-serif;"></span>
+                                <span id="txt-crm" style="font-size: 10.5px;"></span>
                             </div>
                         </div>
                     </div>
                     <input id="busca-anestesista" class="linha-assinatura-interativa" autocomplete="off" placeholder="">
-                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase; border-top: 1.2px solid #000; padding-top: 4px;">Anestesiologista</div>
-                    
-                    <div id="rodape-miudo" style="display: none; font-size: 11px; margin-top: 5px; text-transform: uppercase; line-height: 1.2;">
-                        <strong id="miudo-nome"></strong><br>
-                        <span id="miudo-crm" style="font-size: 10px; font-weight: normal; color: #444;"></span>
-                    </div>
+                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase;">Anestesiologista</div>
                 </div>
                 
                 <div class="assinatura-box" style="width: 30%; border-top: 1.2px solid #000; padding-top: 4px;">
@@ -561,7 +553,7 @@
         "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
-    // Banco de Dados Unificado do Grupo AnestheMed - Atualizado
+    // Banco de Dados Unificado do Grupo AnestheMed
     const crmsDoGrupo = {
         "Dr. Flavio Higashi": "CRM/PR 14146",
         "Dr. André Trentini": "CRM/PR 17240",
@@ -847,11 +839,6 @@
             document.getElementById('txt-nome').innerText = nomeSelecionado;
             document.getElementById('txt-crm').innerText = crmEncontrado;
             document.getElementById('o-carimbo').style.display = 'block';
-            
-            document.getElementById('miudo-nome').innerText = nomeSelecionado;
-            document.getElementById('miudo-crm').innerText = crmEncontrado;
-            document.getElementById('rodape-miudo').style.display = 'block';
-            
             travarImpressao();
         } else {
             esconderCarimbo();
@@ -860,7 +847,6 @@
 
     function esconderCarimbo() {
         document.getElementById('o-carimbo').style.display = 'none';
-        document.getElementById('rodape-miudo').style.display = 'none';
         travarImpressao();
     }
 
