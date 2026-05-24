@@ -32,37 +32,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #000;
-            padding-bottom: 4px;
+            padding-bottom: 1px;
             margin-bottom: 2px;
         }
-        
-        /* AJUSTE COORDENADO PARA FAZER A LOGO CRESCER SIGNIFICATIVAMENTE */
-        .header-logo {
-            flex: 0 0 40%; /* Garante espaço generoso na esquerda para a logo expandir */
-            display: flex;
-            align-items: center;
-        }
-        .header-logo img { 
-            display: block; 
-            max-width: 380px; /* Alvo expandido para compensar as margens transparentes da imagem */
-            width: 100%;
-            height: auto; 
-            transform: scale(1.15); /* Ganho de escala real na renderização */
-            transform-origin: left center; /* Mantém o alinhamento esquerdo perfeito */
-        }
-        
-        .header-title {
-            flex: 0 0 40%;
-            text-align: center;
-        }
+        .header-logo img { display: block; max-width: 140px; height: auto; }
         .header-title h2 { margin: 0; font-size: 15px; letter-spacing: 0.5px; }
-        
-        .header-contact { 
-            flex: 0 0 20%;
-            text-align: right; 
-            font-weight: bold; 
-            line-height: 1.1; 
-        }
+        .header-contact { text-align: right; font-weight: bold; line-height: 1; }
         .header-contact .loc-name { font-size: 11px; text-transform: uppercase; display: block; }
         .header-contact .phone-num { font-size: 10px; display: block; }
 
@@ -214,22 +189,23 @@
             display: none; 
             border: 2px solid #0f2a4a; 
             color: #0f2a4a; 
-            opacity: 0.55; 
-            padding: 5px 6px; 
+            opacity: 0.75; 
+            padding: 6px 8px; 
             border-radius: 4px; 
             font-family: 'Courier New', monospace; 
             font-weight: bold; 
             text-transform: uppercase; 
-            width: 235px; 
+            width: 245px; 
             box-sizing: border-box; 
             position: absolute;
-            bottom: 4px;
+            bottom: 6px;
             left: 50%;
             transform: translate(-50%, 0) rotate(-1.5deg);
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             pointer-events: none;
             z-index: 10;
             text-align: center;
+            box-shadow: 0 0 2px rgba(15,42,74,0.2);
         }
 
         /* LINHA INFERIOR DO CARIMBO COM ALINHAMENTO DA LOGO REAL */
@@ -237,21 +213,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            margin-top: 3px;
+            gap: 6px;
+            margin-top: 4px;
+            border-top: 1px dashed #0f2a4a;
+            padding-top: 3px;
         }
 
         /* MINI LOGO REAL (PNG) TINTADA NA COR DO CARIMBO */
         .mini-logo-real-carimbo {
             display: inline-block;
-            height: 11px;
+            height: 14px;
             width: auto;
             object-fit: contain;
             vertical-align: middle;
             filter: drop-shadow(0px 0px 0px #0f2a4a) brightness(0.2) sepia(1) hue-rotate(190deg) saturate(5);
         }
 
-        /* VISUAL DO RODAPÉ DE ASSINATURAS */
+        /* CORREÇÃO VISUAL DE ESPAÇAMENTO PARA NÃO EMBOLAR O RODAPÉ */
         .assinatura-container {
             display: flex;
             justify-content: space-between;
@@ -529,18 +507,18 @@
                     Data: <input type="text" id="data_avaliacao" style="width: 70px;">
                 </div>
                 
-                <div class="assinatura-box" style="width: 45%; min-height: 95px; position: relative; border-top: none; padding-top: 0;">
+                <div class="assinatura-box" style="width: 45%; min-height: 105px; position: relative; border-top: none; padding-top: 0;">
                     <div class="container-carimbo-flutuante">
                         <div id="o-carimbo">
-                            <span id="txt-nome" style="font-size: 13px; display: block;"></span>
+                            <span id="txt-nome" style="font-size: 13px; display: block; letter-spacing: 0.5px;"></span>
                             <div class="carimbo-linha-inferior">
                                 <img src="logo-anesthemed.png" class="mini-logo-real-carimbo" alt="Logo">
-                                <span id="txt-crm" style="font-size: 10.5px;"></span>
+                                <span id="txt-crm" style="font-size: 10.5px; font-family: sans-serif;"></span>
                             </div>
                         </div>
                     </div>
                     <input id="busca-anestesista" class="linha-assinatura-interativa" autocomplete="off" placeholder="">
-                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase; padding-top: 4px;">Anestesiologista</div>
+                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase; border-top: 1.2px solid #000; padding-top: 4px;">Anestesiologista</div>
                     
                     <div id="rodape-miudo" style="display: none; font-size: 11px; margin-top: 5px; text-transform: uppercase; line-height: 1.2;">
                         <strong id="miudo-nome"></strong><br>
@@ -583,7 +561,7 @@
         "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
-    // Banco de Dados Unificado do Grupo AnestheMed
+    // Banco de Dados Unificado do Grupo AnestheMed - Atualizado
     const crmsDoGrupo = {
         "Dr. Flavio Higashi": "CRM/PR 14146",
         "Dr. André Trentini": "CRM/PR 17240",
@@ -775,7 +753,7 @@
             txtArea.setSelectionRange(comprimento, comprimento);
         } else {
             const linhas = texto.split("\n");
-            txtArea.value = lines.filter(linha => !linha.startsWith(marcador)).join("\n");
+            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\n");
         }
         travarImpressao();
     }
