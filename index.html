@@ -69,7 +69,6 @@
             line-height: 1;
         }
 
-        /* CUSTOM CHECKBOXES & RADIOS WITH PRINT SUPPORT */
         input[type="radio"], input[type="checkbox"] { display: none; }
         .btn-check {
             display: inline-block;
@@ -107,33 +106,15 @@
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
         .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
 
-        /* INPUTS COM LARGURA DETERMINADA POR NÚMERO DE DÍGITOS */
         .input-3dig { width: 28px !important; flex-grow: 0 !important; text-align: center; }
         .input-6dig { width: 55px !important; flex-grow: 0 !important; text-align: center; }
         .input-1dig { width: 14px !important; flex-grow: 0 !important; text-align: center; }
 
-        .jejum-container {
-            padding: 2px 4px;
-            font-size: 11px;
-        }
-        .jejum-container .form-group {
-            width: 100%;
-            justify-content: flex-start;
-            flex-wrap: nowrap;
-        }
-        .jejum-container input[type="text"] {
-            width: 20px !important;
-            flex-grow: 0 !important;
-            flex-shrink: 0 !important;
-            font-size: 11px;
-            text-align: center;
-        }
-        .jejum-destaque {
-            font-weight: 900 !important;
-            text-transform: uppercase;
-        }
+        .jejum-container { padding: 2px 4px; font-size: 11px; }
+        .jejum-container .form-group { width: 100%; justify-content: flex-start; flex-wrap: nowrap; }
+        .jejum-container input[type="text"] { width: 20px !important; flex-grow: 0 !important; flex-shrink: 0 !important; font-size: 11px; text-align: center; }
+        .jejum-destaque { font-weight: 900 !important; text-transform: uppercase; }
 
-        /* AUTOCOMPLETE EXCLUSIVO DO CARIMBO ANESTESISTA */
         .autocomplete-carimbo-items {
             position: absolute;
             border: 1px solid #ccc;
@@ -147,21 +128,9 @@
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
             border-radius: 4px;
         }
-        .autocomplete-carimbo-items div {
-            padding: 5px;
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: normal;
-            color: #333;
-            text-align: left;
-        }
-        .autocomplete-carimbo-items div:hover, .autocomplete-carimbo-active {
-            background-color: #e1f5fe !important;
-            color: #000 !important;
-            font-weight: bold;
-        }
+        .autocomplete-carimbo-items div { padding: 5px; cursor: pointer; font-size: 11px; font-weight: normal; color: #333; text-align: left; }
+        .autocomplete-carimbo-items div:hover, .autocomplete-carimbo-active { background-color: #e1f5fe !important; color: #000 !important; font-weight: bold; }
 
-        /* INPUT EM ESTILO DE LINHA DE ASSINATURA INTERATIVA */
         .linha-assinatura-interativa {
             border: none;
             border-bottom: 1.2px solid #000 !important;
@@ -177,14 +146,8 @@
             box-sizing: border-box;
         }
 
-        /* CONTAINER ABSOLUTO PARA O EMBARQUE DO CARIMBO */
-        .container-carimbo-flutuante {
-            position: relative;
-            width: 100%;
-            height: 0px;
-        }
+        .container-carimbo-flutuante { position: relative; width: 100%; height: 0px; }
 
-        /* DESIGN DO CARIMBO - LOWERED DOWN CLOSER TO THE LINE */
         #o-carimbo {
             display: none; 
             border: 2px solid #0f2a4a; 
@@ -198,7 +161,7 @@
             width: 235px; 
             box-sizing: border-box; 
             position: absolute;
-            bottom: -8px; /* Baixado para colar mais perto da linha */
+            bottom: -8px;
             left: 50%;
             transform: translate(-50%, 0) rotate(-1.5deg);
             background-color: rgba(255, 255, 255, 0.9);
@@ -207,37 +170,19 @@
             text-align: center;
         }
 
-        /* LINHA INFERIOR DO CARIMBO COM ALINHAMENTO DA LOGO REAL */
-        .carimbo-linha-inferior {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            margin-top: 3px;
-        }
+        .carimbo-linha-inferior { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 3px; }
 
-        /* MINI LOGO REAL (PNG) TINTADA NA COR DO CARIMBO */
         .mini-logo-real-carimbo {
             display: inline-block;
-            height: 10.5px;
+            height: 32px;
             width: auto;
             object-fit: contain;
             vertical-align: middle;
             filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
         }
 
-        /* CORREÇÃO VISUAL DE ESPAÇAMENTO PARA NÃO EMBOLAR O RODAPÉ */
-        .assinatura-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-top: 30px;
-            gap: 15px;
-        }
-        .assinatura-box {
-            text-align: center;
-            font-weight: bold;
-        }
+        .assinatura-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 30px; gap: 15px; }
+        .assinatura-box { text-align: center; font-weight: bold; }
 
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
@@ -251,13 +196,10 @@
 
         .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .buttons button { padding: 6px 12px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; transition: all 0.2s; }
-        
         .btn-link { background-color: #ff9800; }
         .btn-link:hover { background-color: #f57c00; }
-        
         .btn-save { background-color: #2e7d32; }
         .btn-save:hover { background-color: #1b5e20; }
-        
         .btn-print { background-color: #1565c0; }
         .btn-print:hover { background-color: #0d47a1; }
         .btn-print:disabled { background-color: #9e9e9e !important; color: #e0e0e0 !important; cursor: not-allowed !important; opacity: 0.6; }
@@ -274,19 +216,8 @@
             overflow-y: auto;
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
         }
-        .autocomplete-items div {
-            padding: 2px 4px;
-            cursor: pointer;
-            font-size: 10.5px;
-            font-weight: normal;
-            color: #333;
-            text-align: left;
-        }
-        .autocomplete-items div:hover, .autocomplete-active {
-            background-color: #e1f5fe !important;
-            color: #000 !important;
-            font-weight: bold;
-        }
+        .autocomplete-items div { padding: 2px 4px; cursor: pointer; font-size: 10.5px; font-weight: normal; color: #333; text-align: left; }
+        .autocomplete-items div:hover, .autocomplete-active { background-color: #e1f5fe !important; color: #000 !important; font-weight: bold; }
     </style>
 </head>
 <body onload="inicializar()">
@@ -553,7 +484,6 @@
         "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
-    // Banco de Dados Unificado do Grupo AnestheMed
     const crmsDoGrupo = {
         "Dr. Flavio Higashi": "CRM/PR 14146",
         "Dr. André Trentini": "CRM/PR 17240",
@@ -617,25 +547,21 @@
         const linkCompleto = obterLinkCompacto();
         const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
         const cpfPct = document.getElementById('cpf_paciente').value || "SEM_CPF";
-        
-        const conteudoTxt = `==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: ${nomePct}\nCPF: ${cpfPct}\nData: ${document.getElementById('data_avaliacao').value}\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n${linkCompleto}\n\n==================================================`;
-
+        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n" + linkCompleto + "\n\n==================================================";
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
         const linkDownload = document.createElement("a");
         const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
-        linkDownload.download = `AVAL_${nomeArquivoClean}_${cpfPct}.txt`;
+        linkDownload.download = "AVAL_" + nomeArquivoClean + "_" + cpfPct + ".txt";
         linkDownload.href = window.URL.createObjectURL(blob);
         linkDownload.style.display = "none";
         document.body.appendChild(linkDownload);
         linkDownload.click();
         document.body.removeChild(linkDownload);
-
         navigator.clipboard.writeText(linkCompleto).then(() => {
             alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente.");
         }).catch(() => {
             alert("Ficha baixada com sucesso!");
         });
-
         document.getElementById('btn-imprimir').removeAttribute('disabled');
     }
 
@@ -686,7 +612,6 @@
             a.setAttribute("id", this.id + "autocomplete-list");
             a.setAttribute("class", "autocomplete-items");
             this.parentNode.appendChild(a);
-            
             let count = 0;
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].toUpperCase().includes(val.toUpperCase())) {
@@ -707,7 +632,6 @@
                 }
             }
         });
-
         inp.addEventListener("keydown", function(e) {
             let x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
@@ -715,7 +639,6 @@
             else if (e.keyCode == 38) { currentFocus--; addActive(x); } 
             else if (e.keyCode == 13) { if (currentFocus > -1) { e.preventDefault(); if (x) x[currentFocus].click(); } }
         });
-
         function addActive(x) {
             if (!x) return false; removeActive(x);
             if (currentFocus >= x.length) currentFocus = 0;
@@ -734,7 +657,6 @@
         const txtArea = document.getElementById('comentarios_dados');
         let texto = txtArea.value;
         const marcador = numero + ". ";
-
         if (isChecked) {
             if (!texto.includes(marcador)) {
                 if (texto.trim() !== "" && !texto.endsWith("\n")) texto += "\n";
@@ -750,34 +672,24 @@
         travarImpressao();
     }
 
-    // MECÂNICA DE AUTOCOMPLETE EXCLUSIVA PARA O CARIMBO
     function configurarAutocompleteCarimbo() {
         const inp = document.getElementById("busca-anestesista");
         let currentFocus = -1;
-
         inp.addEventListener("input", function(e) {
             let a, b, i, val = this.value;
             closeAllCarimboLists();
-            
-            if (!val) { 
-                esconderCarimbo();
-                return false; 
-            }
-            
+            if (!val) { esconderCarimbo(); return false; }
             currentFocus = -1;
             a = document.createElement("DIV");
             a.setAttribute("id", this.id + "autocomplete-list");
             a.setAttribute("class", "autocomplete-carimbo-items");
             this.parentNode.appendChild(a);
-            
             for (i = 0; i < listaAnestesistas.length; i++) {
                 if (listaAnestesistas[i].toUpperCase().includes(val.toUpperCase())) {
                     b = document.createElement("DIV");
                     let idx = listaAnestesistas[i].toUpperCase().indexOf(val.toUpperCase());
-                    
                     b.innerHTML = listaAnestesistas[i].substr(0, idx) + "<strong>" + listaAnestesistas[i].substr(idx, val.length) + "</strong>" + listaAnestesistas[i].substr(idx + val.length);
                     b.innerHTML += "<input type='hidden' value='" + listaAnestesistas[i] + "'>";
-                    
                     b.addEventListener("click", function(e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
                         closeAllCarimboLists();
@@ -787,24 +699,13 @@
                 }
             }
         });
-
         inp.addEventListener("keydown", function(e) {
             let x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) { 
-                currentFocus++;
-                addActive(x);
-            } else if (e.keyCode == 38) { 
-                currentFocus--;
-                addActive(x);
-            } else if (e.keyCode == 13) { 
-                if (currentFocus > -1) {
-                    e.preventDefault();
-                    if (x) x[currentFocus].click();
-                }
-            }
+            if (e.keyCode == 40) { currentFocus++; addActive(x); }
+            else if (e.keyCode == 38) { currentFocus--; addActive(x); }
+            else if (e.keyCode == 13) { if (currentFocus > -1) { e.preventDefault(); if (x) x[currentFocus].click(); } }
         });
-
         function addActive(x) {
             if (!x) return false;
             removeActive(x);
@@ -812,25 +713,12 @@
             if (currentFocus < 0) currentFocus = (x.length - 1);
             x[currentFocus].classList.add("autocomplete-carimbo-active");
         }
-
-        function removeActive(x) {
-            for (let i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-carimbo-active");
-            }
-        }
-
+        function removeActive(x) { for (let i = 0; i < x.length; i++) x[i].classList.remove("autocomplete-carimbo-active"); }
         function closeAllCarimboLists(elmnt) {
             const x = document.getElementsByClassName("autocomplete-carimbo-items");
-            for (let i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
-                    x[i].parentNode.removeChild(x[i]);
-                }
-            }
+            for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
         }
-
-        document.addEventListener("click", function (e) {
-            closeAllCarimboLists(e.target);
-        });
+        document.addEventListener("click", function (e) { closeAllCarimboLists(e.target); });
     }
 
     function aplicarCarimbo(nomeSelecionado) {
@@ -865,11 +753,8 @@
                 else el.value = valor;
             }
         });
-        
         const anestesistaSalvo = p.get('busca-anestesista');
-        if(anestesistaSalvo) {
-            aplicarCarimbo(anestesistaSalvo);
-        }
+        if(anestesistaSalvo) { aplicarCarimbo(anestesistaSalvo); }
     }
 </script>
 </body>
