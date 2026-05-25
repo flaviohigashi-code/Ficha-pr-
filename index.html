@@ -286,7 +286,7 @@
                     <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9.5px; line-height: 1;">Crianças:</div>
                     <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. IVAS actual ou recente</div>
                     <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Diarréia recente</div>
-                    <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Nasceu prematuro?</div>
+                    <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Nasceu prematuro?</</div>
                 </div>
             </div>
         </div>
@@ -801,11 +801,13 @@
             x[currentFocus].classList.add("autocomplete-carimbo-active");
         }
         function removeActive(x) { for (let i = 0; i < x.length; i++) x[i].classList.remove("autocomplete-carimbo-active"); }
-        function closeAllCarimboLists(elmnt) {
-            const x = document.getElementsByClassName("autocomplete-carimbo-items");
-            for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
-        }
         document.addEventListener("click", function (e) { closeAllCarimboLists(e.target); });
+    }
+
+    function closeAllCarimboLists(elmnt) {
+        const inp = document.getElementById("busca-anestesista");
+        const x = document.getElementsByClassName("autocomplete-carimbo-items");
+        for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
     }
 
     function aplicarCarimbo(nomeSelecionado) {
