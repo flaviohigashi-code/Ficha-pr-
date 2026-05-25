@@ -7,14 +7,13 @@
     <style>
         @page { 
             size: A4; 
-            margin: 2mm 4mm; 
-        }
+            margin: 2mm 4mm; \n        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            font-size: 11px;
+            font-size: 10.5px;
             line-height: 1.1;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
@@ -23,7 +22,7 @@
             background-color: #fff;
             max-width: 800px;
             margin: 0 auto;
-            padding: 4px 8px;
+            padding: 2px 6px;
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
@@ -35,11 +34,11 @@
             padding-bottom: 1px;
             margin-bottom: 2px;
         }
-        .header-logo img { display: block; max-width: 140px; height: auto; }
-        .header-title h2 { margin: 0; font-size: 15px; letter-spacing: 0.5px; }
+        .header-logo img { display: block; max-width: 130px; height: auto; }
+        .header-title h2 { margin: 0; font-size: 14px; letter-spacing: 0.5px; }
         .header-contact { text-align: right; font-weight: bold; line-height: 1; }
-        .header-contact .loc-name { font-size: 11px; text-transform: uppercase; display: block; }
-        .header-contact .phone-num { font-size: 10px; display: block; }
+        .header-contact .loc-name { font-size: 10px; text-transform: uppercase; display: block; }
+        .header-contact .phone-num { font-size: 9px; display: block; }
 
         .section { border: 1px solid #000; margin-bottom: 2px; padding: 1px 2px; position: relative; }
         .section-title {
@@ -50,7 +49,7 @@
             margin: -1px -2px 1px -2px;
             text-align: center;
             text-transform: uppercase;
-            font-size: 10px;
+            font-size: 9.5px;
         }
         .row { display: flex; flex-wrap: wrap; margin-bottom: 1px; align-items: center; }
         .form-group { display: flex; align-items: center; margin-bottom: 0px; }
@@ -63,17 +62,36 @@
             padding: 0px 1px;
             background: transparent;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 800 !important;
             color: #000;
             line-height: 1;
         }
 
+        /* Textareas expansivos com linhas simuladas mais estreitas */
+        .textarea-linhas-dinamicas {
+            width: 100%;
+            border: none !important;
+            resize: none;
+            background: linear-gradient(transparent, transparent 16px, #777 16px, #777 17px) !important;
+            background-size: 100% 17px !important;
+            line-height: 17px !important;
+            font-size: 12px !important;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 800 !important;
+            color: #000;
+            overflow-y: hidden;
+            box-sizing: border-box;
+            padding: 0px 2px !important;
+            display: block;
+            word-break: break-word;
+        }
+
         input[type="radio"], input[type="checkbox"] { display: none; }
         .btn-check {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border: 1.5px solid #000;
             margin-right: 2px;
             text-align: center;
@@ -89,7 +107,7 @@
             content: "✔";
             font-family: 'Arial Black', Gadget, sans-serif;
             font-weight: 900 !important;
-            font-size: 10px;
+            font-size: 9px;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -99,13 +117,13 @@
         }
 
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px 4px; }
-        .sn-header { display: flex; font-weight: bold; font-size: 9px; margin-bottom: 0px; }
-        .sn-header span { width: 14px; text-align: center; margin-right: 1px; }
+        .sn-header { display: flex; font-weight: bold; font-size: 8.5px; margin-bottom: 0px; }
+        .sn-header span { width: 13px; text-align: center; margin-right: 1px; }
         
         .med-com-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4px; }
-        .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 4px; }
+        .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 4px; }
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
-        .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
+        .med-item span { font-size: 8.5px; font-weight: bold; margin-right: 2px; width: 12px; }
 
         .input-3dig { width: 28px !important; flex-grow: 0 !important; text-align: center; }
         .input-5dig { width: 45px !important; flex-grow: 0 !important; text-align: center; }
@@ -113,9 +131,9 @@
         .input-9dig { width: 80px !important; flex-grow: 0 !important; text-align: center; }
         .input-1dig { width: 14px !important; flex-grow: 0 !important; text-align: center; }
 
-        .jejum-container { padding: 2px 4px; font-size: 11px; }
+        .jejum-container { padding: 1px 2px; font-size: 10.5px; }
         .jejum-container .form-group { width: 100%; justify-content: flex-start; flex-wrap: nowrap; }
-        .jejum-container input[type="text"] { width: 20px !important; flex-grow: 0 !important; flex-shrink: 0 !important; font-size: 11px; text-align: center; }
+        .jejum-container input[type="text"] { width: 20px !important; flex-grow: 0 !important; flex-shrink: 0 !important; font-size: 10.5px; text-align: center; }
         .jejum-destaque { font-weight: 900 !important; text-transform: uppercase; }
 
         .autocomplete-carimbo-items {
@@ -123,25 +141,25 @@
             border: 1px solid #ccc;
             background-color: #fff;
             z-index: 99;
-            top: 20px;
+            top: 18px;
             left: 5%;
             right: 5%;
-            max-height: 140px;
+            max-height: 120px;
             overflow-y: auto;
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
             border-radius: 4px;
         }
-        .autocomplete-carimbo-items div { padding: 5px; cursor: pointer; font-size: 11px; font-weight: normal; color: #333; text-align: left; }
+        .autocomplete-carimbo-items div { padding: 4px; cursor: pointer; font-size: 10.5px; font-weight: normal; color: #333; text-align: left; }
         .autocomplete-carimbo-items div:hover, .autocomplete-carimbo-active { background-color: #e1f5fe !important; color: #000 !important; font-weight: bold; }
 
         .linha-assinatura-interativa {
             border: none;
             border-bottom: 1.2px solid #000 !important;
             width: 100%;
-            padding: 2px 0px;
+            padding: 1px 0px;
             background: transparent;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 12.5px;
+            font-size: 12px;
             color: transparent !important;
             text-shadow: 0 0 0 transparent !important;
             text-align: center;
@@ -156,49 +174,53 @@
             border: 2px solid #0f2a4a; 
             color: #0f2a4a; 
             opacity: 0.55; 
-            padding: 5px 6px; 
+            padding: 4px 5px; 
             border-radius: 4px; 
             font-family: 'Courier New', monospace; 
             font-weight: bold; 
             text-transform: uppercase; 
-            width: 235px; 
+            width: 220px; 
             box-sizing: border-box; 
             position: absolute;
-            bottom: -8px;
+            bottom: -5px;
             left: 50%;
-            transform: translate(-50%, 0) rotate(-1.5deg);
+            transform: translate(-50%, 0) rotate(-1deg);
             background-color: rgba(255, 255, 255, 0.9);
             pointer-events: none;
             z-index: 10;
             text-align: center;
         }
 
-        .carimbo-linha-inferior { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 3px; }
+        .carimbo-linha-inferior { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 2px; }
 
         .mini-logo-real-carimbo {
             display: inline-block;
-            height: 38px;
+            height: 32px;
             width: auto;
             object-fit: contain;
             vertical-align: middle;
             filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
         }
 
-        .assinatura-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 55px; gap: 15px; }
+        .assinatura-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 22px; gap: 12px; }
         .assinatura-box { text-align: center; font-weight: bold; }
 
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
             .container { border: none; box-shadow: none; width: 100%; padding: 0; margin: 0; }
             .buttons, .autocomplete-items, .autocomplete-carimbo-items { display: none !important; }
-            input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
+            input[type="text"], input[type="number"] { border-bottom: 1px solid #000; }
+            .textarea-linhas-dinamicas {
+                background: linear-gradient(transparent, transparent 16px, #000 16px, #000 17px) !important;
+                background-size: 100% 17px !important;
+            }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
             .linha-assinatura-interativa { border-bottom: 1.2px solid #000 !important; color: transparent !important; }
-            .assinatura-container { margin-top: 45px; }
+            .assinatura-container { margin-top: 22px; }
         }
 
-        .buttons { text-align: center; margin-top: 6px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .buttons button { padding: 6px 12px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; transition: all 0.2s; }
+        .buttons { text-align: center; margin-top: 5px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .buttons button { padding: 5px 10px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; transition: all 0.2s; }
         .btn-link { background-color: #ff9800; }
         .btn-link:hover { background-color: #f57c00; }
         .btn-save { background-color: #2e7d32; }
@@ -215,11 +237,11 @@
             top: 100%;
             left: 14px;
             right: 0;
-            max-height: 100px;
+            max-height: 90px;
             overflow-y: auto;
             box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
         }
-        .autocomplete-items div { padding: 2px 4px; cursor: pointer; font-size: 10.5px; font-weight: normal; color: #333; text-align: left; }
+        .autocomplete-items div { padding: 2px 4px; cursor: pointer; font-size: 10px; font-weight: normal; color: #333; text-align: left; }
         .autocomplete-items div:hover, .autocomplete-active { background-color: #e1f5fe !important; color: #000 !important; font-weight: bold; }
     </style>
 </head>
@@ -253,7 +275,7 @@
             <div class="grid-3">
                 <div>
                     <div class="sn-header"><span>S</span><span>N</span></div>
-                    <div class="row"><label><input type="radio" name="d1" id="d1_s" onchange="comentarioAutomatico('01', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d1" id="d1_n" onchange="comentarioAutomatico('02', false)"><span class="btn-check"></span></label> 01. Hipertensão arterial</div>
+                    <div class="row"><label><input type="radio" name="d1" id="d1_s" onchange="comentarioAutomatico('01', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d1" id="d1_n" onchange="comentarioAutomatico('01', false)"><span class="btn-check"></span></label> 01. Hipertensão arterial</div>
                     <div class="row"><label><input type="radio" name="d2" id="d2_s" onchange="comentarioAutomatico('02', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d2" id="d2_n" onchange="comentarioAutomatico('02', false)"><span class="btn-check"></span></label> 02. Cardiopatia</div>
                     <div class="row"><label><input type="radio" name="d3" id="d3_s" onchange="comentarioAutomatico('03', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d3" id="d3_n" onchange="comentarioAutomatico('03', false)"><span class="btn-check"></span></label> 03. Dispnéia / Ortopnéia</div>
                     <div class="row"><label><input type="radio" name="d4" id="d4_s" onchange="comentarioAutomatico('04', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d4" id="d4_n" onchange="comentarioAutomatico('04', false)"><span class="btn-check"></span></label> 04. Precordialgia</div>
@@ -280,7 +302,7 @@
                     <div class="row"><label><input type="radio" name="d19" id="d19_s" onchange="comentarioAutomatico('19', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d19" id="d19_n" onchange="comentarioAutomatico('19', false)"><span class="btn-check"></span></label> 19. Complicações anest.</div>
                     <div class="row"><label><input type="radio" name="d20" id="d20_s" onchange="comentarioAutomatico('20', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d20" id="d20_n" onchange="comentarioAutomatico('20', false)"><span class="btn-check"></span></label> 20. Outras doenças</div>
                     <div class="row"><label><input type="radio" name="d21" id="d21_s" onchange="comentarioAutomatico('21', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d21" id="d21_n" onchange="comentarioAutomatico('21', false)"><span class="btn-check"></span></label> 21. Emagrecedores</div>
-                    <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9.5px; line-height: 1;">Crianças:</div>
+                    <div style="font-weight: bold; text-align: center; border-top: 1px solid #777; margin: 1px 0; font-size: 9px; line-height: 1;">Crianças:</div>
                     <div class="row"><label><input type="radio" name="d22" id="d22_s" onchange="comentarioAutomatico('22', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d22" id="d22_n" onchange="comentarioAutomatico('22', false)"><span class="btn-check"></span></label> 22. IVAS actual ou recente</div>
                     <div class="row"><label><input type="radio" name="d23" id="d23_s" onchange="comentarioAutomatico('23', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d23" id="d23_n" onchange="comentarioAutomatico('23', false)"><span class="btn-check"></span></label> 23. Diarréia recente</div>
                     <div class="row"><label><input type="radio" name="d24" id="d24_s" onchange="comentarioAutomatico('24', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d24" id="d24_n" onchange="comentarioAutomatico('24', false)"><span class="btn-check"></span></label> 24. Nasceu prematuro?</div>
@@ -291,7 +313,7 @@
         <div class="section med-com-split">
             <div style="border-right: 1px solid #000; padding-right: 4px;">
                 <div class="section-title">COMENTAR DADOS POSITIVOS</div>
-                <textarea id="comentarios_dados" rows="5" style="width: 100%; border: none; resize: none; font-size:12px;"></textarea>
+                <textarea id="comentarios_dados" rows="5" style="width: 100%; border: none; resize: none; font-size:11px;"></textarea>
             </div>
             <div>
                 <div class="section-title">MEDICAMENTOS EM USO</div>
@@ -313,7 +335,7 @@
                         <div class="med-item"><span>12</span><input type="text" class="med-input" id="m12"></div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 2px; justify-content: space-between; font-size: 10px;">
+                <div class="row" style="margin-top: 2px; justify-content: space-between; font-size: 9.5px;">
                     <div>
                         <strong>ANTICOAG.:</strong>
                         <label style="margin-left:1px;"><input type="radio" name="anticoag" id="ac_sim"><span class="btn-check"></span> Sim</label>
@@ -328,79 +350,78 @@
             </div>
         </div>
 
-
         <div class="section">
             <div class="section-title">EXAME FÍSICO</div>
-            <table style="width:100%; border-collapse:collapse; font-size:11px;">
+            <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
                 <tr>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:9%;">
-                        <b style="font-size:9px;">PESO</b>
-                        <input type="text" id="ef_peso" maxlength="3" style="width:32px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:9%;">
+                        <b style="font-size:8.5px;">PESO</b>
+                        <input type="text" id="ef_peso" maxlength="3" style="width:28px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:1px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:10%;">
-                        <b style="font-size:9px;">ALTURA</b>
-                        <input type="text" id="ef_altura" maxlength="3" style="width:32px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:10%;">
+                        <b style="font-size:8.5px;">ALTURA</b>
+                        <input type="text" id="ef_altura" maxlength="3" style="width:28px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:1px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:10%;">
-                        <b style="font-size:9px;">PA</b>
-                        <input type="text" id="ef_pa" maxlength="7" style="width:46px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:10%;">
+                        <b style="font-size:8.5px;">PA</b>
+                        <input type="text" id="ef_pa" maxlength="7" style="width:42px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:1px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:9%;">
-                        <b style="font-size:9px;">FC</b>
-                        <input type="text" id="ef_fc" maxlength="3" style="width:32px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:9%;">
+                        <b style="font-size:8.5px;">FC</b>
+                        <input type="text" id="ef_fc" maxlength="3" style="width:28px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:1px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap; width:18%;">
-                        <b style="font-size:9px;">TEMP</b>
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:18%;">
+                        <b style="font-size:8.5px;">TEMP</b>
                         <label style="margin-left:2px;"><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afeb</label>
                         <label style="margin-left:3px;"><input type="radio" name="temp" id="tp_febril"><span class="btn-check"></span> Feb</label>
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap; width:10%;">
-                        <b style="font-size:9px;">Mallampati</b>
-                        <input type="text" id="ef_mallampati" maxlength="1" style="width:16px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:10%;">
+                        <b style="font-size:8.5px;">Mallampati</b>
+                        <input type="text" id="ef_mallampati" maxlength="1" style="width:14px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:1px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap; width:16%;">
-                        <b style="font-size:9px;">DEM</b>
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:16%;">
+                        <b style="font-size:8.5px;">DEM</b>
                         <label style="margin-left:2px;"><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12</label>
                         <label style="margin-left:3px;"><input type="radio" name="dem_medida" id="dem_menor"><span class="btn-check"></span> &lt;12</label>
                     </td>
-                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap; width:18%;">
-                        <b style="font-size:9px;">DIF. INTUBAÇÃO</b>
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:16%;">
+                        <b style="font-size:8.5px;">DIF. INTUBAÇÃO</b>
                         <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
                         <label style="margin-left:3px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">COLUNA VERTEBRAL</b>
-                        <input type="text" id="ef_coluna" style="width:calc(100% - 100px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="3" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">COLUNA VERTEBRAL</b>
+                        <input type="text" id="ef_coluna" style="width:calc(100% - 90px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
-                    <td colspan="2" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">ACESSO VENOSO</b>
-                        <input type="text" id="ef_acesso" style="width:calc(100% - 90px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="2" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">ACESSO VENOSO</b>
+                        <input type="text" id="ef_acesso" style="width:calc(100% - 80px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
-                    <td colspan="3" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">ABDÔMEN</b>
-                        <input type="text" id="ef_abdomen" style="width:calc(100% - 60px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="3" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">ABDÔMEN</b>
+                        <input type="text" id="ef_abdomen" style="width:calc(100% - 50px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4" style="border:1px solid #999; padding:1px 4px;">
-                        <b style="font-size:9px;">RESPIRATÓRIO</b>
+                    <td colspan="4" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">RESPIRATÓRIO</b>
                         <label style="margin-left:2px;"><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
                         <label style="margin-left:4px;"><input type="radio" name="resp" id="rp_alt"><span class="btn-check"></span> Alt:</label>
-                        <input type="text" id="ef_resp_txt" style="width:calc(100% - 195px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                        <input type="text" id="ef_resp_txt" style="width:calc(100% - 180px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
-                    <td colspan="4" style="border:1px solid #999; padding:1px 4px;">
-                        <b style="font-size:9px;">CARDIOVASCULAR</b>
+                    <td colspan="4" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">CARDIOVASCULAR</b>
                         <label style="margin-left:2px;"><input type="radio" name="cardio" id="cd_brnf"><span class="btn-check"></span> BRNF</label>
                         <label style="margin-left:4px;"><input type="radio" name="cardio" id="cd_alt"><span class="btn-check"></span> Alt:</label>
-                        <input type="text" id="ef_cardio_txt" style="width:calc(100% - 200px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                        <input type="text" id="ef_cardio_txt" style="width:calc(100% - 185px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">MEMBROS</b>
-                        <input type="text" id="ef_membros" style="width:calc(100% - 55px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">MEMBROS</b>
+                        <input type="text" id="ef_membros" style="width:calc(100% - 50px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
                 </tr>
             </table>
@@ -408,69 +429,68 @@
 
         <div class="section">
             <div class="section-title">EXAMES COMPLEMENTARES</div>
-            <table style="width:100%; border-collapse:collapse; font-size:11px;">
+            <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
                 <tr>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">VG</b>
-                        <input type="text" id="ex_vg" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">VG</b>
+                        <input type="text" id="ex_vg" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">HB</b>
-                        <input type="text" id="ex_hb" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">HB</b>
+                        <input type="text" id="ex_hb" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">Glicemia</b>
-                        <input type="text" id="ex_glicemia" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">Glicemia</b>
+                        <input type="text" id="ex_glicemia" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">Plaquetas</b>
-                        <input type="text" id="ex_plaq" maxlength="9" style="width:68px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">Plaquetas</b>
+                        <input type="text" id="ex_plaq" maxlength="9" style="width:62px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">TAP/RNI</b>
-                        <input type="text" id="ex_rni" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">TAP/RNI</b>
+                        <input type="text" id="ex_rni" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">KPTT</b>
-                        <input type="text" id="ex_kptt" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">KPTT</b>
+                        <input type="text" id="ex_kptt" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">Creatinina</b>
-                        <input type="text" id="ex_creat" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">Creatinina</b>
+                        <input type="text" id="ex_creat" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
-                    <td style="border:1px solid #999; padding:1px 3px; white-space:nowrap;">
-                        <b style="font-size:9px;">Uréia</b>
-                        <input type="text" id="ex_ureia" maxlength="5" style="width:38px; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; text-align:center; margin-left:2px;">
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:8.5px;">Uréia</b>
+                        <input type="text" id="ex_ureia" maxlength="5" style="width:34px; border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; text-align:center; margin-left:2px;">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">RX TÓRAX</b>
-                        <input type="text" id="ex_rx" style="width:calc(100% - 60px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">RX TÓRAX</b>
+                        <input type="text" id="ex_rx" style="width:calc(100% - 55px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">ECG</b>
-                        <input type="text" id="ex_ecg" style="width:calc(100% - 30px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">ECG</b>
+                        <input type="text" id="ex_ecg" style="width:calc(100% - 30px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border:1px solid #999; padding:1px 3px;">
-                        <b style="font-size:9px;">OUTROS</b>
-                        <input type="text" id="ex_outros" style="width:calc(100% - 45px); border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; margin-left:2px;">
+                    <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
+                        <b style="font-size:8.5px;">OUTROS</b>
+                        <input type="text" id="ex_outros" style="width:calc(100% - 40px); border:none; border-bottom:1px solid #777; background:transparent; font-size:11px; font-weight:800; margin-left:2px;">
                     </td>
                 </tr>
             </table>
         </div>
 
-
-        <div class="section" style="background-color:#e8e8e8; border:2px solid #555;">
-            <div class="form-group" style="font-size:11px;">
+        <div class="section" style="background-color:#e8e8e8; border:2px solid #555; padding: 1px 2px;">
+            <div class="form-group" style="font-size:10.5px;">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
-                <input type="text" id="jej_solidos" maxlength="2" placeholder="  " style="width:20px; flex-grow:0; text-align:center; background:transparent; border:none; border-bottom:1.5px solid #333; font-size:13px; font-weight:900;">
+                <input type="text" id="jej_solidos" maxlength="2" placeholder="  " style="width:18px; flex-grow:0; text-align:center; background:transparent; border:none; border-bottom:1.5px solid #333; font-size:12px; font-weight:900;">
                 <label style="margin: 0 2px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">SÓLIDOS</span> E DE</label>
-                <input type="text" id="jej_liquidos" maxlength="2" placeholder="  " style="width:20px; flex-grow:0; text-align:center; background:transparent; border:none; border-bottom:1.5px solid #333; font-size:13px; font-weight:900;">
+                <input type="text" id="jej_liquidos" maxlength="2" placeholder="  " style="width:18px; flex-grow:0; text-align:center; background:transparent; border:none; border-bottom:1.5px solid #333; font-size:12px; font-weight:900;">
                 <label style="margin-left: 2px;"><span class="jejum-destaque">HORAS</span> PARA <span class="jejum-destaque">ÁGUA</span>.</label>
             </div>
         </div>
@@ -494,48 +514,38 @@
                     <label style="margin-left:1px;"><input type="checkbox" id="asa_e"><span class="btn-check"></span> E</label>
                 </div>
             </div>
-            <div style="margin-top:2px;">
-                <label style="font-weight:bold; font-size:10px;">Recomendações:</label>
-                <input type="text" id="concl_recom1" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:2px; display:block;">
-                <input type="text" id="concl_recom2" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-                <input type="text" id="concl_recom3" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-                <input type="text" id="concl_recom4" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
+            <div style="margin-top:1px; position: relative;">
+                <label style="font-weight:bold; font-size:9.5px;">Recomendações:</label>
+                <textarea id="recomendacoes_texto" class="textarea-linhas-dinamicas" style="height: 51px; margin-top: 1px;" placeholder=""></textarea>
             </div>
         </div>
 
         <div class="section">
             <div class="section-title">OBSERVAÇÕES / CONDUTA</div>
-            <input type="text" id="obs1" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:2px; display:block;">
-            <input type="text" id="obs2" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-            <input type="text" id="obs3" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-            <input type="text" id="obs4" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-            <input type="text" id="obs5" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-            <input type="text" id="obs6" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-            <input type="text" id="obs7" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
-            <input type="text" id="obs8" style="width:100%; border:none; border-bottom:1px solid #777; background:transparent; font-size:12px; font-weight:800; box-sizing:border-box; margin-top:5px; display:block;">
+            <textarea id="observacoes_texto" class="textarea-linhas-dinamicas" style="height: 85px; margin-top: 1px;" placeholder=""></textarea>
         </div>
 
-        <div class="section" style="border:none; margin-top:10px; background:transparent;">
+        <div class="section" style="border:none; margin-top:5px; background:transparent; padding: 0;">
             <div class="assinatura-container">
-                <div style="width: 20%; text-align: left; font-weight: bold; padding-top: 15px;">
-                    Data: <input type="text" id="data_avaliacao" style="width: 70px;">
+                <div style="width: 20%; text-align: left; font-weight: bold; padding-top: 10px;">
+                    Data: <input type="text" id="data_avaliacao" style="width: 65px;">
                 </div>
                 
-                <div class="assinatura-box" style="width: 45%; min-height: 95px; position: relative; border-top: none; padding-top: 0;">
+                <div class="assinatura-box" style="width: 45%; min-height: 80px; position: relative; border-top: none; padding-top: 0;">
                     <div class="container-carimbo-flutuante">
                         <div id="o-carimbo">
-                            <span id="txt-nome" style="font-size: 13px; display: block;"></span>
+                            <span id="txt-nome" style="font-size: 12px; display: block;"></span>
                             <div class="carimbo-linha-inferior">
                                 <img src="logo-anesthemed.png" class="mini-logo-real-carimbo" alt="Logo">
-                                <span id="txt-crm" style="font-size: 10.5px;"></span>
+                                <span id="txt-crm" style="font-size: 10px;"></span>
                             </div>
                         </div>
                     </div>
                     <input id="busca-anestesista" class="linha-assinatura-interativa" autocomplete="off" placeholder="">
-                    <div style="font-size: 11px; font-weight: bold; margin-top: 4px; text-transform: uppercase;">Anestesiologista</div>
+                    <div style="font-size: 10.5px; font-weight: bold; margin-top: 3px; text-transform: uppercase;">Anestesiologista</div>
                 </div>
                 
-                <div class="assinatura-box" style="width: 30%; border-top: 1.2px solid #000; padding-top: 4px;">
+                <div class="assinatura-box" style="width: 30%; border-top: 1.2px solid #000; padding-top: 3px; font-size: 10.5px;">
                     Paciente / Responsável
                 </div>
             </div>
@@ -580,7 +590,7 @@
         "Dr. Roberto Nacke": "CRM/PR 30503",
         "Dra. Jéssica Rodrigues": "CRM/PR 37062",
         "Dr. Marino Berardi": "CRM/PR 28112",
-        "Dra. Juliana Biaggi": "CRM/PR 33034",
+        "Dra. Juliana C. Pulz": "CRM/PR 33034",
         "Dr. Roberto Muller": "CRM/PR 33858",
         "Dr. Felipe La Rocca": "CRM/PR 29687",
         "Dr. Dirceu Takassi Jr.": "CRM/PR 48547",
@@ -623,7 +633,7 @@
     function gerarLinkCompartilhar() {
         const linkCompleto = obterLinkCompacto();
         navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Link copiado para a Área de Transferência!\nPronto para colar no WhatsApp.");
+            alert("✓ Link copiado para a Área de Transferência!\\nPronto para colar no WhatsApp.");
         }).catch(err => {
             alert("Erro ao copiar automaticamente.");
         });
@@ -633,10 +643,10 @@
         const linkCompleto = obterLinkCompacto();
         const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
         const cpfPct = document.getElementById('cpf_paciente').value || "SEM_CPF";
-        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n" + linkCompleto + "\n\n==================================================";
+        const conteudoTxt = "==================================================\\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\\n==================================================\\n\\nPaciente: " + nomePct + "\\nCPF: " + cpfPct + "\\nData: " + document.getElementById('data_avaliacao').value + "\\n\\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\\n\\n" + linkCompleto + "\\n\\n==================================================";
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
         const linkDownload = document.createElement("a");
-        const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
+        const nomeArquivoClean = nomePct.replace(/\\s+/g, '_');
         linkDownload.download = "AVAL_" + nomeArquivoClean + "_" + cpfPct + ".txt";
         linkDownload.href = window.URL.createObjectURL(blob);
         linkDownload.style.display = "none";
@@ -644,7 +654,7 @@
         linkDownload.click();
         document.body.removeChild(linkDownload);
         navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente.");
+            alert("✓ Ficha digital baixada com sucesso!\\n\\n💡 O link real e completo desta ficha também foi COPIADO automaticamente.");
         }).catch(() => {
             alert("Ficha baixada com sucesso!");
         });
@@ -653,7 +663,7 @@
 
     function imprimirFicha() {
         const nome = document.getElementById('nome_paciente').value || "PACIENTE";
-        document.title = "AVAL_" + nome.replace(/\s+/g, '_').toUpperCase();
+        document.title = "AVAL_" + nome.replace(/\\s+/g, '_').toUpperCase();
         window.print();
     }
 
@@ -745,15 +755,15 @@
         const marcador = numero + ". ";
         if (isChecked) {
             if (!texto.includes(marcador)) {
-                if (texto.trim() !== "" && !texto.endsWith("\n")) texto += "\n";
+                if (texto.trim() !== "" && !texto.endsWith("\\n")) texto += "\\n";
                 texto += marcador; txtArea.value = texto;
             }
             txtArea.focus();
             const comprimento = txtArea.value.length;
             txtArea.setSelectionRange(comprimento, comprimento);
         } else {
-            const linhas = texto.split("\n");
-            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\n");
+            const linhas = texto.split("\\n");
+            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\\n");
         }
         travarImpressao();
     }
