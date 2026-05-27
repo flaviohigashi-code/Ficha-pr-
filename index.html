@@ -187,7 +187,6 @@
                 width: 100%; 
                 padding: 0; 
                 margin: 0;
-                /* Aplica redução de 90% para forçar caber perfeitamente na página */
                 transform: scale(0.90);
                 transform-origin: top center;
             }
@@ -414,12 +413,12 @@
                         <input type="text" id="ex_hb" maxlength="5" style="width:34px; text-align:center;">
                     </td>
                     <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
-                        <b style="font-size:9px;">Glicemia</b>
-                        <input type="text" id="ex_glicemia" maxlength="5" style="width:34px; text-align:center;">
-                    </td>
-                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
                         <b style="font-size:9px;">Plaquetas</b>
                         <input type="text" id="ex_plaq" maxlength="9" style="width:62px; text-align:center;">
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
+                        <b style="font-size:9px;">Glicemia</b>
+                        <input type="text" id="ex_glicemia" maxlength="5" style="width:34px; text-align:center;">
                     </td>
                     <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap;">
                         <b style="font-size:9px;">TAP/RNI</b>
@@ -507,8 +506,8 @@
 
         <div class="section" style="border:none; margin-top:5px; background:transparent;">
             <div class="assinatura-container">
-                <div style="width: 20%; text-align: left; font-weight: bold; padding-top: 10px;">
-                    Data: <input type="text" id="data_avaliacao" style="width: 65px;">
+                <div style="width: 25%; text-align: left; font-weight: bold; padding-top: 10px;">
+                    Data: <input type="text" id="data_avaliacao" style="width: 90px; text-align: center; padding: 1px 2px; font-weight: bold;">
                 </div>
                 
                 <div class="assinatura-box" style="width: 45%; min-height: 95px; position: relative; border-top: none; padding-top: 0;">
