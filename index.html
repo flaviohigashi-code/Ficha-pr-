@@ -6,8 +6,7 @@
     <title>Avaliação Pré Anestésica - AnestheMed</title>
     <style>
         @page { 
-            size: A4; 
-            margin: 2mm 4mm; 
+            size: A4; \n            margin: 2mm 4mm; 
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -621,6 +620,7 @@
         travarImpressao();
     }
 
+    // CORREÇÃO AQUI: Garante que o input oculto/visível do anestesista também vá para a URL de backup
     function obterLinkCompacto() {
         const dados = {};
         document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
@@ -647,7 +647,11 @@
         const linkCompleto = obterLinkCompacto();
         const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
         const cpfPct = document.getElementById('cpf_paciente').value || "SEM_CPF";
-        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK ABAIXO E COLE NO SEU NAVEGADOR:\n\n" + linkCompleto + "\n\n==================================================";
+        const anestesistaInput = document.getElementById('busca-anestesista').value;
+        const carimboAtivo = document.getElementById('chk_ativar_carimbo').checked;
+        const medicoTxt = (carimboAtivo && anestesistaInput) ? anestesistaInput : "Não selecionado";
+
+        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\nAnestesista: " + medicoTxt + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA (COM CARIMBO ATIVO), COPIE O LINK ABAIXO:\n\n" + linkCompleto + "\n\n==================================================";
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
         const linkDownload = document.createElement("a");
         const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
@@ -658,7 +662,7 @@
         linkDownload.click();
         document.body.removeChild(linkDownload);
         navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha também foi COPIADO automaticamente.");
+            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha (incluindo o carimbo) também foi COPIADO.");
         }).catch(() => {
             alert("Ficha baixada com sucesso!");
         });
@@ -844,6 +848,7 @@
         }
     });
 
+    // CORREÇÃO AQUI: Garante que o Carimbo reative se os parâmetros existirem na URL
     function carregarDadosUrl() {
         const p = new URLSearchParams(window.location.search);
         p.forEach((valor, chave) => {
@@ -851,13 +856,22 @@
             if (el) {
                 if (el.type === "radio" || el.type === "checkbox") {
                     el.checked = (valor === "1");
-                    if (el.id === "chk_ativar_carimbo") { alternarVisibilidadeBusca(el.checked); }
+                } else {
+                    el.value = valor;
                 }
-                else el.value = valor;
             }
         });
-        const anestesistaSalvo = p.get('busca-anestesista');
-        if(anestesistaSalvo) { aplicarCarimbo(anestesistaSalvo); }
+        
+        // Ativa e renderiza visualmente o carimbo caso ele tenha vindo marcado na URL
+        const chkCarimbo = document.getElementById('chk_ativar_carimbo');
+        if (chkCarimbo && chkCarimbo.checked) {
+            alternarVisibilidadeBusca(true);
+            const anestesistaSalvo = p.get('busca-anestesista');
+            if (anestesistaSalvo) {
+                document.getElementById('busca-anestesista').value = anestesistaSalvo;
+                aplicarCarimbo(anestesistaSalvo);
+            }
+        }
     }
 </script>
 </body>
