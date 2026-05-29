@@ -161,7 +161,6 @@
             filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
         }
 
-        /* Linha de segurança em texto plano acima do cargo */
         #texto-seguranca-anestesista {
             display: block;
             font-size: 9px;
@@ -183,6 +182,7 @@
             padding: 2px 4px;
             box-sizing: border-box;
             font-size: 11px;
+            background-color: #fff;
         }
 
         /* IMPRESSÃO EXCLUSIVA */
@@ -622,7 +622,6 @@
         const wrapper = document.getElementById('wrapper-busca-anestesista');
         if (marcado) {
             wrapper.style.display = 'block';
-            document.getElementById('busca-anestesista').focus();
         } else {
             wrapper.style.display = 'none';
             document.getElementById('busca-anestesista').value = '';
@@ -839,7 +838,6 @@
     function aplicarCarimbo(nomeSelecionado) {
         const crmEncontrado = crmsDoGrupo[nomeSelecionado];
         if (crmEncontrado) {
-            // Garante que o input guarde o valor real digitado/selecionado pelo médico
             document.getElementById('busca-anestesista').value = nomeSelecionado;
             
             // Renderiza o Carimbo Azul
@@ -847,9 +845,8 @@
             document.getElementById('txt-crm').innerText = crmEncontrado;
             document.getElementById('o-carimbo').style.display = 'block';
             
-            // Escreve a linha de texto definitiva e estática (Espelho de segurança)
+            // Escreve o texto plano de segurança
             document.getElementById('texto-seguranca-anestesista').innerText = nomeSelecionado + " - " + crmEncontrado;
-            travarImpressao();
         } else {
             esconderCarimbo();
         }
@@ -858,7 +855,6 @@
     function esconderCarimbo() {
         document.getElementById('o-carimbo').style.display = 'none';
         document.getElementById('texto-seguranca-anestesista').innerText = '';
-        travarImpressao();
     }
 
     document.getElementById('avaliacao-form').addEventListener('keydown', function(e) {
@@ -880,11 +876,13 @@
             }
         });
         
-        // Se a URL contiver o carimbo marcado, reativa o carimbo e a linha de segurança
+        // CORREÇÃO CRÍTICA AQUI: Reconhece se o link possui um anestesista gravado
         const chkCarimbo = document.getElementById('chk_ativar_carimbo');
-        if (chkCarimbo && chkCarimbo.checked) {
+        const anestesistaSalvo = p.get('busca-anestesista');
+        
+        if (chkCarimbo && (chkCarimbo.checked || anestesistaSalvo)) {
+            chkCarimbo.checked = true; // Garante que fique marcado visualmente
             alternarVisibilidadeBusca(true);
-            const anestesistaSalvo = p.get('busca-anestesista');
             if (anestesistaSalvo) {
                 aplicarCarimbo(anestesistaSalvo);
             }
