@@ -6,7 +6,8 @@
     <title>Avaliação Pré Anestésica - AnestheMed</title>
     <style>
         @page { 
-            size: A4; \n            margin: 2mm 4mm; 
+            size: A4; 
+            margin: 2mm 4mm; 
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -160,6 +161,17 @@
             filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
         }
 
+        /* Linha de segurança em texto plano acima do cargo */
+        #texto-seguranca-anestesista {
+            display: block;
+            font-size: 9px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 2px;
+            min-height: 11px;
+            text-transform: uppercase;
+        }
+
         .assinatura-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 35px; gap: 15px; }
         .assinatura-box { text-align: center; font-weight: bold; }
 
@@ -173,13 +185,9 @@
             font-size: 11px;
         }
 
-        /* CONFIGURAÇÕES EXCLUSIVAS DE IMPRESSÃO A4 A 90% */
+        /* IMPRESSÃO EXCLUSIVA */
         @media print {
-            body { 
-                background-color: #fff; 
-                padding: 0; 
-                margin: 0;
-            }
+            body { background-color: #fff; padding: 0; margin: 0; }
             .container { 
                 border: none; 
                 box-shadow: none; 
@@ -527,6 +535,9 @@
                             <input type="checkbox" id="chk_ativar_carimbo" onchange="alternarVisibilidadeBusca(this.checked)">
                             <span class="btn-check"></span> <strong>Carimbo Virtual</strong>
                         </label>
+                        
+                        <span id="texto-seguranca-anestesista"></span>
+                        
                         <div style="font-size: 10.5px; font-weight: bold; margin-top: 1px; text-transform: uppercase;">Anestesiologista</div>
                         
                         <div id="wrapper-busca-anestesista" style="display: none;">
@@ -615,12 +626,12 @@
         } else {
             wrapper.style.display = 'none';
             document.getElementById('busca-anestesista').value = '';
+            document.getElementById('texto-seguranca-anestesista').innerText = '';
             esconderCarimbo();
         }
         travarImpressao();
     }
 
-    // CORREÇÃO AQUI: Garante que o input oculto/visível do anestesista também vá para a URL de backup
     function obterLinkCompacto() {
         const dados = {};
         document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
@@ -649,7 +660,7 @@
         const cpfPct = document.getElementById('cpf_paciente').value || "SEM_CPF";
         const anestesistaInput = document.getElementById('busca-anestesista').value;
         const carimboAtivo = document.getElementById('chk_ativar_carimbo').checked;
-        const medicoTxt = (carimboAtivo && anestesistaInput) ? anestesistaInput : "Não selecionado";
+        const medicoTxt = (carimboAtivo && anestesistaInput) ? anestesistaInput + " - " + (crmsDoGrupo[anestesistaInput] || "") : "Não carimbado";
 
         const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\nAnestesista: " + medicoTxt + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA (COM CARIMBO ATIVO), COPIE O LINK ABAIXO:\n\n" + linkCompleto + "\n\n==================================================";
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
@@ -662,7 +673,7 @@
         linkDownload.click();
         document.body.removeChild(linkDownload);
         navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real e completo desta ficha (incluindo o carimbo) também foi COPIADO.");
+            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real de recuperação foi inserido no arquivo e também copiado para sua área de transferência.");
         }).catch(() => {
             alert("Ficha baixada com sucesso!");
         });
@@ -828,9 +839,16 @@
     function aplicarCarimbo(nomeSelecionado) {
         const crmEncontrado = crmsDoGrupo[nomeSelecionado];
         if (crmEncontrado) {
+            // Garante que o input guarde o valor real digitado/selecionado pelo médico
+            document.getElementById('busca-anestesista').value = nomeSelecionado;
+            
+            // Renderiza o Carimbo Azul
             document.getElementById('txt-nome').innerText = nomeSelecionado;
             document.getElementById('txt-crm').innerText = crmEncontrado;
             document.getElementById('o-carimbo').style.display = 'block';
+            
+            // Escreve a linha de texto definitiva e estática (Espelho de segurança)
+            document.getElementById('texto-seguranca-anestesista').innerText = nomeSelecionado + " - " + crmEncontrado;
             travarImpressao();
         } else {
             esconderCarimbo();
@@ -839,6 +857,7 @@
 
     function esconderCarimbo() {
         document.getElementById('o-carimbo').style.display = 'none';
+        document.getElementById('texto-seguranca-anestesista').innerText = '';
         travarImpressao();
     }
 
@@ -848,7 +867,6 @@
         }
     });
 
-    // CORREÇÃO AQUI: Garante que o Carimbo reative se os parâmetros existirem na URL
     function carregarDadosUrl() {
         const p = new URLSearchParams(window.location.search);
         p.forEach((valor, chave) => {
@@ -862,13 +880,12 @@
             }
         });
         
-        // Ativa e renderiza visualmente o carimbo caso ele tenha vindo marcado na URL
+        // Se a URL contiver o carimbo marcado, reativa o carimbo e a linha de segurança
         const chkCarimbo = document.getElementById('chk_ativar_carimbo');
         if (chkCarimbo && chkCarimbo.checked) {
             alternarVisibilidadeBusca(true);
             const anestesistaSalvo = p.get('busca-anestesista');
             if (anestesistaSalvo) {
-                document.getElementById('busca-anestesista').value = anestesistaSalvo;
                 aplicarCarimbo(anestesistaSalvo);
             }
         }
