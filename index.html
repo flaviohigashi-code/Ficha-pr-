@@ -110,7 +110,10 @@
         .sn-header { display: flex; font-weight: bold; font-size: 9px; margin-bottom: 0px; }
         .sn-header span { width: 14px; text-align: center; margin-right: 1px; }
         
-        .med-com-split { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4px; }
+        .med-com-split { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 6px; }
+        .comentarios-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 4px; }
+        .comentario-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; height: 16px; }
+        
         .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 4px; }
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
         .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
@@ -138,9 +141,9 @@
 
         #o-carimbo {
             display: none; 
-            border: 4px solid #0f2a4a; /* Borda mais larga simulando o carimbo físico */
+            border: 4px solid #0f2a4a; 
             color: #0f2a4a; 
-            opacity: 0.62; /* Efeito meio apagado de segunda carimbada consecutiva */
+            opacity: 0.62; 
             padding: 4px 6px; 
             border-radius: 4px; 
             font-family: 'Courier New', monospace; 
@@ -288,7 +291,7 @@
                     <div class="sn-header"><span>S</span><span>N</span></div>
                     <div class="row"><label><input type="radio" name="d9" id="d9_s" onchange="comentarioAutomatico('09', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d9" id="d9_n" onchange="comentarioAutomatico('09', false)"><span class="btn-check"></span></label> 09. Etilismo (quantifique)</div>
                     <div class="row"><label><input type="radio" name="d10" id="d10_s" onchange="comentarioAutomatico('10', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d10" id="d10_n" onchange="comentarioAutomatico('10', false)"><span class="btn-check"></span></label> 10. Hepatite</div>
-                    <div class="row"><label><input type="radio" name="d11" id="d11_s" onchange="comentarioAutomatico('11', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d11" id="d11_n" onchange="comentarioAutomatico('11', false)"><span class="btn-check"></span></label> 12. Doença Renal</div>
+                    <div class="row"><label><input type="radio" name="d11" id="d11_s" onchange="comentarioAutomatico('11', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d11" id="d11_n" onchange="comentarioAutomatico('11', false)"><span class="btn-check"></span></label> 11. Doença Renal</div>
                     <div class="row"><label><input type="radio" name="d12" id="d12_s" onchange="comentarioAutomatico('12', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d12" id="d12_n" onchange="comentarioAutomatico('12', false)"><span class="btn-check"></span></label> 12. Alergia medicamentosa</div>
                     <div class="row"><label><input type="radio" name="d13" id="d13_s" onchange="comentarioAutomatico('13', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d13" id="d13_n" onchange="comentarioAutomatico('13', false)"><span class="btn-check"></span></label> 13. Convulsão</div>
                     <div class="row"><label><input type="radio" name="d14" id="d14_s" onchange="comentarioAutomatico('14', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d14" id="d14_n" onchange="comentarioAutomatico('14', false)"><span class="btn-check"></span></label> 14. Doenças musculares</div>
@@ -314,7 +317,30 @@
         <div class="section med-com-split">
             <div style="border-right: 1px solid #000; padding-right: 4px;">
                 <div class="section-title">COMENTAR DADOS POSITIVOS</div>
-                <textarea id="comentarios_dados" rows="5" style="width: 100%; border: none; resize: none; font-size:11.5px;"></textarea>
+                <div class="comentarios-cols">
+                    <div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c1" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c2" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c3" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c4" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c5" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c6" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c7" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c8" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c9" oninput="ajustarFonteLinha(this)"></div>
+                    </div>
+                    <div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c10" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c11" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c12" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c13" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c14" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c15" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c16" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c17" oninput="ajustarFonteLinha(this)"></div>
+                        <div class="comentario-item"><input type="text" class="com_input" id="c18" oninput="ajustarFonteLinha(this)"></div>
+                    </div>
+                </div>
             </div>
             <div>
                 <div class="section-title">MEDICAMENTOS EM USO</div>
@@ -582,7 +608,7 @@
         <div class="buttons">
             <button type="button" class="btn-link" onclick="gerarLinkCompartilhar()">Secretaria: Copiar Link</button>
             <button type="button" class="btn-save" onclick="exportarFichaTxt()">1. Salvar Arquivo da Ficha</button>
-            <button type="button" class="btn-print" id="btn-imprimir" onclick="imprimirFicha()" disabled>2. Imprimir Via Paciente</button>
+            <button type="button" class="btn-print" id="btn-imprimir" onclick="imprimirFicha()" disabled>2. Imprimuir Via Paciente</button>
         </div>
     </form>
 </div>
@@ -632,6 +658,7 @@
     };
 
     const listaAnestesistas = Object.keys(crmsDoGrupo);
+    const totalComentariosInputs = 18;
 
     function inicializar() {
         definirData();
@@ -663,7 +690,6 @@
     function gerarLinkCompartilhar() {
         const linkCompleto = obterLinkCompacto();
         const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
-        
         const textoParaSpark = `**PACIENTE:** ${nomePct}\n**LINK DA FICHA:** ${linkCompleto}`;
         
         navigator.clipboard.writeText(textoParaSpark).then(() => {
@@ -721,14 +747,11 @@
         const inputs = Array.from(document.querySelectorAll('.med-input'));
         inputs.forEach((input, index) => {
             autocomplete(input, listaMedicamentos, inputs, index);
-            
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const proximo = inputs[index + 1];
-                    if (proximo) {
-                        proximo.focus();
-                    }
+                    if (proximo) proximo.focus();
                 }
             });
         });
@@ -791,23 +814,76 @@
         document.addEventListener("click", function (e) { closeAllLists(e.target); });
     }
 
+    // Gerenciador inteligente dos inputs com inserção exclusiva de números e foco automático
     function comentarioAutomatico(numero, isChecked) {
-        const txtArea = document.getElementById('comentarios_dados');
-        let texto = txtArea.value;
-        const marcador = numero + ". ";
-        if (isChecked) {
-            if (!texto.includes(marcador)) {
-                if (texto.trim() !== "" && !texto.endsWith("\n")) texto += "\n";
-                texto += marcador; txtArea.value = texto;
+        const prefixoMarcador = numero + ". ";
+        let comentariosAtuais = [];
+        
+        // Coleta o conteúdo real que o usuário editou nas caixas
+        for (let i = 1; i <= totalComentariosInputs; i++) {
+            let val = document.getElementById("c" + i).value.trim();
+            if (val !== "") {
+                comentariosAtuais.push(val);
             }
-            txtArea.focus();
-            const comprimento = txtArea.value.length;
-            txtArea.setSelectionRange(comprimento, comprimento);
-        } else {
-            const linhas = texto.split("\n");
-            txtArea.value = linhas.filter(linha => !linha.startsWith(marcador)).join("\n");
         }
+
+        let campoParaFocarId = null;
+
+        if (isChecked) {
+            // Verifica se o número do marcador já existe
+            let existe = comentariosAtuais.some(c => c.startsWith(prefixoMarcador));
+            if (!existe) {
+                comentariosAtuais.push(prefixoMarcador);
+            }
+        } else {
+            // Remove o item se o usuário clicar no Não (desmarcar)
+            comentariosAtuais = comentariosAtuais.filter(c => !c.startsWith(prefixoMarcador));
+        }
+
+        // Ordena estritamente pelo número inicial
+        comentariosAtuais.sort((a, b) => {
+            let numA = parseInt(a.split(".")[0]) || 0;
+            let numB = parseInt(b.split(".")[0]) || 0;
+            return numA - numB;
+        });
+
+        // Limpa e distribui os textos ordenados nas 18 posições
+        for (let i = 1; i <= totalComentariosInputs; i++) {
+            const inputElement = document.getElementById("c" + i);
+            const textoFinal = comentariosAtuais[i - 1] || "";
+            inputElement.value = textoFinal;
+            ajustarFonteLinha(inputElement);
+
+            // Se esse for o item recém-adicionado pelo botão "Sim", grava o ID para dar o foco
+            if (isChecked && textoFinal === prefixoMarcador) {
+                campoParaFocarId = "c" + i;
+            }
+        }
+
+        // Coloca o cursor do teclado imediatamente após o número inserido
+        if (campoParaFocarId) {
+            setTimeout(() => {
+                const elFoco = document.getElementById(campoParaFocarId);
+                elFoco.focus();
+                // Move a seleção para o final do texto ("XX. ") para não apagar o número
+                const pos = elFoco.value.length;
+                elFoco.setSelectionRange(pos, pos);
+            }, 50);
+        }
+
         travarImpressao();
+    }
+
+    // Ajusta dinamicamente a fonte caso o usuário escreva um comentário longo na linha
+    function ajustarFonteLinha(el) {
+        if (!el) return;
+        let fontSize = 12; 
+        el.style.fontSize = fontSize + "px";
+        
+        while (el.scrollWidth > el.clientWidth && fontSize > 8) {
+            fontSize -= 0.5;
+            el.style.fontSize = fontSize + "px";
+        }
     }
 
     function configurarAutocompleteCarimbo() {
@@ -863,11 +939,9 @@
         const crmEncontrado = crmsDoGrupo[nomeSelecionado];
         if (crmEncontrado) {
             document.getElementById('busca-anestesista').value = nomeSelecionado;
-            
             document.getElementById('txt-nome').innerText = nomeSelecionado;
             document.getElementById('txt-crm').innerText = crmEncontrado;
             document.getElementById('texto-seguranca-anestesista').innerText = nomeSelecionado + " - " + crmEncontrado;
-            
             alternarCarimboPeloCheckbox();
         } else {
             limparVinculoAnestesista();
@@ -914,6 +988,10 @@
         const anestesistaSalvo = p.get('busca-anestesista');
         if (anestesistaSalvo) {
             atualizarDadosTextoAnestesista(anestesistaSalvo);
+        }
+
+        for (let i = 1; i <= totalComentariosInputs; i++) {
+            ajustarFonteLinha(document.getElementById("c" + i));
         }
     }
 </script>
