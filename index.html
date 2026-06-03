@@ -69,6 +69,14 @@
             line-height: 1;
         }
 
+        /* Placeholder customizado e pequenino para o CPF */
+        #cpf_paciente::placeholder {
+            font-size: 9px;
+            font-weight: normal;
+            color: #888;
+            opacity: 1;
+        }
+
         input[type="radio"], input[type="checkbox"] { display: none; }
         
         .btn-check {
@@ -186,6 +194,16 @@
             font-weight: bold;
         }
 
+        .controle-carimbo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
         /* IMPRESSÃO EXCLUSIVA */
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
@@ -198,7 +216,7 @@
                 transform: scale(0.90);
                 transform-origin: top center;
             }
-            .buttons, .autocomplete-items, .autocomplete-carimbo-items, #wrapper-busca-anestesista { display: none !important; }
+            .buttons, .autocomplete-items, .autocomplete-carimbo-items, #wrapper-busca-anestesista, .controle-carimbo-box { display: none !important; }
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
             .assinatura-container { margin-top: 30px; }
@@ -230,16 +248,18 @@
 
 <div class="container">
     <form id="avaliacao-form" autocomplete="off">
+        <!-- Cabeçalho -->
         <div class="header">
             <div class="header-logo"><img src="logo-anesthemed.png" alt="Logo AnestheMed"></div>
             <div class="header-title"><h2>AVALIAÇÃO PRÉ ANESTÉSICA</h2></div>
             <div class="header-contact"><span class="loc-name">Inovare</span><span class="phone-num">(42) 3026-2640</span></div>
         </div>
 
+        <!-- Identificação -->
         <div class="section">
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Nome:</label><input type="text" id="nome_paciente"></div>
-                <div class="form-group" style="width: 30%;"><label>CPF:</label><input type="text" id="cpf_paciente"></div>
+                <div class="form-group" style="width: 30%;"><label>CPF:</label><input type="text" id="cpf_paciente" placeholder="4 primeiros dígitos"></div>
             </div>
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Cirurgia Proposta:</label><input type="text" id="cirurgia_proposta"></div>
@@ -251,6 +271,7 @@
             </div>
         </div>
 
+        <!-- Questionário S/N -->
         <div class="section">
             <div class="section-title">Assinale as doenças ou sintomas que tem ou que teve: S/N</div>
             <div class="grid-3">
@@ -291,6 +312,7 @@
             </div>
         </div>
 
+        <!-- Comentários e Medicamentos -->
         <div class="section med-com-split">
             <div style="border-right: 1px solid #000; padding-right: 4px;">
                 <div class="section-title">COMENTAR DADOS POSITIVOS</div>
@@ -331,6 +353,7 @@
             </div>
         </div>
 
+        <!-- Exame Físico -->
         <div class="section">
             <div class="section-title">EXAME FÍSICO</div>
             <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
@@ -408,6 +431,7 @@
             </table>
         </div>
 
+        <!-- Exames Complementares -->
         <div class="section">
             <div class="section-title">EXAMES COMPLEMENTARES</div>
             <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
@@ -466,6 +490,7 @@
             </table>
         </div>
 
+        <!-- Jejum -->
         <div class="section" style="background-color:#e8e8e8; border:2px solid #555;">
             <div class="form-group" style="font-size:10.5px;">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
@@ -476,6 +501,7 @@
             </div>
         </div>
 
+        <!-- Conclusões -->
         <div class="section">
             <div class="section-title">CONCLUSÕES</div>
             <div class="row" style="justify-content: space-between;">
@@ -503,6 +529,7 @@
             </div>
         </div>
 
+        <!-- Observações -->
         <div class="section">
             <div class="section-title">OBSERVAÇÕES / CONDUTA</div>
             <input type="text" id="obs1" style="width:100%; margin-top:1px; display:block;">
@@ -512,13 +539,14 @@
             <input type="text" id="obs5" style="width:100%; margin-top:3px; display:block;">
         </div>
 
+        <!-- Assinaturas e Carimbo -->
         <div class="section" style="border:none; margin-top:5px; background:transparent;">
             <div class="assinatura-container">
                 <div style="width: 25%; text-align: left; font-weight: bold; padding-top: 10px;">
                     Data: <input type="text" id="data_avaliacao" style="width: 90px; text-align: center; padding: 1px 2px; font-weight: bold;">
                 </div>
                 
-                <div class="assinatura-box" style="width: 45%; min-height: 95px; position: relative; border-top: none; padding-top: 0;">
+                <div class="assinatura-box" style="width: 45%; min-height: 105px; position: relative; border-top: none; padding-top: 0;">
                     <div class="container-carimbo-flutuante">
                         <div id="o-carimbo">
                             <span id="txt-nome" style="font-size: 12.5px; display: block;"></span>
@@ -532,10 +560,16 @@
                     <div style="border-bottom: 1.2px solid #000; width:100%; height: 35px;"></div>
                     
                     <div style="margin-top: 4px;">
+                        <!-- Linha de Texto Plano (Espelho de Segurança) -->
                         <span id="texto-seguranca-anestesista"></span>
                         
                         <div id="wrapper-busca-anestesista">
                             <input id="busca-anestesista" type="text" placeholder="Nome do Anestesista...">
+                        </div>
+
+                        <!-- Checkbox para aplicar o carimbo virtual -->
+                        <div class="controle-carimbo-box">
+                            <label><input type="checkbox" id="chk_aplicar_carimbo" onchange="alternarCarimboPeloCheckbox()"><span class="btn-check"></span> Aplicar Carimbo Virtual na Impressão</label>
                         </div>
                         
                         <div style="font-size: 10.5px; font-weight: bold; margin-top: 2px; text-transform: uppercase; color: #000;">Anestesiologista</div>
@@ -548,6 +582,7 @@
             </div>
         </div>
 
+        <!-- Botões de Ação -->
         <div class="buttons">
             <button type="button" class="btn-link" onclick="gerarLinkCompartilhar()">Secretaria: Copiar Link</button>
             <button type="button" class="btn-save" onclick="exportarFichaTxt()">1. Salvar Arquivo da Ficha</button>
@@ -643,7 +678,7 @@
         const anestesistaInput = document.getElementById('busca-anestesista').value;
         const medicoTxt = (anestesistaInput) ? anestesistaInput + " - " + (crmsDoGrupo[anestesistaInput] || "") : "Não preenchido";
 
-        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF: " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\nAnestesista: " + medicoTxt + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK RESTRITO ABAIXO:\n\n" + linkCompleto + "\n\n==================================================";
+        const conteudoTxt = "==================================================\nANESTHEMED - FICHA DIGITAL DE AVALIACAO PRE-ANESTESICA\n==================================================\n\nPaciente: " + nomePct + "\nCPF (Parcial): " + cpfPct + "\nData: " + document.getElementById('data_avaliacao').value + "\nAnestesista: " + medicoTxt + "\n\nPARA REABRIR ESTA FICHA INTEGRALMENTE PREENCHIDA, COPIE O LINK RESTRITO ABAIXO:\n\n" + linkCompleto + "\n\n==================================================";
         const blob = new Blob([conteudoTxt], { type: "text/plain;charset=utf-8" });
         const linkDownload = document.createElement("a");
         const nomeArquivoClean = nomePct.replace(/\s+/g, '_');
@@ -766,18 +801,13 @@
         travarImpressao();
     }
 
-    function configuringAutocompleteCarimbo() {
-        // Alias para manter compatibilidade interna
-        configurarAutocompleteCarimbo();
-    }
-
     function configurarAutocompleteCarimbo() {
         const inp = document.getElementById("busca-anestesista");
         let currentFocus = -1;
         inp.addEventListener("input", function(e) {
             let a, b, i, val = this.value;
             closeAllCarimboLists();
-            if (!val) { esconderCarimbo(); return false; }
+            if (!val) { limparVinculoAnestesista(); return false; }
             currentFocus = -1;
             a = document.createElement("DIV");
             a.setAttribute("id", this.id + "autocomplete-list");
@@ -792,7 +822,7 @@
                     b.addEventListener("click", function(e) {
                         inp.value = this.getElementsByTagName("input")[0].value;
                         closeAllCarimboLists();
-                        aplicarCarimbo(inp.value);
+                        atualizarDadosTextoAnestesista(inp.value);
                     });
                     a.appendChild(b);
                 }
@@ -820,24 +850,38 @@
         document.addEventListener("click", function (e) { closeAllCarimboLists(e.target); });
     }
 
-    function aplicarCarimbo(nomeSelecionado) {
+    function atualizarDadosTextoAnestesista(nomeSelecionado) {
         const crmEncontrado = crmsDoGrupo[nomeSelecionado];
         if (crmEncontrado) {
             document.getElementById('busca-anestesista').value = nomeSelecionado;
             
-            // Renderiza o Carimbo Azul
+            // Atualiza os elementos de texto do carimbo e da linha plana de segurança
             document.getElementById('txt-nome').innerText = nomeSelecionado;
             document.getElementById('txt-crm').innerText = crmEncontrado;
-            document.getElementById('o-carimbo').style.display = 'block';
-            
-            // Escreve o texto plano de segurança (espelho)
             document.getElementById('texto-seguranca-anestesista').innerText = nomeSelecionado + " - " + crmEncontrado;
+            
+            // Roda a lógica para ver se o carimbo gráfico deve ou não ser renderizado na tela
+            alternarCarimboPeloCheckbox();
         } else {
-            esconderCarimbo();
+            limparVinculoAnestesista();
         }
     }
 
-    function esconderCarimbo() {
+    function alternarCarimboPeloCheckbox() {
+        const chkCarimbo = document.getElementById('chk_aplicar_carimbo');
+        const carimboDiv = document.getElementById('o-carimbo');
+        const nomeDigitado = document.getElementById('busca-anestesista').value;
+        
+        // Se a caixa estiver marcada e houver um médico válido selecionado, mostra o carimbo
+        if (chkCarimbo.checked && crmsDoGrupo[nomeDigitado]) {
+            carimboDiv.style.display = 'block';
+        } else {
+            carimboDiv.style.display = 'none';
+        }
+        travarImpressao();
+    }
+
+    function limparVinculoAnestesista() {
         document.getElementById('o-carimbo').style.display = 'none';
         document.getElementById('texto-seguranca-anestesista').innerText = '';
     }
@@ -861,10 +905,10 @@
             }
         });
         
-        // Carrega o anestesista direto pelo id nativo
+        // Reconstrói o estado do anestesista após mapear todos os campos da URL
         const anestesistaSalvo = p.get('busca-anestesista');
         if (anestesistaSalvo) {
-            aplicarCarimbo(anestesistaSalvo);
+            atualizarDadosTextoAnestesista(anestesistaSalvo);
         }
     }
 </script>
