@@ -69,7 +69,6 @@
             line-height: 1;
         }
 
-        /* Placeholder customizado e pequenino para o CPF */
         #cpf_paciente::placeholder {
             font-size: 9px;
             font-weight: normal;
@@ -139,9 +138,9 @@
 
         #o-carimbo {
             display: none; 
-            border: 2px solid #0f2a4a; 
+            border: 4px solid #0f2a4a; /* Borda mais larga simulando o carimbo físico */
             color: #0f2a4a; 
-            opacity: 0.65; 
+            opacity: 0.62; /* Efeito meio apagado de segunda carimbada consecutiva */
             padding: 4px 6px; 
             border-radius: 4px; 
             font-family: 'Courier New', monospace; 
@@ -204,7 +203,6 @@
             color: #555;
         }
 
-        /* IMPRESSÃO EXCLUSIVA */
         @media print {
             body { background-color: #fff; padding: 0; margin: 0; }
             .container { 
@@ -290,7 +288,7 @@
                     <div class="sn-header"><span>S</span><span>N</span></div>
                     <div class="row"><label><input type="radio" name="d9" id="d9_s" onchange="comentarioAutomatico('09', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d9" id="d9_n" onchange="comentarioAutomatico('09', false)"><span class="btn-check"></span></label> 09. Etilismo (quantifique)</div>
                     <div class="row"><label><input type="radio" name="d10" id="d10_s" onchange="comentarioAutomatico('10', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d10" id="d10_n" onchange="comentarioAutomatico('10', false)"><span class="btn-check"></span></label> 10. Hepatite</div>
-                    <div class="row"><label><input type="radio" name="d11" id="d11_s" onchange="comentarioAutomatico('11', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d11" id="d11_n" onchange="comentarioAutomatico('11', false)"><span class="btn-check"></span></label> 11. Doença Renal</div>
+                    <div class="row"><label><input type="radio" name="d11" id="d11_s" onchange="comentarioAutomatico('11', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d11" id="d11_n" onchange="comentarioAutomatico('11', false)"><span class="btn-check"></span></label> 12. Doença Renal</div>
                     <div class="row"><label><input type="radio" name="d12" id="d12_s" onchange="comentarioAutomatico('12', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d12" id="d12_n" onchange="comentarioAutomatico('12', false)"><span class="btn-check"></span></label> 12. Alergia medicamentosa</div>
                     <div class="row"><label><input type="radio" name="d13" id="d13_s" onchange="comentarioAutomatico('13', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d13" id="d13_n" onchange="comentarioAutomatico('13', false)"><span class="btn-check"></span></label> 13. Convulsão</div>
                     <div class="row"><label><input type="radio" name="d14" id="d14_s" onchange="comentarioAutomatico('14', this.checked)"><span class="btn-check"></span></label><label><input type="radio" name="d14" id="d14_n" onchange="comentarioAutomatico('14', false)"><span class="btn-check"></span></label> 14. Doenças musculares</div>
@@ -560,14 +558,12 @@
                     <div style="border-bottom: 1.2px solid #000; width:100%; height: 35px;"></div>
                     
                     <div style="margin-top: 4px;">
-                        <!-- Linha de Texto Plano (Espelho de Segurança) -->
                         <span id="texto-seguranca-anestesista"></span>
                         
                         <div id="wrapper-busca-anestesista">
                             <input id="busca-anestesista" type="text" placeholder="Nome do Anestesista...">
                         </div>
 
-                        <!-- Checkbox para aplicar o carimbo virtual -->
                         <div class="controle-carimbo-box">
                             <label><input type="checkbox" id="chk_aplicar_carimbo" onchange="alternarCarimboPeloCheckbox()"><span class="btn-check"></span> Aplicar Carimbo Virtual na Impressão</label>
                         </div>
@@ -593,8 +589,10 @@
 
 <script>
     const listaMedicamentos = [
-        "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Enandril", "Captopril", "Anlodipino", 
-        "Hidroclorotiazida", "Furosemida", "Espironolactona", "Sinvastatina", "Atorvastatina", "Rosuvastatina",
+        "Venzer", "Lamitor", "Tadalafila", "Lipless (ciprofibrato)", "Glifage", "Atorvastatina", "Enalapril", "Decadron", "Minoxidil", 
+        "Amoxicilina", "Clavulin (Amoxicilina + Clavulanato)", "Azitromicina", "Ciprofloxacino", "Cefalexina", "Ceftriaxona",
+        "Losartana", "Atenolol", "Metoprolol", "Propranolol", "Captopril", "Anlodipino", 
+        "Hidroclorotiazida", "Furosemida", "Espironolactona", "Sinvastatina", "Rosuvastatina",
         "AAS (Aspirina)", "Clopidogrel (Plavix)", "Ticagrelor (Brilinta)", "Rivaroxabana (Xarelto)", 
         "Apixabana (Eliquis)", "Dabigatrana (Pradaxa)", "Varfarina (Marevan)", "Metformina", "Glibenclamida", 
         "Insulina NPH", "Insulina Regular", "Insulina Glargina (Lantus)", "Insulina Detemir (Levemir)", 
@@ -664,8 +662,12 @@
 
     function gerarLinkCompartilhar() {
         const linkCompleto = obterLinkCompacto();
-        navigator.clipboard.writeText(linkCompleto).then(() => {
-            alert("✓ Link copiado para a Área de Transferência!\nPronto para colar no WhatsApp.");
+        const nomePct = (document.getElementById('nome_paciente').value || "PACIENTE_SEM_NOME").toUpperCase();
+        
+        const textoParaSpark = `**PACIENTE:** ${nomePct}\n**LINK DA FICHA:** ${linkCompleto}`;
+        
+        navigator.clipboard.writeText(textoParaSpark).then(() => {
+            alert(`✓ Mensagem formatada com sucesso para o Spark!\n\nPaciente: ${nomePct}`);
         }).catch(err => {
             alert("Erro ao copiar automaticamente.");
         });
@@ -708,22 +710,24 @@
 
     function configurarDetectoresDeAlteracao() {
         document.querySelectorAll('input, textarea').forEach(el => {
-            el.addEventListener('input', travarImpressao);
-            el.addEventListener('change', travarImpressao);
+            if(el.id !== 'busca-anestesista' && !el.classList.contains('med-input')) {
+                el.addEventListener('input', travarImpressao);
+                el.addEventListener('change', travarImpressao);
+            }
         });
     }
 
     function configurarAutocompleteEMedicamentos() {
-        const inputs = document.querySelectorAll('.med-input');
+        const inputs = Array.from(document.querySelectorAll('.med-input'));
         inputs.forEach((input, index) => {
             autocomplete(input, listaMedicamentos, inputs, index);
+            
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
-                    const listaAberta = input.parentNode.querySelector('.autocomplete-items');
-                    if (!listaAberta) {
-                        e.preventDefault(); 
-                        const proximo = inputs[index + 1];
-                        if (proximo) proximo.focus();
+                    e.preventDefault();
+                    const proximo = inputs[index + 1];
+                    if (proximo) {
+                        proximo.focus();
                     }
                 }
             });
@@ -766,7 +770,12 @@
             if (x) x = x.getElementsByTagName("div");
             if (e.keyCode == 40) { currentFocus++; addActive(x); } 
             else if (e.keyCode == 38) { currentFocus--; addActive(x); } 
-            else if (e.keyCode == 13) { if (currentFocus > -1) { e.preventDefault(); if (x) x[currentFocus].click(); } }
+            else if (e.keyCode == 13) { 
+                if (currentFocus > -1 && x) { 
+                    e.preventDefault(); 
+                    x[currentFocus].click(); 
+                } 
+            }
         });
         function addActive(x) {
             if (!x) return false; removeActive(x);
@@ -855,12 +864,10 @@
         if (crmEncontrado) {
             document.getElementById('busca-anestesista').value = nomeSelecionado;
             
-            // Atualiza os elementos de texto do carimbo e da linha plana de segurança
             document.getElementById('txt-nome').innerText = nomeSelecionado;
             document.getElementById('txt-crm').innerText = crmEncontrado;
             document.getElementById('texto-seguranca-anestesista').innerText = nomeSelecionado + " - " + crmEncontrado;
             
-            // Roda a lógica para ver se o carimbo gráfico deve ou não ser renderizado na tela
             alternarCarimboPeloCheckbox();
         } else {
             limparVinculoAnestesista();
@@ -872,7 +879,6 @@
         const carimboDiv = document.getElementById('o-carimbo');
         const nomeDigitado = document.getElementById('busca-anestesista').value;
         
-        // Se a caixa estiver marcada e houver um médico válido selecionado, mostra o carimbo
         if (chkCarimbo.checked && crmsDoGrupo[nomeDigitado]) {
             carimboDiv.style.display = 'block';
         } else {
@@ -905,7 +911,6 @@
             }
         });
         
-        // Reconstrói o estado do anestesista após mapear todos os campos da URL
         const anestesistaSalvo = p.get('busca-anestesista');
         if (anestesistaSalvo) {
             atualizarDadosTextoAnestesista(anestesistaSalvo);
