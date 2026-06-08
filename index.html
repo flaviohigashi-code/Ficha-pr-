@@ -229,7 +229,7 @@
         .btn-link { background-color: #ff9800; }
         .btn-save { background-color: #2e7d32; }
         .btn-print { background-color: #1565c0; }
-        .btn-print:disabled { background-color: #9e9e9e !important; color: #e0e0e0 !important; cursor: not-allowed !important; opacity: 0.6; }
+        .btn-print:disabled { background-color: #9e9e9e !important; color: #e0e0e0 !important; cursor: not-allowed !allowed; opacity: 0.6; }
 
         .autocomplete-items {
             position: absolute;
@@ -249,14 +249,12 @@
 
 <div class="container">
     <form id="avaliacao-form" autocomplete="off">
-        <!-- Cabeçalho -->
         <div class="header">
             <div class="header-logo"><img src="logo-anesthemed.png" alt="Logo AnestheMed"></div>
             <div class="header-title"><h2>AVALIAÇÃO PRÉ ANESTÉSICA</h2></div>
             <div class="header-contact"><span class="loc-name">Inovare</span><span class="phone-num">(42) 3026-2640</span></div>
         </div>
 
-        <!-- Identificação -->
         <div class="section">
             <div class="row">
                 <div class="form-group" style="width: 70%;"><label>Nome:</label><input type="text" id="nome_paciente"></div>
@@ -272,7 +270,6 @@
             </div>
         </div>
 
-        <!-- Questionário S/N -->
         <div class="section">
             <div class="section-title">Assinale as doenças ou sintomas que tem ou que teve: S/N</div>
             <div class="grid-3">
@@ -313,7 +310,6 @@
             </div>
         </div>
 
-        <!-- Comentários e Medicamentos -->
         <div class="section med-com-split">
             <div style="border-right: 1px solid #000; padding-right: 4px;">
                 <div class="section-title">COMENTAR DADOS POSITIVOS</div>
@@ -377,7 +373,6 @@
             </div>
         </div>
 
-        <!-- Exame Físico -->
         <div class="section">
             <div class="section-title">EXAME FÍSICO</div>
             <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
@@ -421,15 +416,18 @@
                 <tr>
                     <td colspan="3" style="border:1px solid #999; padding:1px 2px;">
                         <b style="font-size:9px;">COLUNA VERTEBRAL</b>
-                        <input type="text" id="ef_coluna" style="width:calc(100% - 95px);">
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_coluna_sp"><span class="btn-check"></span>SP</label>
+                        <input type="text" id="ef_coluna" style="width:calc(100% - 135px);">
                     </td>
                     <td colspan="2" style="border:1px solid #999; padding:1px 2px;">
                         <b style="font-size:9px;">ACESSO VENOSO</b>
-                        <input type="text" id="ef_acesso" style="width:calc(100% - 85px);">
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_acesso_bom"><span class="btn-check"></span>BOM</label>
+                        <input type="text" id="ef_acesso" style="width:calc(100% - 120px);">
                     </td>
                     <td colspan="3" style="border:1px solid #999; padding:1px 2px;">
                         <b style="font-size:9px;">ABDÔMEN</b>
-                        <input type="text" id="ef_abdomen" style="width:calc(100% - 55px);">
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_abdomen_sp"><span class="btn-check"></span>SP</label>
+                        <input type="text" id="ef_abdomen" style="width:calc(100% - 90px);">
                     </td>
                 </tr>
                 <tr>
@@ -449,13 +447,13 @@
                 <tr>
                     <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
                         <b style="font-size:9px;">MEMBROS</b>
-                        <input type="text" id="ef_membros" style="width:calc(100% - 50px);">
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_membros_sp"><span class="btn-check"></span>SP</label>
+                        <input type="text" id="ef_membros" style="width:calc(100% - 85px);">
                     </td>
                 </tr>
             </table>
         </div>
 
-        <!-- Exames Complementares -->
         <div class="section">
             <div class="section-title">EXAMES COMPLEMENTARES</div>
             <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
@@ -496,13 +494,15 @@
                 <tr>
                     <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
                         <b style="font-size:9px;">RX TÓRAX</b>
-                        <input type="text" id="ex_rx" style="width:calc(100% - 55px);">
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ex_rx_normal"><span class="btn-check"></span>NORMAL</label>
+                        <input type="text" id="ex_rx" style="width:calc(100% - 110px);">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="8" style="border:1px solid #999; padding:1px 2px;">
                         <b style="font-size:9px;">ECG</b>
-                        <input type="text" id="ex_ecg" style="width:calc(100% - 28px);">
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ex_ecg_normal"><span class="btn-check"></span>NORMAL</label>
+                        <input type="text" id="ex_ecg" style="width:calc(100% - 85px);">
                     </td>
                 </tr>
                 <tr>
@@ -514,7 +514,6 @@
             </table>
         </div>
 
-        <!-- Jejum -->
         <div class="section" style="background-color:#e8e8e8; border:2px solid #555;">
             <div class="form-group" style="font-size:10.5px;">
                 <label><input type="checkbox" id="chk_jejum"><span class="btn-check"></span> Orientado a permanecer em <span class="jejum-destaque">JEJUM PRÉ OPERATÓRIO</span> de</label>
@@ -525,7 +524,6 @@
             </div>
         </div>
 
-        <!-- Conclusões -->
         <div class="section">
             <div class="section-title">CONCLUSÕES</div>
             <div class="row" style="justify-content: space-between;">
@@ -553,7 +551,6 @@
             </div>
         </div>
 
-        <!-- Observações -->
         <div class="section">
             <div class="section-title">OBSERVAÇÕES / CONDUTA</div>
             <input type="text" id="obs1" style="width:100%; margin-top:1px; display:block;">
@@ -563,7 +560,6 @@
             <input type="text" id="obs5" style="width:100%; margin-top:3px; display:block;">
         </div>
 
-        <!-- Assinaturas e Carimbo -->
         <div class="section" style="border:none; margin-top:5px; background:transparent;">
             <div class="assinatura-container">
                 <div style="width: 25%; text-align: left; font-weight: bold; padding-top: 10px;">
@@ -604,11 +600,10 @@
             </div>
         </div>
 
-        <!-- Botões de Ação -->
         <div class="buttons">
             <button type="button" class="btn-link" onclick="gerarLinkCompartilhar()">Secretaria: Copiar Link</button>
             <button type="button" class="btn-save" onclick="exportarFichaTxt()">1. Salvar Arquivo da Ficha</button>
-            <button type="button" class="btn-print" id="btn-imprimir" onclick="imprimirFicha()" disabled>2. Imprimuir Via Paciente</button>
+            <button type="button" class="btn-print" id="btn-imprimir" onclick="imprimirFicha()" disabled>2. Imprimir Via Paciente</button>
         </div>
     </form>
 </div>
@@ -814,12 +809,10 @@
         document.addEventListener("click", function (e) { closeAllLists(e.target); });
     }
 
-    // Gerenciador inteligente dos inputs com inserção exclusiva de números e foco automático
     function comentarioAutomatico(numero, isChecked) {
         const prefixoMarcador = numero + ". ";
         let comentariosAtuais = [];
         
-        // Coleta o conteúdo real que o usuário editou nas caixas
         for (let i = 1; i <= totalComentariosInputs; i++) {
             let val = document.getElementById("c" + i).value.trim();
             if (val !== "") {
@@ -830,42 +823,35 @@
         let campoParaFocarId = null;
 
         if (isChecked) {
-            // Verifica se o número do marcador já existe
             let existe = comentariosAtuais.some(c => c.startsWith(prefixoMarcador));
             if (!existe) {
                 comentariosAtuais.push(prefixoMarcador);
             }
         } else {
-            // Remove o item se o usuário clicar no Não (desmarcar)
             comentariosAtuais = comentariosAtuais.filter(c => !c.startsWith(prefixoMarcador));
         }
 
-        // Ordena estritamente pelo número inicial
         comentariosAtuais.sort((a, b) => {
             let numA = parseInt(a.split(".")[0]) || 0;
             let numB = parseInt(b.split(".")[0]) || 0;
             return numA - numB;
         });
 
-        // Limpa e distribui os textos ordenados nas 18 posições
         for (let i = 1; i <= totalComentariosInputs; i++) {
             const inputElement = document.getElementById("c" + i);
             const textoFinal = comentariosAtuais[i - 1] || "";
             inputElement.value = textoFinal;
             ajustarFonteLinha(inputElement);
 
-            // Se esse for o item recém-adicionado pelo botão "Sim", grava o ID para dar o foco
             if (isChecked && textoFinal === prefixoMarcador) {
                 campoParaFocarId = "c" + i;
             }
         }
 
-        // Coloca o cursor do teclado imediatamente após o número inserido
         if (campoParaFocarId) {
             setTimeout(() => {
                 const elFoco = document.getElementById(campoParaFocarId);
                 elFoco.focus();
-                // Move a seleção para o final do texto ("XX. ") para não apagar o número
                 const pos = elFoco.value.length;
                 elFoco.setSelectionRange(pos, pos);
             }, 50);
@@ -874,7 +860,6 @@
         travarImpressao();
     }
 
-    // Ajusta dinamicamente a fonte caso o usuário escreva um comentário longo na linha
     function ajustarFonteLinha(el) {
         if (!el) return;
         let fontSize = 12; 
