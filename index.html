@@ -53,7 +53,6 @@
             font-size: 9.5px;
         }
         
-        /* Container do título da seção de doenças com o botão ao lado */
         .disease-title-container {
             background-color: #f2f2f2;
             border-bottom: 1px solid #000;
@@ -69,7 +68,7 @@
             font-size: 9.5px;
             flex-grow: 1;
             text-align: center;
-            margin-left: 100px; /* Equilibra visualmente devido ao botão na direita */
+            margin-left: 100px;
         }
         .btn-uncheck-no {
             background-color: #78909c;
@@ -152,6 +151,73 @@
         .med-list-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 4px; }
         .med-item { display: flex; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 0px; position: relative; }
         .med-item span { font-size: 9px; font-weight: bold; margin-right: 2px; width: 12px; }
+
+        /* Estilização customizada para a linha do jejum */
+        .jejum-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+        }
+        .jejum-opcoes {
+            display: flex;
+            gap: 15px;
+            font-weight: bold;
+            font-size: 10.5px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 3px;
+        }
+        .jejum-opcoes label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .jejum-input-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Div espelho que fica por trás do input para aplicar o negrito estilizado */
+        .jejum-mirror {
+            position: absolute;
+            left: 1px;
+            top: 0;
+            right: 1px;
+            bottom: 1px;
+            font-size: 11px;
+            font-weight: normal;
+            color: #000;
+            white-space: nowrap;
+            overflow: hidden;
+            pointer-events: none;
+            background: transparent;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.3;
+        }
+        .jejum-mirror .highlight-jejum {
+            font-weight: 900 !important;
+            font-size: 12.5px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Input transparente que recebe a digitação real */
+        #linha_jejum_completa {
+            width: 100%;
+            font-size: 11px;
+            font-weight: normal !important;
+            border: none;
+            border-bottom: 1px solid #555;
+            color: transparent; /* Oculta o texto real do input */
+            caret-color: #000;  /* Mantém o cursor visível */
+            background: transparent;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        /* Quando focado ou impresso, garante legibilidade e sincronia */
+        #linha_jejum_completa:focus {
+            color: transparent;
+        }
 
         .autocomplete-carimbo-items {
             position: absolute;
@@ -249,9 +315,10 @@
                 transform: scale(0.90);
                 transform-origin: top center;
             }
-            .buttons, .autocomplete-items, .autocomplete-carimbo-items, #wrapper-busca-anestesista, .controle-carimbo-box, .btn-uncheck-no { display: none !important; }
-            .disease-title-text { margin-left: 0 !important; } /* Centraliza 100% na impressão */
+            .buttons, .autocomplete-items, .autocomplete-carimbo-items, #wrapper-busca-anestesista, .controle-carimbo-box, .btn-uncheck-no, .jejum-opcoes { display: none !important; }
+            .disease-title-text { margin-left: 0 !important; }
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
+            #linha_jejum_completa { border-bottom: 1px solid #555; color: transparent !important; }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
             .assinatura-container { margin-top: 30px; }
             #o-carimbo { bottom: -5px !important; }
@@ -272,10 +339,12 @@
             top: 100%;
             left: 14px;
             right: 0;
-            max-height: 100px;
+            max-height: 120px;
             overflow-y: auto;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
         }
-        .autocomplete-items div { padding: 2px 4px; cursor: pointer; font-size: 10.5px; color: #333; text-align: left; }
+        .autocomplete-items div { padding: 4px 6px; cursor: pointer; font-size: 10.5px; color: #333; text-align: left; border-bottom: 1px solid #eee; }
+        .autocomplete-items div:hover { background-color: #e1f5fe !important; font-weight: bold; color: #000; }
     </style>
 </head>
 <body onload="inicializar()">
@@ -550,10 +619,16 @@
             </table>
         </div>
 
-        <div class="section" style="background-color:#e8e8e8; border:2px solid #555; padding: 2px 4px;">
-            <div class="form-group" style="font-size:10.5px; width:100%;">
-                <label style="margin-right:4px;"><input type="checkbox" id="chk_jejum" checked><span class="btn-check"></span></label>
-                <input type="text" id="linha_jejum_completa" value="Orientado a permanecer em JEJUM PRÉ OPERATÓRIO de 8 horas para alimentos e de 2 horas para água, água de coco e isotônicos." style="width:100%; font-size:10.5px; font-weight:900 !important; text-transform:uppercase; border:none; border-bottom:1px solid #555;">
+        <div class="section" style="background-color:#e8e8e8; border:2px solid #555; padding: 3px 5px;">
+            <div class="jejum-container">
+                <div class="jejum-opcoes">
+                    <label><input type="radio" name="tipo_jejum" id="jejum_adulto" checked onchange="alternarTextoJejum('adulto')"><span class="btn-check"></span> JEJUM ADULTO</label>
+                    <label><input type="radio" name="tipo_jejum" id="jejum_crianca" onchange="alternarTextoJejum('crianca')"><span class="btn-check"></span> JEJUM CRIANÇA</label>
+                </div>
+                <div class="jejum-input-wrapper">
+                    <div class="jejum-mirror" id="jejum_mirror_view"></div>
+                    <input type="text" id="linha_jejum_completa" value="Orientado a permanecer em JEJUM pré-operatório de 8 horas para alimentos e de 2 horas para água, água de coco e isotônicos.">
+                </div>
             </div>
         </div>
 
@@ -664,6 +739,11 @@
         "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
     ];
 
+    const opcoesJejumMemorizadas = [
+        "Orientado a permanecer em JEJUM pré-operatório de 8 horas para alimentos e de 2 horas para água, água de coco e isotônicos.",
+        "Orientado responsável sobre JEJUM de 2h para água, 4h para leite materno e 6 horas para outros leites. Alimentos 8h."
+    ];
+
     const crmsDoGrupo = {
         "Dr. Flavio Higashi": "CRM/PR 14146",
         "Dr. André Trentini": "CRM/PR 17240",
@@ -691,9 +771,11 @@
     function inicializar() {
         definirData();
         configurarAutocompleteEMedicamentos();
+        configurarAutocompleteJejum();
         configurarAutocompleteCarimbo();
         configurarDetectoresDeAlteracao();
         carregarDadosUrl();
+        sincronizarEspelhoJejum();
     }
 
     function definirData() { 
@@ -702,7 +784,6 @@
         }
     }
 
-    /* Nova função para desmarcar todos os botões 'Não' da grade de doenças */
     function desmarcarTodosNo() {
         for (let i = 1; i <= 24; i++) {
             const elNo = document.getElementById("d" + i + "_n");
@@ -711,6 +792,62 @@
             }
         }
         travarImpressao();
+    }
+
+    function sincronizarEspelhoJejum() {
+        const inputEl = document.getElementById('linha_jejum_completa');
+        const mirrorEl = document.getElementById('jejum_mirror_view');
+        let texto = inputEl.value;
+        let textoFormatado = texto.replace(/JEJUM/g, '<span class="highlight-jejum">JEJUM</span>');
+        mirrorEl.innerHTML = textoFormatado;
+    }
+
+    function alternarTextoJejum(tipo) {
+        const inp = document.getElementById('linha_jejum_completa');
+        if (tipo === 'adulto') {
+            inp.value = opcoesJejumMemorizadas[0];
+        } else if (tipo === 'crianca') {
+            inp.value = opcoesJejumMemorizadas[1];
+        }
+        sincronizarEspelhoJejum();
+        travarImpressao();
+    }
+
+    function configurarAutocompleteJejum() {
+        const inp = document.getElementById('linha_jejum_completa');
+        
+        inp.addEventListener('input', () => {
+            sincronizarEspelhoJejum();
+            travarImpressao();
+        });
+
+        ['focus', 'click'].forEach(evt => {
+            inp.addEventListener(evt, function() {
+                let a, b, i, val = this.value;
+                closeAllLists();
+                
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                this.parentNode.appendChild(a);
+
+                for (i = 0; i < opcoesJejumMemorizadas.length; i++) {
+                    if (!val || opcoesJejumMemorizadas[i].toUpperCase().includes(val.toUpperCase())) {
+                        b = document.createElement("DIV");
+                        b.innerHTML = opcoesJejumMemorizadas[i].replace(/JEJUM/g, '<strong>JEJUM</strong>');
+                        b.innerHTML += "<input type='hidden' value='" + opcoesJejumMemorizadas[i] + "'>";
+                        
+                        b.addEventListener("click", function() {
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            closeAllLists();
+                            sincronizarEspelhoJejum();
+                            travarImpressao();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+        });
     }
 
     function obterLinkCompacto() {
@@ -775,7 +912,7 @@
 
     function configurarDetectoresDeAlteracao() {
         document.querySelectorAll('input, textarea').forEach(el => {
-            if(el.id !== 'busca-anestesista' && !el.classList.contains('med-input')) {
+            if(el.id !== 'busca-anestesista' && el.id !== 'linha_jejum_completa' && !el.classList.contains('med-input')) {
                 el.addEventListener('input', travarImpressao);
                 el.addEventListener('change', travarImpressao);
             }
@@ -846,12 +983,17 @@
             x[currentFocus].classList.add("autocomplete-active");
         }
         function removeActive(x) { for (let i = 0; i < x.length; i++) x[i].classList.remove("autocomplete-active"); }
-        function closeAllLists(elmnt) {
-            const x = document.getElementsByClassName("autocomplete-items");
-            for (let i = 0; i < x.length; i++) { if (elmnt != x[i] && elmnt != inp) x[i].parentNode.removeChild(x[i]); }
-        }
-        document.addEventListener("click", function (e) { closeAllLists(e.target); });
     }
+
+    function closeAllLists(elmnt) {
+        const x = document.getElementsByClassName("autocomplete-items");
+        for (let i = 0; i < x.length; i++) { 
+            if (elmnt != x[i] && elmnt != document.getElementById('linha_jejum_completa') && (!elmnt || !elmnt.classList.contains('med-input'))) {
+                x[i].parentNode.removeChild(x[i]); 
+            } 
+        }
+    }
+    document.addEventListener("click", function (e) { closeAllLists(e.target); });
 
     function comentarioAutomatico(numero, isChecked) {
         const prefixoMarcador = numero + ". ";
@@ -1022,6 +1164,7 @@
         for (let i = 1; i <= totalComentariosInputs; i++) {
             ajustarFonteLinha(document.getElementById("c" + i));
         }
+        sincronizarEspelhoJejum();
     }
 </script>
 </body>
