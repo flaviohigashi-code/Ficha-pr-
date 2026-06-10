@@ -52,6 +52,41 @@
             text-transform: uppercase;
             font-size: 9.5px;
         }
+        
+        /* Container do título da seção de doenças com o botão ao lado */
+        .disease-title-container {
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #000;
+            margin: -1px -2px 1px -2px;
+            padding: 1px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .disease-title-text {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 9.5px;
+            flex-grow: 1;
+            text-align: center;
+            margin-left: 100px; /* Equilibra visualmente devido ao botão na direita */
+        }
+        .btn-uncheck-no {
+            background-color: #78909c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-size: 8.5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        .btn-uncheck-no:hover {
+            background-color: #546e7a;
+        }
+
         .row { display: flex; flex-wrap: wrap; margin-bottom: 1px; align-items: center; }
         .form-group { display: flex; align-items: center; margin-bottom: 0px; }
         .form-group label { margin-right: 3px; white-space: nowrap; font-weight: bold; }
@@ -214,7 +249,8 @@
                 transform: scale(0.90);
                 transform-origin: top center;
             }
-            .buttons, .autocomplete-items, .autocomplete-carimbo-items, #wrapper-busca-anestesista, .controle-carimbo-box { display: none !important; }
+            .buttons, .autocomplete-items, .autocomplete-carimbo-items, #wrapper-busca-anestesista, .controle-carimbo-box, .btn-uncheck-no { display: none !important; }
+            .disease-title-text { margin-left: 0 !important; } /* Centraliza 100% na impressão */
             input[type="text"], input[type="number"], textarea { border-bottom: 1px solid #000; }
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
             .assinatura-container { margin-top: 30px; }
@@ -268,7 +304,10 @@
         </div>
 
         <div class="section">
-            <div class="section-title">Assinale as doenças ou sintomas que tem ou que teve: S/N</div>
+            <div class="disease-title-container">
+                <div class="disease-title-text">Assinale as doenças ou sintomas que tem ou que teve: S/N</div>
+                <button type="button" class="btn-uncheck-no" onclick="desmarcarTodosNo()">Desmarcar todos os "Não"</button>
+            </div>
             <div class="grid-3">
                 <div>
                     <div class="sn-header"><span>S</span><span>N</span></div>
@@ -405,7 +444,7 @@
                         <label style="margin-left:2px;"><input type="radio" name="dem_medida" id="dem_menor"><span class="btn-check"></span> &lt;12</label>
                     </td>
                     <td style="border:1px solid #999; padding:1px 2px; white-space:nowrap; width:18%;">
-                        <b style="font-size:9px;">DIF. INTUB.</b>
+                        <b style="font-size:9px;">DEM. INTUB.</b>
                         <label style="margin-left:1px;"><input type="radio" name="dif_intub" id="df_sim"><span class="btn-check"></span> Sim</label>
                         <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
                     </td>
@@ -661,6 +700,17 @@
         if(!document.getElementById('data_avaliacao').value) {
             document.getElementById('data_avaliacao').value = new Date().toLocaleDateString('pt-BR'); 
         }
+    }
+
+    /* Nova função para desmarcar todos os botões 'Não' da grade de doenças */
+    function desmarcarTodosNo() {
+        for (let i = 1; i <= 24; i++) {
+            const elNo = document.getElementById("d" + i + "_n");
+            if (elNo && elNo.checked) {
+                elNo.checked = false;
+            }
+        }
+        travarImpressao();
     }
 
     function obterLinkCompacto() {
