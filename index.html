@@ -2124,35 +2124,60 @@
   /* ── Assinatura com carimbo ── */
   .doc-assinatura {
     margin-top: 55px; display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; align-items: flex-end;
+    gap: 24px;
   }
-  .doc-carimbo-wrap { text-align: center; width: 260px; }
+
+  /* Bloco esquerdo: traço + nome + CRM pequenos */
+  .doc-assin-linha {
+    text-align: center; width: 220px;
+  }
+  .doc-assin-traco {
+    border-top: 1px solid #000; margin-bottom: 5px;
+  }
+  .doc-assin-nome {
+    font-size: 8pt; font-weight: bold; color: #000;
+    text-transform: uppercase; letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+  .doc-assin-crm {
+    font-size: 7.5pt; color: #333; margin-top: 1px;
+  }
+  .doc-assin-cargo {
+    font-size: 7pt; color: #555; margin-top: 1px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* Bloco direito: carimbo levemente torto */
+  .doc-carimbo-wrap { text-align: center; width: 220px; }
   .doc-carimbo {
     border: 3px solid #0f2a4a; border-radius: 4px;
     padding: 5px 10px; color: #0f2a4a;
     font-family: 'Courier New', monospace; font-weight: bold;
-    text-transform: uppercase; opacity: 0.75;
+    text-transform: uppercase; opacity: 0.68;
     display: inline-block; width: 100%;
-    font-size: 10.5pt; margin-bottom: 6px;
+    font-size: 9pt; margin-bottom: 4px;
+    transform: rotate(-2.5deg);
+    box-shadow: 1px 1px 0px rgba(15,42,74,0.18);
   }
-  .doc-carimbo .carimbo-nome { display: block; font-size: 11pt; margin-bottom: 3px; }
+  .doc-carimbo .carimbo-nome { display: block; font-size: 9.5pt; margin-bottom: 3px; }
   .doc-carimbo .carimbo-linha-inf {
     display: flex; align-items: center;
-    justify-content: center; gap: 6px; margin-top: 3px;
+    justify-content: center; gap: 5px; margin-top: 3px;
   }
   .doc-carimbo .carimbo-linha-inf img {
-    height: 28px; width: auto;
+    height: 24px; width: auto;
     filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
   }
-  .doc-carimbo .carimbo-crm { font-size: 9pt; }
-  .doc-local { margin-top: 10px; font-size: 10pt; color: #333; }
+  .doc-carimbo .carimbo-crm { font-size: 8pt; }
+  .doc-local { margin-top: 8px; font-size: 9pt; color: #444; }
 
   /* ── Impressão ── */
   @media print {
     #toolbar { display: none !important; }
     body { background: #fff; }
     #documento { margin: 0; padding: 20px 35px; box-shadow: none; width: 100%; }
-    .doc-carimbo { opacity: 0.6; }
+    .doc-carimbo { opacity: 0.55; }
   }
 </style>
 </head>
@@ -2190,6 +2215,12 @@
 <h2>Atestado Médico</h2>
 <p>Atesto, para os devidos fins de direito, que o(a) Sr(a). <strong>${d.nome}</strong> compareceu a este consultório médico no dia <strong>${d.dataAval}</strong>, no período das ______ às ______ horas, para realização de consulta e avaliação pré-anestésica/pré-operatória.</p>
 <div class="doc-assinatura">
+  <div class="doc-assin-linha">
+    <div class="doc-assin-traco"></div>
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+    <div class="doc-assin-crm">${d.crmAnest}</div>
+    <div class="doc-assin-cargo">Anestesiologista</div>
+  </div>
   <div class="doc-carimbo-wrap">
     <div class="doc-carimbo">
       <span class="carimbo-nome">${d.nomeAnest}</span>
@@ -2215,6 +2246,12 @@
 <h2>Atestado de Acompanhante</h2>
 <p>Atesto, para os devidos fins de direito, que o(a) Sr(a). <strong>___________________</strong> esteve presente neste consultório médico no dia <strong>${d.dataAval}</strong>, no período das ______ às ______ horas, na condição de acompanhante do(a) paciente <strong>${d.nome}</strong>, que se submeteu à consulta pré-operatória.</p>
 <div class="doc-assinatura">
+  <div class="doc-assin-linha">
+    <div class="doc-assin-traco"></div>
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+    <div class="doc-assin-crm">${d.crmAnest}</div>
+    <div class="doc-assin-cargo">Anestesiologista</div>
+  </div>
   <div class="doc-carimbo-wrap">
     <div class="doc-carimbo">
       <span class="carimbo-nome">${d.nomeAnest}</span>
@@ -2254,6 +2291,12 @@
 <ul>${medStr}</ul>
 <p>Agradeço antecipadamente pela colaboração e orientações quanto ao manejo perioperatório das medicações e estratificação de risco.</p>
 <div class="doc-assinatura">
+  <div class="doc-assin-linha">
+    <div class="doc-assin-traco"></div>
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+    <div class="doc-assin-crm">${d.crmAnest}</div>
+    <div class="doc-assin-cargo">Anestesiologista</div>
+  </div>
   <div class="doc-carimbo-wrap">
     <div class="doc-carimbo">
       <span class="carimbo-nome">${d.nomeAnest}</span>
