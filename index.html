@@ -828,6 +828,12 @@
 
         .buttons button { padding: 5px 10px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; }
 
+        .buttons-docs { text-align: center; margin-top: 5px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+
+        .buttons-docs button { padding: 5px 10px; cursor: pointer; color: white; border: none; border-radius: 4px; font-weight: bold; font-size: 11px; background-color: #5c7a9e; }
+
+        .buttons-docs button:hover { background-color: #3d5a7a; }
+
         .btn-link { background-color: #ff9800; }
 
         .btn-save { background-color: #2e7d32; }
@@ -1606,6 +1612,16 @@
 
         </div>
 
+        <div class="buttons-docs">
+
+            <button type="button" onclick="imprimirAtestadoPaciente()">📄 Atestado Paciente</button>
+
+            <button type="button" onclick="imprimirAtestadoAcompanhante()">👥 Atestado Acompanhante</button>
+
+            <button type="button" onclick="imprimirEncaminhamentoCardio()">❤️ Encaminhamento Cardiologista</button>
+
+        </div>
+
     </form>
 
 </div>
@@ -2006,6 +2022,253 @@
 
     }
 
+
+
+    function _dadosFicha() {
+
+        const nome = document.getElementById('nome_paciente').value || '___________________';
+
+        const cirurgia = document.getElementById('cirurgia_proposta').value || '___________________';
+
+        const dataAval = document.getElementById('data_avaliacao').value || '__/__/____';
+
+        const nomeAnest = document.getElementById('busca-anestesista').value || '___________________';
+
+        const crmAnest = (crmsDoGrupo[nomeAnest]) ? crmsDoGrupo[nomeAnest] : '___________';
+
+        // Comorbidades: coleta comentários preenchidos nos campos c1-c18
+        const comentarios = [];
+
+        for (let i = 1; i <= 18; i++) {
+
+            const el = document.getElementById('c' + i);
+
+            if (el && el.value && el.value.trim()) comentarios.push(el.value.trim());
+
+        }
+
+        // Medicamentos: coleta m1-m12
+        const meds = [];
+
+        for (let i = 1; i <= 12; i++) {
+
+            const el = document.getElementById('m' + i);
+
+            if (el && el.value && el.value.trim()) meds.push(el.value.trim());
+
+        }
+
+        return { nome, cirurgia, dataAval, nomeAnest, crmAnest, comentarios, meds };
+
+    }
+
+
+    const _logoPath = 'logo-anesthemed.png';
+
+
+
+    function _abrirJanelaImpressao(htmlConteudo) {
+
+        const win = window.open('', '_blank', 'width=820,height=960');
+
+        win.document.write(`<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Documento</title>
+<style>
+  * { box-sizing: border-box; }
+
+  /* ── Barra de ferramentas ── */
+  #toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: #2c3e50; padding: 8px 16px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  #toolbar button {
+    padding: 6px 18px; border: none; border-radius: 4px;
+    font-weight: bold; font-size: 12px; cursor: pointer;
+  }
+  #btn-imprimir-doc { background: #27ae60; color: #fff; }
+  #btn-imprimir-doc:hover { background: #1e8449; }
+  #btn-fechar-doc { background: #c0392b; color: #fff; }
+  #btn-fechar-doc:hover { background: #922b21; }
+  #aviso-edit { color: #f0e68c; font-size: 11px; font-family: Arial, sans-serif; flex: 1; text-align: right; }
+
+  /* ── Documento ── */
+  body { margin: 0; background: #e0e0e0; font-family: Arial, sans-serif; }
+  #documento {
+    background: #fff; width: 794px; max-width: 100%;
+    margin: 60px auto 40px; padding: 40px 55px;
+    min-height: 600px; outline: none;
+    font-size: 12pt; color: #000; line-height: 1.7;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+  #documento:focus { box-shadow: 0 0 0 3px #27ae6055, 0 2px 12px rgba(0,0,0,0.18); }
+
+  /* ── Cabeçalho com logo ── */
+  .doc-header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3px solid #0f2a4a; padding-bottom: 10px; margin-bottom: 22px;
+  }
+  .doc-header img { height: 52px; width: auto; object-fit: contain; }
+  .doc-header-info { text-align: right; font-size: 9pt; color: #0f2a4a; font-weight: bold; line-height: 1.5; }
+
+  /* ── Título ── */
+  #documento h2 {
+    text-align: center; font-size: 13pt; text-transform: uppercase;
+    letter-spacing: 1px; margin: 0 0 18px 0; color: #0f2a4a;
+  }
+  #documento p { margin: 10px 0; text-align: justify; }
+  #documento ul { margin: 8px 0 8px 24px; }
+  #documento li { margin: 3px 0; }
+
+  /* ── Assinatura com carimbo ── */
+  .doc-assinatura {
+    margin-top: 55px; display: flex;
+    justify-content: flex-end;
+  }
+  .doc-carimbo-wrap { text-align: center; width: 260px; }
+  .doc-carimbo {
+    border: 3px solid #0f2a4a; border-radius: 4px;
+    padding: 5px 10px; color: #0f2a4a;
+    font-family: 'Courier New', monospace; font-weight: bold;
+    text-transform: uppercase; opacity: 0.75;
+    display: inline-block; width: 100%;
+    font-size: 10.5pt; margin-bottom: 6px;
+  }
+  .doc-carimbo .carimbo-nome { display: block; font-size: 11pt; margin-bottom: 3px; }
+  .doc-carimbo .carimbo-linha-inf {
+    display: flex; align-items: center;
+    justify-content: center; gap: 6px; margin-top: 3px;
+  }
+  .doc-carimbo .carimbo-linha-inf img {
+    height: 28px; width: auto;
+    filter: brightness(0) sepia(1) hue-rotate(190deg) saturate(8) brightness(0.35);
+  }
+  .doc-carimbo .carimbo-crm { font-size: 9pt; }
+  .doc-local { margin-top: 10px; font-size: 10pt; color: #333; }
+
+  /* ── Impressão ── */
+  @media print {
+    #toolbar { display: none !important; }
+    body { background: #fff; }
+    #documento { margin: 0; padding: 20px 35px; box-shadow: none; width: 100%; }
+    .doc-carimbo { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <button id="btn-imprimir-doc" onclick="window.print()">🖨️ Imprimir</button>
+  <button id="btn-fechar-doc" onclick="window.close()">✕ Fechar</button>
+  <span id="aviso-edit">✏️ Clique no documento para editar antes de imprimir</span>
+</div>
+
+<div id="documento" contenteditable="true" spellcheck="true">
+
+  <div class="doc-header" contenteditable="false">
+    <img src="${_logoPath}" alt="AnestheMed">
+    <div class="doc-header-info">Anestesiologia &amp; Medicina Perioperatória<br>Inovare Clínica Cirúrgica</div>
+  </div>
+
+  ${htmlConteudo}
+
+</div>
+
+</body></html>`);
+
+        win.document.close();
+
+    }
+
+
+    function imprimirAtestadoPaciente() {
+
+        const d = _dadosFicha();
+
+        const html = `
+<h2>Atestado Médico</h2>
+<p>Atesto, para os devidos fins de direito, que o(a) Sr(a). <strong>${d.nome}</strong> compareceu a este consultório médico no dia <strong>${d.dataAval}</strong>, no período das ______ às ______ horas, para realização de consulta e avaliação pré-anestésica/pré-operatória.</p>
+<div class="doc-assinatura">
+  <div class="doc-carimbo-wrap">
+    <div class="doc-carimbo">
+      <span class="carimbo-nome">${d.nomeAnest}</span>
+      <div class="carimbo-linha-inf">
+        <img src="${_logoPath}" alt="Logo">
+        <span class="carimbo-crm">${d.crmAnest}</span>
+      </div>
+    </div>
+    <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
+  </div>
+</div>`;
+
+        _abrirJanelaImpressao(html);
+
+    }
+
+
+    function imprimirAtestadoAcompanhante() {
+
+        const d = _dadosFicha();
+
+        const html = `
+<h2>Atestado de Acompanhante</h2>
+<p>Atesto, para os devidos fins de direito, que o(a) Sr(a). <strong>___________________</strong> esteve presente neste consultório médico no dia <strong>${d.dataAval}</strong>, no período das ______ às ______ horas, na condição de acompanhante do(a) paciente <strong>${d.nome}</strong>, que se submeteu à consulta pré-operatória.</p>
+<div class="doc-assinatura">
+  <div class="doc-carimbo-wrap">
+    <div class="doc-carimbo">
+      <span class="carimbo-nome">${d.nomeAnest}</span>
+      <div class="carimbo-linha-inf">
+        <img src="${_logoPath}" alt="Logo">
+        <span class="carimbo-crm">${d.crmAnest}</span>
+      </div>
+    </div>
+    <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
+  </div>
+</div>`;
+
+        _abrirJanelaImpressao(html);
+
+    }
+
+
+    function imprimirEncaminhamentoCardio() {
+
+        const d = _dadosFicha();
+
+        const comorbStr = d.comentarios.length > 0
+            ? d.comentarios.map(c => `<li>${c}</li>`).join('')
+            : '<li>Sem comorbidades relevantes registradas</li>';
+
+        const medStr = d.meds.length > 0
+            ? d.meds.map(m => `<li>${m}</li>`).join('')
+            : '<li>Nenhuma medicação registrada</li>';
+
+        const html = `
+<h2>Solicitação de Parecer Cardiológico</h2>
+<p>Ao Colega Cardiologista,</p>
+<p>Solicito avaliação cardiovascular e parecer de risco cirúrgico para o(a) paciente <strong>${d.nome}</strong>, candidato(a) ao procedimento de <strong>${d.cirurgia}</strong>.</p>
+<p><strong>Histórico e Comorbidades:</strong></p>
+<ul>${comorbStr}</ul>
+<p><strong>Medicações em Uso:</strong></p>
+<ul>${medStr}</ul>
+<p>Agradeço antecipadamente pela colaboração e orientações quanto ao manejo perioperatório das medicações e estratificação de risco.</p>
+<div class="doc-assinatura">
+  <div class="doc-carimbo-wrap">
+    <div class="doc-carimbo">
+      <span class="carimbo-nome">${d.nomeAnest}</span>
+      <div class="carimbo-linha-inf">
+        <img src="${_logoPath}" alt="Logo">
+        <span class="carimbo-crm">${d.crmAnest}</span>
+      </div>
+    </div>
+    <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
+  </div>
+</div>`;
+
+        _abrirJanelaImpressao(html);
+
+    }
 
 
     function gerarLinkCompartilhar() {
