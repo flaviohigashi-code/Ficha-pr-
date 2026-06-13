@@ -4687,97 +4687,182 @@
 
     function imprimirTermoConsentimento() {
 
+
+
         const d = _dadosFicha();
 
+
+
         const html = `
+
+
+
 <h2>Termo de Consentimento Esclarecido e Avaliação Anestésica ou de Sedação</h2>
 
-<table style="width:100%; border-collapse:collapse; margin-bottom:18px; font-size:10pt;">
+
+
+<table style="width:100%;border-collapse:collapse;margin-bottom:18px;font-size:10pt;">
   <tr>
-    <td style="width:55%; padding:5px 8px; border:1px solid #999;">
-      <span style="font-size:8pt;color:#555;display:block;margin-bottom:2px;">Paciente</span>
+    <td style="width:55%;padding:5px 8px;border:1px solid #999;">
+      <span style="font-size:8pt;color:#555;display:block;">Paciente</span>
       <strong>${d.nome}</strong>
     </td>
-    <td style="width:45%; padding:5px 8px; border:1px solid #999;">
-      <span style="font-size:8pt;color:#555;display:block;margin-bottom:2px;">Data do Procedimento</span>
+    <td style="width:45%;padding:5px 8px;border:1px solid #999;">
+      <span style="font-size:8pt;color:#555;display:block;">Data do Procedimento</span>
       <strong>${d.dataAval}</strong>
     </td>
   </tr>
   <tr>
-    <td style="padding:5px 8px; border:1px solid #999;">
-      <span style="font-size:8pt;color:#555;display:block;margin-bottom:2px;">Declarante (se diferente do paciente)</span>
+    <td style="padding:5px 8px;border:1px solid #999;">
+      <span style="font-size:8pt;color:#555;display:block;">Declarante (se diferente do paciente)</span>
       &nbsp;
     </td>
-    <td style="padding:5px 8px; border:1px solid #999;">
-      <span style="font-size:8pt;color:#555;display:block;margin-bottom:2px;">Procedimentos Cirúrgicos / Diagnósticos</span>
+    <td style="padding:5px 8px;border:1px solid #999;">
+      <span style="font-size:8pt;color:#555;display:block;">Procedimentos Cirúrgicos / Diagnósticos</span>
       <strong>${d.cirurgia}</strong>
     </td>
   </tr>
 </table>
 
-<p style="font-weight:bold;font-size:11pt;margin-bottom:10px;">CONSENTIMENTO</p>
+
+
+<p style="font-weight:bold;font-size:11pt;">CONSENTIMENTO</p>
+
+
+
 <p>Declaro para fins legais:</p>
+
+
 
 <p><strong>1.</strong> Que estou ciente que, a meu (nosso) pedido, estarei (o paciente acima denominado estará) sendo submetido à anestesia para o procedimento referenciado, na data designada;</p>
 
-<p><strong>2.</strong> Que tive total e integral conhecimento dos fatores que envolvem o ato anestésico em questão, através da explanação prestada pelo Médico Anestesiologista que me (o) examinou, tendo tido a oportunidade de receber esclarecimentos e todas as informações necessárias à minha (nossa) perfeita compreensão dos aspectos ligados ao ato anestésico;</p>
 
-<p><strong>3.</strong> Que recoñeço (recoñecemos) que o(s) Médico(s) Anestesiologista(s) que aplicará(rão) a anestesia exerce(m) atividade de meio, obrigando-se a prestar seus serviços da melhor forma possível, agindo com a melhor técnica, zelo profissional e diligência;</p>
 
-<p><strong>4.</strong> Que foram prestadas ao Médico Anestesiologista todas as informações relativas às condições médicas, físicas e psicológicas do paciente, sem omissão de qualquer fato ou elemento, informações estas que foram transcritas neste documento;</p>
+<p><strong>2.</strong> Que tive total e integral conhecimento dos fatores que envolvem o ato anestésico em questão, através da explanação prestada pelo Médico Anestesiologista que me examinou, tendo tido a oportunidade de receber esclarecimentos e todas as informações necessárias à minha perfeita compreensão dos aspectos ligados ao ato anestésico;</p>
+
+
+
+<p><strong>3.</strong> Que recoñeço que o(s) Médico(s) Anestesiologista(s) exerce(m) atividade de meio, obrigando-se a prestar seus serviços da melhor forma possível, agindo com a melhor técnica e zelo profissional;</p>
+
+
+
+<p><strong>4.</strong> Que foram prestadas ao Médico Anestesiologista todas as informações relativas às condições médicas, físicas e psicológicas do paciente, sem omissão de qualquer fato ou elemento;</p>
+
+
 
 <p><strong>5.</strong> Que foram informados pelo Médico Anestesiologista os riscos inerentes e naturais ao ato anestésico;</p>
 
-<p><strong>6.</strong> Que o internamento do paciente no Hospital referenciado deu-se por livre e espontânea vontade, e que é de conhecimento que o(s) Médico(s) Anestesiologista(s) apenas se responsabiliza(m) pelos procedimentos de sua especialidade, não se responsabilizando pela qualidade dos serviços prestados pela instituição hospitalar ou por outros profissionais participantes do ato cirúrgico.</p>
+
+
+<p><strong>6.</strong> Que o internamento do paciente deu-se por livre e espontânea vontade, e que o(s) Médico(s) Anestesiologista(s) apenas se responsabiliza(m) pelos procedimentos de sua especialidade, não se responsabilizando pela qualidade dos serviços da instituição hospitalar ou demais profissionais participantes do ato cirúrgico.</p>
+
+
 
 <p style="margin-top:12px;">A presente declaração foi lida e compreendida em todos os seus termos.</p>
 
+
+
 <div style="margin-top:40px;display:flex;gap:16px;justify-content:space-between;align-items:flex-end;">
-  <div style="text-align:center;flex:1;">
-    <div style="border-top:1px solid #000;margin-bottom:4px;"></div>
-    <div style="font-size:8pt;">Médico Anestesiologista</div>
-  </div>
-  <div style="text-align:center;flex:1;">
-    <div style="border-top:1px solid #000;margin-bottom:4px;"></div>
-    <div style="font-size:8pt;">Paciente</div>
-  </div>
-  <div style="text-align:center;flex:1;">
-    <div style="border-top:1px solid #000;margin-bottom:4px;"></div>
-    <div style="font-size:8pt;">Testemunha</div>
-  </div>
-  <div style="text-align:center;flex:1;">
-    <div style="border-top:1px solid #000;margin-bottom:4px;"></div>
-    <div style="font-size:8pt;">Data</div>
-  </div>
+  <div style="text-align:center;flex:1;"><div style="border-top:1px solid #000;margin-bottom:4px;"></div><div style="font-size:8pt;">Médico Anestesiologista</div></div>
+  <div style="text-align:center;flex:1;"><div style="border-top:1px solid #000;margin-bottom:4px;"></div><div style="font-size:8pt;">Paciente</div></div>
+  <div style="text-align:center;flex:1;"><div style="border-top:1px solid #000;margin-bottom:4px;"></div><div style="font-size:8pt;">Testemunha</div></div>
+  <div style="text-align:center;flex:1;"><div style="border-top:1px solid #000;margin-bottom:4px;"></div><div style="font-size:8pt;">Data</div></div>
 </div>
 
-<div class="doc-assinatura" style="margin-top:30px;">
+
+
+<div class="doc-assinatura">
+
+
+
   <div class="doc-assin-linha">
-    <div class="doc-assin-traco"></div>
-    <div class="doc-assin-nome">${d.nomeAnest}</div>
-    <div class="doc-assin-crm">${d.crmAnest}</div>
-    <div class="doc-assin-cargo">Anestesiologista</div>
-  </div>
-  <div class="doc-carimbo-wrap">
-    <div class="doc-carimbo">
-      <span class="carimbo-nome">${d.nomeAnest}</span>
-      <div class="carimbo-linha-inf">
-        <img src="${_logoPath}" alt="Logo">
-        <span class="carimbo-crm">${d.crmAnest}</span>
-      </div>
-    </div>
-    <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
-  </div>
-</div>
 
-<div style="margin-top:28px;padding:10px 12px;border:1px solid #aaa;font-size:7.5pt;color:#444;line-height:1.5;text-align:justify;">
-  <em>Código de Ética Médica - Art. 59°: é vedado ao médico deixar de informar ao paciente o diagnóstico, o prognóstico, os riscos e objetivos do tratamento. Lei 8078/1990 (CDC) - Art. 9º: o fornecedor deverá informar sobre a nocividade ou periculosidade de seus produtos ou serviços. Art. 39°, VI: é vedado executar serviços sem a prévia elaboração de orçamento e autorização expressa do consumidor.</em>
-</div>
-`;
+
+
+    <div class="doc-assin-traco"></div>
+
+
+
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+
+
+
+    <div class="doc-assin-crm">${d.crmAnest}</div>
+
+
+
+    <div class="doc-assin-cargo">Anestesiologista</div>
+
+
+
+  </div>
+
+
+
+  <div class="doc-carimbo-wrap">
+
+
+
+    <div class="doc-carimbo">
+
+
+
+      <span class="carimbo-nome">${d.nomeAnest}</span>
+
+
+
+      <div class="carimbo-linha-inf">
+
+
+
+        <img src="${_logoPath}" alt="Logo">
+
+
+
+        <span class="carimbo-crm">${d.crmAnest}</span>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
+
+
+
+  </div>
+
+
+
+</div>`;
+
+
+
+
+
+
 
         _abrirJanelaImpressao(html);
 
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
 
 
 
@@ -5916,4 +6001,68 @@
 
 
 
-        const nomeDigitado
+        const nomeDigitado = document.getElementById('busca-anestesista').value;
+
+
+
+        
+
+
+
+        if (chkCarimbo.checked && crmsDoGrupo[nomeDigitado]) {
+
+
+
+            carimboDiv.style.display = 'block';
+
+
+
+        } else {
+
+
+
+            carimboDiv.style.display = 'none';
+
+
+
+        }
+
+
+
+        travarImpressao();
+
+
+
+    }
+
+
+
+
+
+
+
+    function limparVinculoAnestesista() {
+
+
+
+        document.getElementById('o-carimbo').style.display = 'none';
+
+
+
+        document.getElementById('texto-seguranca-anestesista').innerText = '';
+
+
+
+    }
+
+
+
+
+
+
+
+    document.getElementById('avaliacao-form').addEventListener('keydown', function(e) {
+
+
+
+        if (e.key === 'Enter' && e.target.tagN
