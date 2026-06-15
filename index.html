@@ -602,7 +602,7 @@
 
 
 
-        .comentario-item { display: flex; align-items: flex-start; border-bottom: 1px solid #ccc; margin-bottom: 0px; min-height: 16px; height: auto; }
+        .comentario-item { display: flex; align-items: flex-start; border-bottom: 1px solid #ccc; margin-bottom: 0px; min-height: 18px; }
 
 
 
@@ -3361,7 +3361,10 @@
 
 
 
-        "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
+        "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3",
+
+        "Velija (Duloxetina)", "Concor (Bisoprolol)", "Azukon (Glicazida)", "Trilegy (Fluticasona+Umeclidínio+Vilanterol)",
+        "Naprix (Ramipril)", "Quetros (Quetiapina)"
 
 
 
@@ -4515,10 +4518,6 @@
 
     <div class="doc-assin-traco"></div>
 
-    <div class="doc-assin-nome">${d.nomeAnest}</div>
-
-    <div class="doc-assin-crm">${d.crmAnest}</div>
-
     <div class="doc-assin-cargo">Anestesiologista</div>
 
     <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
@@ -4576,10 +4575,6 @@
     </div>
 
     <div class="doc-assin-traco"></div>
-
-    <div class="doc-assin-nome">${d.nomeAnest}</div>
-
-    <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
 
@@ -4666,10 +4661,6 @@
     </div>
 
     <div class="doc-assin-traco"></div>
-
-    <div class="doc-assin-nome">${d.nomeAnest}</div>
-
-    <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
 
@@ -5500,20 +5491,10 @@
     function ajustarFonteLinha(el) {
         if (!el) return;
 
-        // Reseta para medir corretamente
-        el.style.height = "auto";
+        // Mantém fonte fixa, deixa texto quebrar linha naturalmente
         el.style.fontSize = "12px";
-        let fontSize = 12;
-
-        // Diminui fonte enquanto o conteúdo ultrapassar a largura (linha única)
-        el.rows = 1;
-        while (el.scrollWidth > el.clientWidth && fontSize > 9.5) {
-            fontSize -= 0.5;
-            el.style.fontSize = fontSize + "px";
-        }
-
-        // Se mesmo na menor fonte ainda transbordar, ativa quebra de linha
         el.style.whiteSpace = "pre-wrap";
+        el.style.wordBreak = "break-word";
         el.style.height = "auto";
         el.style.height = el.scrollHeight + "px";
 
@@ -5521,7 +5502,7 @@
         const mirror = document.getElementById(el.id + "_mirror");
         if (mirror) {
             mirror.textContent = el.value;
-            mirror.style.fontSize = el.style.fontSize || "12px";
+            mirror.style.fontSize = "12px";
         }
     }
 
