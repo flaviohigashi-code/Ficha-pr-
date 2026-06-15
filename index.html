@@ -4275,21 +4275,19 @@
 
   .doc-assinatura {
 
-    margin-top: 55px; display: flex;
+    margin-top: 55px;
 
-    justify-content: flex-end; align-items: flex-end;
+    display: flex;
 
-    gap: 24px;
+    justify-content: flex-end;
 
   }
 
-
-
-  /* Bloco esquerdo: traço + nome + CRM pequenos */
+  /* Bloco único: carimbo acima + linha abaixo */
 
   .doc-assin-linha {
 
-    text-align: center; width: 220px;
+    text-align: center; width: 230px;
 
   }
 
@@ -4327,7 +4325,7 @@
 
   /* Bloco direito: carimbo levemente torto */
 
-  .doc-carimbo-wrap { text-align: center; width: 220px; }
+  .doc-carimbo-wrap { text-align: center; margin-bottom: 8px; }
 
   .doc-carimbo {
 
@@ -4497,6 +4495,24 @@
 
   <div class="doc-assin-linha">
 
+    <div class="doc-carimbo-wrap">
+
+      <div class="doc-carimbo">
+
+        <span class="carimbo-nome">${d.nomeAnest}</span>
+
+        <div class="carimbo-linha-inf">
+
+          <img src="${_logoPath}" alt="Logo">
+
+          <span class="carimbo-crm">${d.crmAnest}</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
     <div class="doc-assin-traco"></div>
 
     <div class="doc-assin-nome">${d.nomeAnest}</div>
@@ -4504,24 +4520,6 @@
     <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
-
-  </div>
-
-  <div class="doc-carimbo-wrap">
-
-    <div class="doc-carimbo">
-
-      <span class="carimbo-nome">${d.nomeAnest}</span>
-
-      <div class="carimbo-linha-inf">
-
-        <img src="${_logoPath}" alt="Logo">
-
-        <span class="carimbo-crm">${d.crmAnest}</span>
-
-      </div>
-
-    </div>
 
     <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
 
@@ -4559,6 +4557,24 @@
 
   <div class="doc-assin-linha">
 
+    <div class="doc-carimbo-wrap">
+
+      <div class="doc-carimbo">
+
+        <span class="carimbo-nome">${d.nomeAnest}</span>
+
+        <div class="carimbo-linha-inf">
+
+          <img src="${_logoPath}" alt="Logo">
+
+          <span class="carimbo-crm">${d.crmAnest}</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
     <div class="doc-assin-traco"></div>
 
     <div class="doc-assin-nome">${d.nomeAnest}</div>
@@ -4566,24 +4582,6 @@
     <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
-
-  </div>
-
-  <div class="doc-carimbo-wrap">
-
-    <div class="doc-carimbo">
-
-      <span class="carimbo-nome">${d.nomeAnest}</span>
-
-      <div class="carimbo-linha-inf">
-
-        <img src="${_logoPath}" alt="Logo">
-
-        <span class="carimbo-crm">${d.crmAnest}</span>
-
-      </div>
-
-    </div>
 
     <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
 
@@ -4649,6 +4647,24 @@
 
   <div class="doc-assin-linha">
 
+    <div class="doc-carimbo-wrap">
+
+      <div class="doc-carimbo">
+
+        <span class="carimbo-nome">${d.nomeAnest}</span>
+
+        <div class="carimbo-linha-inf">
+
+          <img src="${_logoPath}" alt="Logo">
+
+          <span class="carimbo-crm">${d.crmAnest}</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
     <div class="doc-assin-traco"></div>
 
     <div class="doc-assin-nome">${d.nomeAnest}</div>
@@ -4656,24 +4672,6 @@
     <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
-
-  </div>
-
-  <div class="doc-carimbo-wrap">
-
-    <div class="doc-carimbo">
-
-      <span class="carimbo-nome">${d.nomeAnest}</span>
-
-      <div class="carimbo-linha-inf">
-
-        <img src="${_logoPath}" alt="Logo">
-
-        <span class="carimbo-crm">${d.crmAnest}</span>
-
-      </div>
-
-    </div>
 
     <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
 
