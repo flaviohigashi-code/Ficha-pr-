@@ -602,7 +602,7 @@
 
 
 
-        .comentario-item { display: flex; align-items: flex-start; border-bottom: 1px solid #ccc; margin-bottom: 0px; min-height: 18px; }
+        .comentario-item { display: flex; align-items: flex-start; border-bottom: 1px solid #ccc; margin-bottom: 0px; min-height: 16px; height: auto; }
 
 
 
@@ -1595,70 +1595,26 @@
 
 
 
-            /* Comentários: permitir quebra de linha */
-
-
-
-            .com_input {
-
-
-
+            /* Comentários: na impressão esconde textarea e mostra mirror div */
+            textarea.com_input { display: none !important; }
+            .com_mirror {
+                display: block !important;
+                font-size: 11px !important;
+                font-weight: bold !important;
+                color: #000 !important;
                 white-space: pre-wrap !important;
-
-
-
                 word-break: break-word !important;
-
-
-
-                overflow: visible !important;
-
-
-
-                height: auto !important;
-
-
-
-                max-height: none !important;
-
-
-
-                resize: none !important;
-
-
-
-                border: none !important;
-
-
-
-                background: transparent !important;
-
-
-
+                width: 100% !important;
+                min-height: 14px !important;
                 padding: 0 !important;
-
-
-
+                background: transparent !important;
+                line-height: 1.3 !important;
             }
-
-
-
             .comentario-item {
-
-
-
                 height: auto !important;
-
-
-
                 min-height: 16px !important;
-
-
-
                 align-items: flex-start !important;
-
-
-
+                overflow: visible !important;
             }
 
 
@@ -3361,10 +3317,7 @@
 
 
 
-        "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3",
-
-        "Velija (Duloxetina)", "Concor (Bisoprolol)", "Azukon (Glicazida)", "Trilegy (Fluticasona+Umeclidínio+Vilanterol)",
-        "Naprix (Ramipril)", "Quetros (Quetiapina)"
+        "Esomeprazol", "Ibuprofeno", "Dipirona", "Paracetamol", "Ginkgo Biloba", "Ginseng", "Valeriana", "Omega 3"
 
 
 
@@ -4518,6 +4471,10 @@
 
     <div class="doc-assin-traco"></div>
 
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+
+    <div class="doc-assin-crm">${d.crmAnest}</div>
+
     <div class="doc-assin-cargo">Anestesiologista</div>
 
     <div class="doc-local">Ponta Grossa, ${d.dataAval}</div>
@@ -4575,6 +4532,10 @@
     </div>
 
     <div class="doc-assin-traco"></div>
+
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+
+    <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
 
@@ -4661,6 +4622,10 @@
     </div>
 
     <div class="doc-assin-traco"></div>
+
+    <div class="doc-assin-nome">${d.nomeAnest}</div>
+
+    <div class="doc-assin-crm">${d.crmAnest}</div>
 
     <div class="doc-assin-cargo">Anestesiologista</div>
 
@@ -5491,10 +5456,20 @@
     function ajustarFonteLinha(el) {
         if (!el) return;
 
-        // Mantém fonte fixa, deixa texto quebrar linha naturalmente
+        // Reseta para medir corretamente
+        el.style.height = "auto";
         el.style.fontSize = "12px";
+        let fontSize = 12;
+
+        // Diminui fonte enquanto o conteúdo ultrapassar a largura (linha única)
+        el.rows = 1;
+        while (el.scrollWidth > el.clientWidth && fontSize > 9.5) {
+            fontSize -= 0.5;
+            el.style.fontSize = fontSize + "px";
+        }
+
+        // Se mesmo na menor fonte ainda transbordar, ativa quebra de linha
         el.style.whiteSpace = "pre-wrap";
-        el.style.wordBreak = "break-word";
         el.style.height = "auto";
         el.style.height = el.scrollHeight + "px";
 
@@ -5502,7 +5477,7 @@
         const mirror = document.getElementById(el.id + "_mirror");
         if (mirror) {
             mirror.textContent = el.value;
-            mirror.style.fontSize = "12px";
+            mirror.style.fontSize = el.style.fontSize || "12px";
         }
     }
 
