@@ -1410,6 +1410,9 @@
 
             #linha_jejum_completa { display: none !important; }
 
+            #jejum_personalizado_texto { display: none !important; }
+            #jejum_personalizado_mirror { display: block !important; }
+
 
 
             html, body { height: 99%; overflow: hidden; page-break-inside: avoid; }
@@ -2845,6 +2848,10 @@
 
 
 
+                    <label><input type="radio" name="tipo_jejum" id="jejum_personalizado" onchange="alternarTextoJejum('personalizado')"><span class="btn-check"></span> PERSONALIZADO</label>
+
+
+
                 </div>
 
 
@@ -2858,6 +2865,17 @@
 
 
                     <input type="text" id="linha_jejum_completa" value="Orientado a permanecer em JEJUM pré-operatório de 8 horas para alimentos e de 2 horas para água, água de coco e isotônicos.">
+
+
+
+                </div>
+
+
+
+                <div id="jejum_personalizado_wrapper" style="display:none; width:100%; margin-top:2px;">
+                    <textarea id="jejum_personalizado_texto" rows="3" oninput="sincronizarEspelhoJejumPersonalizado()" placeholder="Digite a orientação personalizada de jejum aqui..." style="width:100%; box-sizing:border-box; border:none; border-bottom:1px solid #555; background:transparent; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:12px; font-weight:800; color:#000; resize:none; padding:2px 1px; line-height:1.5;"></textarea>
+                    <div id="jejum_personalizado_mirror" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11px; color:#000; white-space:pre-wrap; word-break:break-word; line-height:1.5; padding:2px 1px; border-top:1px dashed #bbb; margin-top:2px; min-height:16px;"></div>
+                </div>
 
 
 
@@ -3782,45 +3800,57 @@
 
 
         const inp = document.getElementById('linha_jejum_completa');
+        const wrapperPadrao = document.querySelector('.jejum-input-wrapper');
+        const wrapperPersonalizado = document.getElementById('jejum_personalizado_wrapper');
 
+        if (tipo === 'personalizado') {
+            wrapperPadrao.style.display = 'none';
+            wrapperPersonalizado.style.display = 'block';
+            setTimeout(function() { document.getElementById('jejum_personalizado_texto').focus(); }, 50);
+        } else {
+            wrapperPadrao.style.display = '';
+            wrapperPersonalizado.style.display = 'none';
 
+            if (tipo === 'adulto') {
+                inp.value = opcoesJejumMemorizadas[0];
+            } else if (tipo === 'crianca') {
+                inp.value = opcoesJejumMemorizadas[1];
+            } else if (tipo === 'lactente') {
+                inp.value = opcoesJejumMemorizadas[2];
+            }
 
-        if (tipo === 'adulto') {
-
-
-
-            inp.value = opcoesJejumMemorizadas[0];
-
-
-
-        } else if (tipo === 'crianca') {
-
-
-
-            inp.value = opcoesJejumMemorizadas[1];
-
-
-
-        } else if (tipo === 'lactente') {
-
-
-
-            inp.value = opcoesJejumMemorizadas[2];
-
-
-
+            sincronizarEspelhoJejum();
         }
-
-
-
-        sincronizarEspelhoJejum();
-
-
 
         travarImpressao();
 
+    }
 
+    function sincronizarEspelhoJejumPersonalizado() {
+        const ta = document.getElementById('jejum_personalizado_texto');
+        const mirror = document.getElementById('jejum_personalizado_mirror');
+        if (!ta || !mirror) return;
 
+        const palavrasNum = ['zero','um','uma','dois','duas','três','tres','quatro','cinco','seis','sete','oito','nove','dez','onze','doze','treze','quatorze','catorze','quinze','dezesseis','dezessete','dezoito','dezenove','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa','cem','cento'];
+
+        let txt = ta.value
+            .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+        // números seguidos de h/H (ex: 8h → 8H) ou só números
+        txt = txt.replace(/\b(\d+[hH]?)\b/g, function(m) {
+            return '<strong style="font-size:15px;letter-spacing:0.5px;">' + m.toUpperCase() + '</strong>';
+        });
+
+        // palavra JEJUM
+        txt = txt.replace(/\bJEJUM\b/gi, '<strong style="font-size:15px;letter-spacing:0.5px;">JEJUM</strong>');
+
+        // palavras numéricas por extenso
+        const re = new RegExp('\\b(' + palavrasNum.join('|') + ')\\b', 'gi');
+        txt = txt.replace(re, function(m) {
+            return '<strong style="font-size:15px;letter-spacing:0.5px;">' + m.toUpperCase() + '</strong>';
+        });
+
+        mirror.innerHTML = txt;
     }
 
 
