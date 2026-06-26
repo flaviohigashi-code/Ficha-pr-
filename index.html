@@ -1321,6 +1321,10 @@
 
 
 
+            .no-print { display: none !important; }
+
+
+
             .container { 
 
 
@@ -2285,7 +2289,28 @@
 
                 </tr>
 
-
+                <tr>
+                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap;">
+                        <b style="font-size:9px;">IMC</b>
+                        <span id="ef_imc" style="font-size:11px; font-weight:800; margin-left:3px;">—</span>
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap;">
+                        <b style="font-size:9px;">IBW</b>
+                        <span id="ef_ibw" style="font-size:11px; font-weight:800; margin-left:3px;">—</span>
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap;">
+                        <b style="font-size:9px;">LBW</b>
+                        <span id="ef_lbw" style="font-size:11px; font-weight:800; margin-left:3px;">—</span>
+                    </td>
+                    <td style="border:1px solid #999; padding:1px 4px; white-space:nowrap;">
+                        <b style="font-size:9px;">ABW</b>
+                        <span id="ef_abw" style="font-size:11px; font-weight:800; margin-left:3px;">—</span>
+                    </td>
+                    <td colspan="4" style="border:1px solid #999; padding:1px 4px; white-space:nowrap;" class="no-print">
+                        <label style="font-size:9px; font-weight:bold; margin-right:6px;"><input type="radio" name="ef_sexo" id="ef_sexo_m"><span class="btn-check"></span> Masc</label>
+                        <label style="font-size:9px; font-weight:bold;"><input type="radio" name="ef_sexo" id="ef_sexo_f"><span class="btn-check"></span> Fem</label>
+                    </td>
+                </tr>
 
                 <tr>
 
@@ -3498,7 +3523,7 @@
 
         configurarMascaraCPF();
 
-
+        configurarIMC();
 
     }
 
@@ -3507,6 +3532,65 @@
 
 
 
+
+    function configurarIMC() {
+        function calcularIMC() {
+            var pesoStr = document.getElementById('ef_peso').value.trim();
+            var altStr  = document.getElementById('ef_altura').value.trim().replace(',','.');
+            var elIMC   = document.getElementById('ef_imc');
+            var elIBW   = document.getElementById('ef_ibw');
+            var elLBW   = document.getElementById('ef_lbw');
+            var elABW   = document.getElementById('ef_abw');
+
+            var peso = parseFloat(pesoStr);
+            var alt  = parseFloat(altStr);
+
+            if (alt > 3) alt = alt / 100;
+
+            if (!peso || !alt || alt < 0.5 || alt > 2.5 || peso < 20 || peso > 300) {
+                elIMC.textContent = '—';
+                elIBW.textContent = '—';
+                elLBW.textContent = '—';
+                elABW.textContent = '—';
+                return;
+            }
+
+            var imc = peso / (alt * alt);
+            elIMC.textContent = imc.toFixed(1);
+
+            var altCm = alt * 100;
+            var masc = document.getElementById('ef_sexo_m') && document.getElementById('ef_sexo_m').checked;
+            var fem  = document.getElementById('ef_sexo_f') && document.getElementById('ef_sexo_f').checked;
+
+            // IBW — Devine (1974)
+            var ibw;
+            if (masc)      ibw = 50   + 0.91 * (altCm - 152.4);
+            else if (fem)  ibw = 45.5 + 0.91 * (altCm - 152.4);
+            else           ibw = 47.75 + 0.91 * (altCm - 152.4); // média se sexo não selecionado
+            if (ibw < 30) ibw = 30;
+            elIBW.textContent = ibw.toFixed(1);
+
+            // LBW — Janmahasatian (2005)
+            var lbw;
+            if (masc)      lbw = 9270 * peso / (6680 + 216 * imc);
+            else if (fem)  lbw = 9270 * peso / (8780 + 244 * imc);
+            else           lbw = 9270 * peso / (7730 + 230 * imc); // média se sexo não selecionado
+            elLBW.textContent = lbw.toFixed(1);
+
+            // ABW — peso ajustado (quando IMC >= 30)
+            if (imc >= 30) {
+                var abw = ibw + 0.4 * (peso - ibw);
+                elABW.textContent = abw.toFixed(1);
+            } else {
+                elABW.textContent = '=IBW';
+            }
+        }
+
+        document.getElementById('ef_peso').addEventListener('input', calcularIMC);
+        document.getElementById('ef_altura').addEventListener('input', calcularIMC);
+        document.getElementById('ef_sexo_m').addEventListener('change', calcularIMC);
+        document.getElementById('ef_sexo_f').addEventListener('change', calcularIMC);
+    }
 
     function definirData() { 
 
