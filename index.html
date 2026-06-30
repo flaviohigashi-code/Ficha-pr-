@@ -2087,7 +2087,7 @@
 
 
 
-                        <label style="margin-left:1px;"><input type="radio" name="anticoag" id="ac_nao"><span class="btn-check"></span> Não</label>
+                        <label style="margin-left:1px;"><input type="radio" name="anticoag" id="ac_nao" checked><span class="btn-check"></span> Não</label>
 
 
 
@@ -2107,7 +2107,7 @@
 
 
 
-                        <label style="margin-left:1px;"><input type="radio" name="alergia" id="al_nao"><span class="btn-check"></span> Não</label>
+                        <label style="margin-left:1px;"><input type="radio" name="alergia" id="al_nao" checked><span class="btn-check"></span> Não</label>
 
 
 
@@ -2219,7 +2219,7 @@
 
 
 
-                        <label style="margin-left:1px;"><input type="radio" name="temp" id="tp_afebril"><span class="btn-check"></span> Afeb</label>
+                        <label style="margin-left:1px;"><input type="radio" name="temp" id="tp_afebril" checked><span class="btn-check"></span> Afeb</label>
 
 
 
@@ -2255,7 +2255,7 @@
 
 
 
-                        <label style="margin-left:1px;"><input type="radio" name="dem_medida" id="dem_maior"><span class="btn-check"></span> &gt;12</label>
+                        <label style="margin-left:1px;"><input type="radio" name="dem_medida" id="dem_maior" checked><span class="btn-check"></span> &gt;12</label>
 
 
 
@@ -2279,7 +2279,7 @@
 
 
 
-                        <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_nao"><span class="btn-check"></span> Não</label>
+                        <label style="margin-left:2px;"><input type="radio" name="dif_intub" id="df_nao" checked><span class="btn-check"></span> Não</label>
 
 
 
@@ -2324,7 +2324,7 @@
 
 
 
-                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_coluna_sp"><span class="btn-check"></span>SP</label>
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_coluna_sp" checked><span class="btn-check"></span>SP</label>
 
 
 
@@ -2344,7 +2344,7 @@
 
 
 
-                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_acesso_bom"><span class="btn-check"></span>BOM</label>
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_acesso_bom" checked><span class="btn-check"></span>BOM</label>
 
 
 
@@ -2364,7 +2364,7 @@
 
 
 
-                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_abdomen_sp"><span class="btn-check"></span>SP</label>
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_abdomen_sp" checked><span class="btn-check"></span>SP</label>
 
 
 
@@ -2392,7 +2392,7 @@
 
 
 
-                        <label style="margin-left:1px;"><input type="radio" name="resp" id="rp_livres"><span class="btn-check"></span> CPP Livres</label>
+                        <label style="margin-left:1px;"><input type="radio" name="resp" id="rp_livres" checked><span class="btn-check"></span> CPP Livres</label>
 
 
 
@@ -2416,7 +2416,7 @@
 
 
 
-                        <label style="margin-left:1px;"><input type="radio" name="cardio" id="cd_brnf"><span class="btn-check"></span> BRNF</label>
+                        <label style="margin-left:1px;"><input type="radio" name="cardio" id="cd_brnf" checked><span class="btn-check"></span> BRNF</label>
 
 
 
@@ -2448,7 +2448,7 @@
 
 
 
-                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_membros_sp"><span class="btn-check"></span>SP</label>
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ef_membros_sp" checked><span class="btn-check"></span>SP</label>
 
 
 
@@ -2636,7 +2636,7 @@
 
 
 
-                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ex_rx_normal"><span class="btn-check"></span>NORMAL</label>
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ex_rx_normal" checked><span class="btn-check"></span>NORMAL</label>
 
 
 
@@ -2664,7 +2664,7 @@
 
 
 
-                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ex_ecg_normal"><span class="btn-check"></span>NORMAL</label>
+                        <label style="margin-left:2px; font-size:9px; font-weight:bold;"><input type="checkbox" id="ex_ecg_normal" checked><span class="btn-check"></span>NORMAL</label>
 
 
 
@@ -3643,6 +3643,14 @@
         }
 
 
+
+        const idsExtras = ["ac_nao", "al_nao", "tp_afebril", "dem_maior", "df_nao", "ef_coluna_sp", "ef_acesso_bom", "ef_abdomen_sp", "cd_brnf", "rp_livres", "ef_membros_sp", "ex_rx_normal", "ex_ecg_normal"];
+        idsExtras.forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el && el.checked) {
+                el.checked = false;
+            }
+        });
 
         travarImpressao();
 
