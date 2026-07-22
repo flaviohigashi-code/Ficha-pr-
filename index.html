@@ -5745,6 +5745,49 @@
 </script>
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Pega os parâmetros passados na URL do link
+    const params = new URLSearchParams(window.location.search);
+    
+    // Tratamento para ler o nome corrigindo os sinais de '+' para espaços
+    let nome = params.get('nome_paciente');
+    if (nome) {
+      nome = decodeURIComponent(nome.replace(/\+/g, ' '));
+    }
+
+    const convenio = params.get('convenio_paciente');
+    const idade = params.get('idade_paciente');
+    const cpf = params.get('cpf_paciente');
+
+    // 2. Função que encontra o campo e força a atualização
+    function preencherEConsolidar(idsPossiveis, valor) {
+      if (!valor) return;
+      
+      let campo = null;
+      // Procura o campo pelo ID ou pelo atribut Name
+      for (let seletor of idsPossiveis) {
+        campo = document.querySelector(seletor);
+        if (campo) break;
+      }
+
+      if (campo) {
+        campo.value = valor;
+        
+        // Dispara todos os eventos para que qualquer script da ficha/React reconheça
+        campo.dispatchEvent(new Event('input', { bubbles: true }));
+        campo.dispatchEvent(new Event('change', { bubbles: true }));
+        campo.dispatchEvent(new Event('blur', { bubbles: true }));
+      }
+    }
+
+    // 3. Executa o preenchimento para cada campo (com alternativas de IDs)
+    preencherEConsolidar(['#nome_paciente', '#nome', 'input[name="nome_paciente"]', 'input[name="nome"]'], nome);
+    preencherEConsolidar(['#convenio_paciente', '#convenio', 'input[name="convenio_paciente"]', 'input[name="convenio"]'], convenio);
+    preencherEConsolidar(['#idade_paciente', '#idade', 'input[name="idade_paciente"]', 'input[name="idade"]'], idade);
+    preencherEConsolidar(['#cpf_paciente', '#cpf', 'input[name="cpf_paciente"]', 'input[name="cpf"]'], cpf);
+  });
+</script>
 
 </body>
 
