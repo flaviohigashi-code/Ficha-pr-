@@ -1723,7 +1723,7 @@
 
     <form id="avaliacao-form" autocomplete="off">
 
-
+        <input type="hidden" id="docId" value="">
 
         <div class="header">
 
@@ -3055,7 +3055,9 @@
 
             <button type="button" class="btn-print" id="btn-imprimir" onclick="imprimirFicha()" disabled>2. Imprimir Via Paciente</button>
 
+            <button type="button" class="btn-link" onclick="promptBuscarCPF()">📋 Buscar CPF</button>
 
+            <button type="button" class="btn-link" onclick="promptBuscarNome()">🔎 Buscar Nome</button>
 
         </div>
 
@@ -4711,9 +4713,17 @@
 
 
 
-    function exportarFichaTxt() {
+    async function exportarFichaTxt() {
 
-
+        // Salva no Firebase automaticamente junto com o Salvar Arquivo da Ficha.
+        // Roda em modo silencioso: se não houver internet ou o nome não estiver preenchido,
+        // não interrompe o salvamento do arquivo local nem a liberação do botão de impressão.
+        let salvouFirebase = false;
+        try {
+            salvouFirebase = await salvarAvaliacaoFirebase(false);
+        } catch (e) {
+            salvouFirebase = false;
+        }
 
         const linkCompleto = obterLinkCompacto();
 
@@ -4779,21 +4789,17 @@
 
 
 
+        const statusFirebase = salvouFirebase
+            ? "✓ Também salva no Firebase."
+            : "⚠️ Não foi possível salvar no Firebase (verifique a internet).";
+
         navigator.clipboard.writeText(linkCompleto).then(() => {
 
-
-
-            alert("✓ Ficha digital baixada com sucesso!\n\n💡 O link real de recuperação foi inserido no arquivo e também copiado para sua área de transferência.");
-
-
+            alert("✓ Ficha digital baixada com sucesso!\n" + statusFirebase + "\n\n💡 O link real de recuperação foi inserido no arquivo e também copiado para sua área de transferência.");
 
         }).catch(() => {
 
-
-
-            alert("Ficha baixada com sucesso!");
-
-
+            alert("Ficha baixada com sucesso!\n" + statusFirebase);
 
         });
 
@@ -5800,7 +5806,183 @@
 
 </script>
 
+<!-- Firebase SDK (Compat v10) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
+<script>
+  // Configuração Oficial do Firebase Anesthemed
+  const firebaseConfig = {
+    apiKey: "AIzaSyDnZa9l_7FXJzDwSBBFI5tk7iWr51hsytA",
+    authDomain: "anesthemed-av-pre-anestesica.firebaseapp.com",
+    projectId: "anesthemed-av-pre-anestesica",
+    storageBucket: "anesthemed-av-pre-anestesica.firebasestorage.app",
+    messagingSenderId: "34391806396",
+    appId: "1:34391806396:web:2754e524f5202c22a09bb9"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const db = firebase.firestore();
+
+  // IDs dos editores estilo Word (contenteditable) que não são input/select/textarea
+  const CAMPOS_CONTENTEDITABLE_FIREBASE = ['recom-editor', 'comentarios-editor'];
+
+  // Função para salvar / atualizar ficha no Firestore
+  // mostrarAlerta=false permite chamar essa função "por baixo dos panos" (ex: junto do Salvar Arquivo da Ficha) sem exibir os alertas próprios dela
+  async function salvarAvaliacaoFirebase(mostrarAlerta = true) {
+    try {
+      const form = document.getElementById('avaliacao-form');
+      const dados = {};
+      const elementos = form.querySelectorAll('input, select, textarea');
+
+      elementos.forEach(el => {
+        if (!el.id) return;
+        if (el.type === 'radio' || el.type === 'checkbox') {
+          dados[el.id] = el.checked;
+        } else {
+          dados[el.id] = el.value;
+        }
+      });
+
+      // Inclui os campos de texto estilo Word (Recomendações/Comentários)
+      CAMPOS_CONTENTEDITABLE_FIREBASE.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) dados[id] = el.innerText || '';
+      });
+
+      dados.atualizadoEm = firebase.firestore.FieldValue.serverTimestamp();
+      const docId = document.getElementById('docId')?.value;
+
+      if (!dados.nome_paciente) {
+        if (mostrarAlerta) alert("Por favor, preencha o Nome do Paciente.");
+        return false;
+      }
+
+      // Versão em maiúsculas do nome, usada apenas para permitir a busca por nome
+      dados.nome_busca = dados.nome_paciente.trim().toUpperCase();
+
+      let ref;
+      if (docId) {
+        ref = db.collection('avaliacoes_pre_anestesicas').doc(docId);
+        await ref.set(dados, { merge: true });
+      } else {
+        dados.criadoEm = firebase.firestore.FieldValue.serverTimestamp();
+        ref = await db.collection('avaliacoes_pre_anestesicas').add(dados);
+        if (document.getElementById('docId')) {
+          document.getElementById('docId').value = ref.id;
+        }
+      }
+
+      if (mostrarAlerta) alert("Ficha salva com sucesso! ID: " + ref.id);
+      return true;
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      if (mostrarAlerta) alert("Erro ao salvar no banco: " + error.message);
+      return false;
+    }
+  }
+
+  // Preenche o formulário na tela com os dados de uma ficha vinda do Firestore
+  function preencherFichaComDados(dados, docId) {
+    Object.keys(dados).forEach(key => {
+      const el = document.getElementById(key);
+      if (el) {
+        if (el.type === 'checkbox' || el.type === 'radio') {
+          el.checked = Boolean(dados[key]);
+        } else {
+          el.value = dados[key] || '';
+        }
+      } else if (CAMPOS_CONTENTEDITABLE_FIREBASE.includes(key)) {
+        const ce = document.getElementById(key);
+        if (ce) ce.innerText = dados[key] || '';
+      }
+    });
+
+    if (document.getElementById('docId')) {
+      document.getElementById('docId').value = docId;
+    }
+
+    // Atualiza espelhos de impressão e ajustes visuais após carregar os dados
+    if (typeof sincronizarMirrorComentarios === 'function') sincronizarMirrorComentarios();
+    if (typeof onRecomInput === 'function') onRecomInput();
+    if (typeof sincronizarEspelhoJejum === 'function') sincronizarEspelhoJejum();
+    if (typeof aplicarMascaraCPF === 'function') aplicarMascaraCPF();
+
+    alert(`Ficha de ${dados.nome_paciente || 'Paciente'} carregada com sucesso!`);
+  }
+
+  // Função para buscar por CPF (4 primeiros dígitos, conforme campo cpf_paciente)
+  async function promptBuscarCPF() {
+    const cpf = prompt("Digite o CPF para consultar:");
+    if (!cpf) return;
+
+    try {
+      const snapshot = await db.collection('avaliacoes_pre_anestesicas')
+        .where('cpf_paciente', '==', cpf.trim())
+        .get();
+
+      if (snapshot.empty) {
+        alert("Nenhum registro encontrado para este CPF.");
+        return;
+      }
+
+      const doc = snapshot.docs[0];
+      preencherFichaComDados(doc.data(), doc.id);
+    } catch (error) {
+      alert("Erro na busca: " + error.message);
+    }
+  }
+
+  // Função para buscar por nome (aceita nome parcial, ignora maiúsculas/minúsculas)
+  async function promptBuscarNome() {
+    const termo = prompt("Digite o nome (ou parte do nome) do paciente:");
+    if (!termo) return;
+    const termoBusca = termo.trim().toUpperCase();
+    if (!termoBusca) return;
+
+    try {
+      const snapshot = await db.collection('avaliacoes_pre_anestesicas').get();
+      const encontrados = [];
+
+      snapshot.forEach(doc => {
+        const dados = doc.data();
+        const nomeBusca = dados.nome_busca || (dados.nome_paciente || '').toUpperCase();
+        if (nomeBusca.includes(termoBusca)) {
+          encontrados.push({ id: doc.id, dados });
+        }
+      });
+
+      if (encontrados.length === 0) {
+        alert("Nenhuma ficha encontrada com esse nome.");
+        return;
+      }
+
+      if (encontrados.length === 1) {
+        preencherFichaComDados(encontrados[0].dados, encontrados[0].id);
+        return;
+      }
+
+      let listaTexto = "Foram encontradas várias fichas. Digite o número desejado:\n\n";
+      encontrados.forEach((item, i) => {
+        listaTexto += `${i + 1}. ${item.dados.nome_paciente || '(sem nome)'} - CPF: ${item.dados.cpf_paciente || '?'}\n`;
+      });
+
+      const escolha = prompt(listaTexto);
+      const indice = parseInt(escolha, 10) - 1;
+      if (isNaN(indice) || !encontrados[indice]) {
+        alert("Seleção inválida.");
+        return;
+      }
+
+      preencherFichaComDados(encontrados[indice].dados, encontrados[indice].id);
+    } catch (error) {
+      alert("Erro na busca por nome: " + error.message);
+    }
+  }
+</script>
 
 </body>
 
