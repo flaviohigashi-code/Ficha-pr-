@@ -3517,6 +3517,8 @@
 
         carregarDadosUrl();
 
+        if (typeof verificarAberturaFichaFirebase === 'function') verificarAberturaFichaFirebase();
+
 
 
         sincronizarEspelhoJejum();
@@ -5827,6 +5829,18 @@
 
   const db = firebase.firestore();
 
+  // Nome desta unidade, usado para marcar cada ficha salva e para saber se uma ficha
+  // encontrada na busca pertence a esta página ou à de outra unidade.
+  const INSTITUICAO_ATUAL = "Inovare";
+
+  // Endereços (URL) de cada ficha, usados para abrir automaticamente uma ficha de
+  // outra unidade quando ela aparece numa busca feita por aqui.
+  // Cole aqui os links reais do GitHub Pages de cada arquivo.
+  const URLS_INSTITUICOES = {
+    "Inovare": "COLE-AQUI-A-URL-DA-FICHA-INOVARE",
+    "Santa Casa": "COLE-AQUI-A-URL-DA-FICHA-SANTA-CASA"
+  };
+
   // IDs dos editores estilo Word (contenteditable) que não são input/select/textarea
   const CAMPOS_CONTENTEDITABLE_FIREBASE = ['recom-editor', 'comentarios-editor'];
 
@@ -5860,6 +5874,10 @@
         if (mostrarAlerta) alert("Por favor, preencha o Nome do Paciente.");
         return false;
       }
+
+      // Identifica de qual unidade veio esta ficha (usado na busca entre as duas fichas)
+      dados.unidade = INSTITUICAO_ATUAL;
+      dados.tipoFicha = INSTITUICAO_ATUAL;
 
       // Versão em maiúsculas do nome, usada apenas para permitir a busca por nome
       dados.nome_busca = dados.nome_paciente.trim().toUpperCase();
@@ -5919,6 +5937,43 @@
     alert(`Ficha de ${dados.nome_paciente || 'Paciente'} carregada com sucesso!`);
   }
 
+  // Decide se a ficha encontrada é desta unidade (carrega na hora) ou de outra unidade
+  // (nesse caso pergunta e redireciona para a página certa, já levando o ID da ficha)
+  function abrirFichaEncontrada(dados, docId) {
+    const origem = dados.unidade || "Inovare"; // fichas antigas sem esse campo são da Inovare
+    if (origem === INSTITUICAO_ATUAL) {
+      preencherFichaComDados(dados, docId);
+      return;
+    }
+    const urlDestino = URLS_INSTITUICOES[origem];
+    if (!urlDestino || urlDestino.startsWith('COLE-AQUI')) {
+      alert(`Essa ficha pertence à unidade "${origem}", mas o link dessa unidade ainda não foi configurado nesta página.`);
+      return;
+    }
+    const irParaOutra = confirm(`Esta ficha de ${dados.nome_paciente || 'paciente'} pertence à unidade ${origem}. Deseja abrir a ficha correspondente lá?`);
+    if (!irParaOutra) return;
+    const separador = urlDestino.includes('?') ? '&' : '?';
+    window.location.href = urlDestino + separador + 'abrirFicha=' + encodeURIComponent(docId);
+  }
+
+  // Se a página foi aberta com ?abrirFicha=ID (vindo de uma busca feita na outra unidade),
+  // carrega essa ficha automaticamente.
+  async function verificarAberturaFichaFirebase() {
+    const params = new URLSearchParams(window.location.search);
+    const idFicha = params.get('abrirFicha');
+    if (!idFicha) return;
+    try {
+      const doc = await db.collection('avaliacoes_pre_anestesicas').doc(idFicha).get();
+      if (doc.exists) {
+        preencherFichaComDados(doc.data(), doc.id);
+      } else {
+        alert('Ficha não encontrada (pode ter sido removida).');
+      }
+    } catch (error) {
+      alert('Erro ao abrir a ficha vinda de outra unidade: ' + error.message);
+    }
+  }
+
   // Função para buscar por CPF (4 primeiros dígitos, conforme campo cpf_paciente)
   async function promptBuscarCPF() {
     const cpf = prompt("Digite o CPF para consultar:");
@@ -5935,7 +5990,7 @@
       }
 
       const doc = snapshot.docs[0];
-      preencherFichaComDados(doc.data(), doc.id);
+      abrirFichaEncontrada(doc.data(), doc.id);
     } catch (error) {
       alert("Erro na busca: " + error.message);
     }
@@ -5966,13 +6021,13 @@
       }
 
       if (encontrados.length === 1) {
-        preencherFichaComDados(encontrados[0].dados, encontrados[0].id);
+        abrirFichaEncontrada(encontrados[0].dados, encontrados[0].id);
         return;
       }
 
       let listaTexto = "Foram encontradas várias fichas. Digite o número desejado:\n\n";
       encontrados.forEach((item, i) => {
-        listaTexto += `${i + 1}. ${item.dados.nome_paciente || '(sem nome)'} - CPF: ${item.dados.cpf_paciente || '?'}\n`;
+        listaTexto += `${i + 1}. ${item.dados.nome_paciente || '(sem nome)'} - ${item.dados.unidade || 'Inovare'} - CPF: ${item.dados.cpf_paciente || '?'}\n`;
       });
 
       const escolha = prompt(listaTexto);
@@ -5982,7 +6037,7 @@
         return;
       }
 
-      preencherFichaComDados(encontrados[indice].dados, encontrados[indice].id);
+      abrirFichaEncontrada(encontrados[indice].dados, encontrados[indice].id);
     } catch (error) {
       alert("Erro na busca por nome: " + error.message);
     }
