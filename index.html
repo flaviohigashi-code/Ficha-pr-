@@ -5888,6 +5888,14 @@
   // Preenche o formulário na tela com os dados de uma ficha vinda do Firestore
   function preencherFichaComDados(dados, docId) {
     Object.keys(dados).forEach(key => {
+      // Campos de texto livre (Dados Positivos / Recomendações-Conclusões) precisam ser
+      // verificados ANTES dos campos normais, pois eles também têm um elemento com esse id
+      // no HTML (a própria div), mas não são input/select/textarea.
+      if (CAMPOS_CONTENTEDITABLE_FIREBASE.includes(key)) {
+        const ce = document.getElementById(key);
+        if (ce) ce.innerText = dados[key] || '';
+        return;
+      }
       const el = document.getElementById(key);
       if (el) {
         if (el.type === 'checkbox' || el.type === 'radio') {
@@ -5895,9 +5903,6 @@
         } else {
           el.value = dados[key] || '';
         }
-      } else if (CAMPOS_CONTENTEDITABLE_FIREBASE.includes(key)) {
-        const ce = document.getElementById(key);
-        if (ce) ce.innerText = dados[key] || '';
       }
     });
 
