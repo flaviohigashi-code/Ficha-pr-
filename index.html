@@ -4683,29 +4683,20 @@
 
 
 
-        
-
-
-
-        navigator.clipboard.writeText(textoParaSpark).then(() => {
-
-
-
-            alert(`✓ Mensagem formatada com sucesso para o Spark!\n\nPaciente: ${nomePct}`);
-
-
-
-        }).catch(err => {
-
-
-
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textoParaSpark).then(() => {
+                    alert(`✓ Mensagem formatada com sucesso para o Spark!\n\nPaciente: ${nomePct}`);
+                }).catch(err => {
+                    alert("Erro ao copiar automaticamente.");
+                });
+            } else {
+                alert("Cópia automática indisponível neste modo (abra pelo link https:// do GitHub Pages).");
+            }
+        } catch (e) {
+            console.error('Erro ao copiar link para o Spark:', e);
             alert("Erro ao copiar automaticamente.");
-
-
-
-        });
-
-
+        }
 
     }
 
@@ -4795,15 +4786,24 @@
             ? "✓ Também salva no Firebase."
             : "⚠️ Não foi possível salvar no Firebase (verifique a internet).";
 
-        navigator.clipboard.writeText(linkCompleto).then(() => {
-
-            alert("✓ Ficha digital baixada com sucesso!\n" + statusFirebase + "\n\n💡 O link real de recuperação foi inserido no arquivo e também copiado para sua área de transferência.");
-
-        }).catch(() => {
-
+        // O botão de impressão precisa ser liberado sempre, mesmo que a
+        // cópia para a área de transferência falhe (ex: ao abrir o arquivo
+        // localmente via file:// em vez de https://, onde o navegador
+        // bloqueia o navigator.clipboard e travava o botão "Imprimir").
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(linkCompleto).then(() => {
+                    alert("✓ Ficha digital baixada com sucesso!\n" + statusFirebase + "\n\n💡 O link real de recuperação foi inserido no arquivo e também copiado para sua área de transferência.");
+                }).catch(() => {
+                    alert("Ficha baixada com sucesso!\n" + statusFirebase);
+                });
+            } else {
+                alert("Ficha baixada com sucesso!\n" + statusFirebase + "\n\n(A cópia automática do link não está disponível neste modo — abra pelo endereço https:// do GitHub Pages para usar essa função.)");
+            }
+        } catch (e) {
+            console.error('Erro ao copiar link para a área de transferência:', e);
             alert("Ficha baixada com sucesso!\n" + statusFirebase);
-
-        });
+        }
 
 
 
@@ -5837,8 +5837,8 @@
   // outra unidade quando ela aparece numa busca feita por aqui.
   // Cole aqui os links reais do GitHub Pages de cada arquivo.
   const URLS_INSTITUICOES = {
-    "Inovare": "COLE-AQUI-A-URL-DA-FICHA-INOVARE",
-    "Santa Casa": "COLE-AQUI-A-URL-DA-FICHA-SANTA-CASA"
+    "Inovare": "https://flaviohigashi-code.github.io/Ficha-pr-/",
+    "Santa Casa": "https://flaviohigashi-code.github.io/Pre-Anestesico-santa-casa/"
   };
 
   // IDs dos editores estilo Word (contenteditable) que não são input/select/textarea
@@ -5974,33 +5974,73 @@
     }
   }
 
-  // Função para buscar por CPF (4 primeiros dígitos, conforme campo cpf_paciente)
+  // Função para buscar por CPF (aceita qualquer parte do CPF salvo, ex:
+  // os 4 primeiros dígitos, conforme convenção do campo cpf_paciente)
   async function promptBuscarCPF() {
-    const cpf = prompt("Digite o CPF para consultar:");
+    const cpf = prompt("Digite o CPF (ou parte dele) para consultar:");
     if (!cpf) return;
+    const digitosBusca = cpf.replace(/\D/g, '');
+    if (digitosBusca.length < 3) {
+      alert("Digite pelo menos 3 dígitos do CPF.");
+      return;
+    }
 
     try {
-      const snapshot = await db.collection('avaliacoes_pre_anestesicas')
-        .where('cpf_paciente', '==', cpf.trim())
-        .get();
+      const snapshot = await db.collection('avaliacoes_pre_anestesicas').get();
+      const encontrados = [];
 
-      if (snapshot.empty) {
+      snapshot.forEach(doc => {
+        const dados = doc.data();
+        const digitosSalvos = (dados.cpf_paciente || '').replace(/\D/g, '');
+        if (digitosSalvos && digitosSalvos.includes(digitosBusca)) {
+          encontrados.push({ id: doc.id, dados });
+        }
+      });
+
+      if (encontrados.length === 0) {
         alert("Nenhum registro encontrado para este CPF.");
         return;
       }
 
-      const doc = snapshot.docs[0];
-      abrirFichaEncontrada(doc.data(), doc.id);
+      if (encontrados.length === 1) {
+        abrirFichaEncontrada(encontrados[0].dados, encontrados[0].id);
+        return;
+      }
+
+      let listaTexto = "Foram encontradas várias fichas. Digite o número desejado:\n\n";
+      encontrados.forEach((item, i) => {
+        listaTexto += `${i + 1}. ${item.dados.nome_paciente || '(sem nome)'} - ${item.dados.unidade || 'Inovare'} - CPF: ${item.dados.cpf_paciente || '?'}\n`;
+      });
+
+      const escolha = prompt(listaTexto);
+      const indice = parseInt(escolha, 10) - 1;
+      if (isNaN(indice) || !encontrados[indice]) {
+        alert("Seleção inválida.");
+        return;
+      }
+
+      abrirFichaEncontrada(encontrados[indice].dados, encontrados[indice].id);
     } catch (error) {
       alert("Erro na busca: " + error.message);
     }
   }
 
-  // Função para buscar por nome (aceita nome parcial, ignora maiúsculas/minúsculas)
+  // Remove acentos e normaliza para maiúsculas, para comparação tolerante
+  // a diferenças de digitação (ex: "Joao" encontra "João").
+  function normalizarTextoBusca(txt) {
+    return (txt || '')
+      .toString()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toUpperCase()
+      .trim();
+  }
+
+  // Função para buscar por nome (aceita nome parcial, ignora maiúsculas/minúsculas e acentos)
   async function promptBuscarNome() {
     const termo = prompt("Digite o nome (ou parte do nome) do paciente:");
     if (!termo) return;
-    const termoBusca = termo.trim().toUpperCase();
+    const termoBusca = normalizarTextoBusca(termo);
     if (!termoBusca) return;
 
     try {
@@ -6009,7 +6049,7 @@
 
       snapshot.forEach(doc => {
         const dados = doc.data();
-        const nomeBusca = dados.nome_busca || (dados.nome_paciente || '').toUpperCase();
+        const nomeBusca = normalizarTextoBusca(dados.nome_busca || dados.nome_paciente || '');
         if (nomeBusca.includes(termoBusca)) {
           encontrados.push({ id: doc.id, dados });
         }
