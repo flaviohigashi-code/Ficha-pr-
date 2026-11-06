@@ -2989,7 +2989,8 @@
 
 
 
-                            <label><input type="checkbox" id="chk_aplicar_carimbo" onchange="alternarCarimboPeloCheckbox()"><span class="btn-check"></span> Aplicar Carimbo Virtual na Impressão</label>
+                            <input type="hidden" id="carimbo_modo" value="2">
+                            <label><input type="checkbox" id="chk_retirar_carimbo" onchange="alternarCarimboPeloCheckbox()"><span class="btn-check"></span> Retirar Carimbo Virtual na Impressão</label>
 
 
 
@@ -3518,6 +3519,7 @@
         carregarDadosUrl();
 
         if (typeof verificarAberturaFichaFirebase === 'function') verificarAberturaFichaFirebase();
+        aplicarAnestesistaDoDia();
 
 
 
@@ -3966,6 +3968,7 @@
 
 
 
+        dados['carimbo_modo'] = "2";
         const params = new URLSearchParams(dados).toString();
 
 
@@ -5413,6 +5416,7 @@
 
 
                         atualizarDadosTextoAnestesista(inp.value);
+                        memorizarAnestesistaDoDia(inp.value);
 
 
 
@@ -5464,6 +5468,8 @@
 
 
 
+        inp.addEventListener("focus", function() { this._valorAoFocar = this.value; });
+
         inp.addEventListener("blur", function() {
 
             const valorDigitado = this.value.trim();
@@ -5473,6 +5479,8 @@
             if (crmsDoGrupo[valorDigitado]) {
 
                 atualizarDadosTextoAnestesista(valorDigitado);
+
+                if (valorDigitado !== (this._valorAoFocar || '').trim()) memorizarAnestesistaDoDia(valorDigitado);
 
                 return;
 
@@ -5485,6 +5493,8 @@
                 this.value = encontrado;
 
                 atualizarDadosTextoAnestesista(encontrado);
+
+                memorizarAnestesistaDoDia(encontrado);
 
             }
 
@@ -5608,7 +5618,7 @@
 
 
 
-        const chkCarimbo = document.getElementById('chk_aplicar_carimbo');
+        const chkCarimbo = document.getElementById('chk_retirar_carimbo');
 
 
 
@@ -5624,7 +5634,7 @@
 
 
 
-        if (chkCarimbo.checked && crmsDoGrupo[nomeDigitado]) {
+        if (!chkCarimbo.checked && crmsDoGrupo[nomeDigitado]) {
 
 
 
@@ -5656,6 +5666,32 @@
 
 
 
+    // ---- Anestesista do dia (carimbo automático) ----
+    // O dia "vira" às 5h da manhã: antes disso ainda vale o nome do dia anterior (plantão noturno).
+    const CHAVE_ANESTESISTA_DIA = 'anesthemed_anestesista_dia';
+    function chaveDoDia() {
+        const d = new Date(Date.now() - 5 * 60 * 60 * 1000);
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    function memorizarAnestesistaDoDia(nome) {
+        try {
+            if (!crmsDoGrupo[nome]) return;
+            localStorage.setItem(CHAVE_ANESTESISTA_DIA, JSON.stringify({ dia: chaveDoDia(), nome: nome }));
+        } catch (e) {}
+    }
+    function aplicarAnestesistaDoDia() {
+        try {
+            const p = new URLSearchParams(window.location.search);
+            // Ficha salva reaberta (link ou outra unidade): não mexe
+            if (p.has('abrirFicha') || p.has('carimbo_modo') || p.has('busca-anestesista')) return;
+            for (const chave of p.keys()) { if (/^d\d+_[sn]$/.test(chave)) return; }
+            if (document.getElementById('busca-anestesista').value) return;
+            const salvo = JSON.parse(localStorage.getItem(CHAVE_ANESTESISTA_DIA) || 'null');
+            if (!salvo || salvo.dia !== chaveDoDia() || !crmsDoGrupo[salvo.nome]) return;
+            document.getElementById('busca-anestesista').value = salvo.nome;
+            atualizarDadosTextoAnestesista(salvo.nome);
+        } catch (e) {}
+    }
     function limparVinculoAnestesista() {
 
 
@@ -5752,6 +5788,10 @@
 
 
 
+        // Link salvo antes do carimbo automático: a caixa antiga era "aplicar"; converte para "retirar"
+        if (p.get('busca-anestesista') !== null && p.get('carimbo_modo') !== '2') {
+            document.getElementById('chk_retirar_carimbo').checked = (p.get('chk_aplicar_carimbo') !== '1');
+        }
         const anestesistaSalvo = p.get('busca-anestesista');
 
 
@@ -5927,6 +5967,18 @@
 
     if (document.getElementById('docId')) {
       document.getElementById('docId').value = docId;
+    }
+
+    // Ficha salva antes do carimbo automático: a caixa antiga era "aplicar"; converte para "retirar"
+    if (!('carimbo_modo' in dados)) {
+      document.getElementById('chk_retirar_carimbo').checked = !dados.chk_aplicar_carimbo;
+    }
+    // Redesenha (ou esconde) o carimbo conforme o que foi salvo, sem trocar o anestesista da ficha
+    const nomeAnestSalvo = (document.getElementById('busca-anestesista').value || '').trim();
+    if (nomeAnestSalvo && crmsDoGrupo[nomeAnestSalvo]) {
+      atualizarDadosTextoAnestesista(nomeAnestSalvo);
+    } else {
+      limparVinculoAnestesista();
     }
 
     // Atualiza espelhos de impressão e ajustes visuais após carregar os dados
